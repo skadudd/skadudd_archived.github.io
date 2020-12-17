@@ -20,7 +20,7 @@ title                    : "Mar-techer"
 title_separator          : "&#124"
 subtitle                 : "Version 1.0"
 name                     : "남영"
-description              : "코딩과 마케팅으로 퍼포먼스 향상."
+description              : "프로그래밍과 마케팅으로 그로스해킹 합니다."
 url                      : "https://skadudd.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "skadudd/skadudd.github.io"
@@ -95,13 +95,13 @@ analytics:
 author:
   name             : "남영"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "꾸준히 공부하는 마케터입니다. <br> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다."
+  bio              : "꾸준히 공부하는 마케터입니다.<br> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다."
   location         : "Republic of Korea"
-  email            :
+  email            : "skadudd13@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "skadudd13@gmail.com"
+      url: mailto:skadudd13@gmail.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -121,18 +121,18 @@ author:
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "skadudd13@gmail.com"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url:
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: mailto:skadudd13@gmail.com
+    # - label: "Facebook"
+    #   icon: "fab fa-fw fa-facebook-square"
+    #   # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
-    - label: "GitLab"
-      icon: "fab fa-fw fa-gitlab"
       url: "https://github.com/skadudd"
+    # - label: "GitLab"
+    #   icon: "fab fa-fw fa-gitlab"
+    #   url: "https://github.com/skadudd"
     - label: "Bitbucket"
       icon: "fab fa-fw fa-bitbucket"
       # url:
