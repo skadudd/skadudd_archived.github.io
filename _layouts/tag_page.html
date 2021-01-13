@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<div class="home">
+    <h1 class="page-heading">{{ page.tag }} 태그 검색 결과입니다.</h1>
+    <ul class="post-list">
+        {% for post in page.posts %}
+        {% include post-list-item.html %}
+        {% endfor %}
+    </ul>
+    {% include pagination.html %}
+    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+</div>

@@ -1,0 +1,304 @@
+---
+layout: resume
+permalink: /resume
+---
+<article id="resume">
+    <header class="header">
+        <div class="container">
+            <div class="cell">
+                <img src="/assets/images/daegikim.png" alt="profile image">
+            </div>
+            <div class="cell">
+                <div class="name">김대기 <span>(Daegi Kim)</span></div>
+                <div class="short-description">
+                    <span>South Korea</span>
+                    <span>|</span>
+                    <span>Full Stack Web Developer</span>
+                    <span>|</span>
+                    <!--<a href="http://daegi.kim/">Blog</a>-->
+                    <a href="https://github.com/DaegiKim">Github</a>
+                    <a href="http://stackoverflow.com/users/2438290/daegikim">Stack Overflow</a>
+                    <a href="https://www.linkedin.com/in/daegi-kim-6b23045b">LinkedIn</a>
+                    <a href="https://www.facebook.com/DaegiKimmm">Facebook</a>
+                    <a href="https://www.instagram.com/daegi.kim/">Instagram</a>
+                    <!--<a href="https://www.strava.com/athletes/8753337">Strava</a>-->
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <section>
+            <div class="title">CAREERS</div>
+            <div class="content">
+                <div class="career">
+                    {% for career in site.data.careers %}
+                    <div class="item">
+                        <div class="name">{{ career.name }}</div>
+                        <div class="location">
+                            <span class="label-default">
+                                <i class="ion-ios-compass"></i>
+                                위치
+                            </span>
+                            {{ career.location }}
+                        </div>
+                        <div class="position">
+                            <span class="label-default">
+                                <i class="ion-ios-person"></i>
+                                부서
+                            </span>
+                            {{ career.position }}
+                        </div>
+                        {% for period in career.period %}
+                        {% assign loopindex = forloop.index %}
+                        <div class="period">
+                            <span class="label-default">
+                                <i class="ion-ios-calendar"></i>
+                                기간
+                                {% if career.period.size > 1 %}
+                                {{ loopindex }}
+                                {% endif %}
+                            </span>
+                            {{ period }}
+                        </div>
+                        {% endfor %}
+                        <div class="description">
+                            <i class="ion-quote"></i>
+                            {{ career.description }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">PROJECTS</div>
+            <div class="projects">
+                {% for project in site.data.projects %}
+                <div class="item">
+                    <div class="name">
+                        {{ project.name }}
+                        {% if project.url %}
+                        (<a href="{{ project.url }}">{{ project.url }}</a>)
+                        {% else %}
+                        (Private)
+                        {% endif %}
+                        {% if project.github %}
+                        <a href="{{ project.github }}"><i class="ion-logo-github"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="belong-to">
+                        <span class="label-default">
+                            <i class="ion-ios-person"></i>
+                            소속
+                        </span>
+                        {{ project.belong-to }}
+                    </div>
+                    <div class="period">
+                        <span class="label-default">
+                            <i class="ion-ios-calendar"></i>
+                            기간
+                        </span>
+                        {{ project.period }}
+                    </div>
+                    <div class="level-of-contribution">
+                        <span class="label-default">
+                            <i class="ion-ios-pie"></i>
+                            참여
+                        </span>
+                        {{ project.level-of-contribution }}
+                    </div>
+                    <div class="description">
+                        {{ project.description }}
+                    </div>
+                    <div class="skills">
+                        {% for skill in project.skills %}
+                        <span class="label-gray">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                    {% if project.images %}
+                    <div class="images">
+                        <div class="title">{{ project.images.size }}장의 사진이 있습니다.</div>
+                        {% for image in project.images %}
+                        <a href="{{ image }}" rel="gallery" class="gallery"><img src="{{ image }}" alt=""></a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section>
+            <div class="title">SKILLS</div>
+            <div class="content">
+                <div class="skills">
+                    <div class="item">
+                        <div class="title">Web Framework</div>
+                        <span class="label-gray">Play! Framework</span>
+                        <span class="label-gray">Ruby On Rails</span>
+                        <span class="label-gray">.NET MVC3</span>
+                    </div>
+                    <div class="item">
+                        <div class="title">Language</div>
+                        <span class="label-gray">Java</span>
+                        <span class="label-gray">C++</span>
+                        <span class="label-gray">C#</span>
+                        <span class="label-gray">Ruby</span>
+                    </div>
+                    <div class="item">
+                        <div class="title">Front-end skills</div>
+                        <span class="label-gray">HTML/CSS/Javascript</span>
+                        <span class="label-gray">SASS</span>
+                        <span class="label-gray">LESS</span>
+                        <span class="label-gray">Responsive Web</span>
+                    </div>
+                    <div class="item">
+                        <div class="title">Database</div>
+                        <span class="label-gray">MySQL</span>
+                        <span class="label-gray">MSSQL</span>
+                        <span class="label-gray">MongoDB</span>
+                    </div>
+                    <div class="item">
+                        <div class="title">VCS</div>
+                        <span class="label-gray">git</span>
+                        <span class="label-gray">SVN</span>
+                    </div>
+                    <div class="item">
+                        <div class="title">AWS</div>
+                        <span class="label-gray">EC2</span>
+                        <span class="label-gray">DynamoDB</span>
+                        <span class="label-gray">S3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">EDUCATION</div>
+            <div class="content">
+                <div class="education">
+                    <div class="item">
+                        <div class="name">
+                            <div class="cell">
+                                <img src="/assets/images/inha.png" alt="">
+                            </div>
+                            <div class="cell">인하대학교</div>
+                        </div>
+                        <div class="major">
+                            <span class="label-default">전공</span>
+                            컴퓨터공학과
+                        </div>
+                        <div class="period">
+                            <span class="label-default">기간</span>
+                            2010.3 ~ 2019.8
+                        </div>
+                        <div class="status">
+                            <span class="label-default">상태</span>
+                            졸업
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="name">
+                            <div class="cell">
+                                <img src="/assets/images/jmi.png" alt="">
+                            </div>
+                            <div class="cell">정명정보고등학교</div>
+                        </div>
+                        <div class="major">
+                            <span class="label-default">전공</span>
+                            정보처리과
+                        </div>
+                        <div class="period">
+                            <span class="label-default">기간</span>
+                            2007.3 ~ 2010.2
+                        </div>
+                        <div class="status">
+                            <span class="label-default">상태</span>
+                            졸업
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">PUBLICATIONS</div>
+            <div class="content">
+                <div class="publications">
+                    <div class="item">
+                        <a href="http://ocean.kisti.re.kr/downfile/volume/iwitt/OTNBBE/2012/v12n3/OTNBBE_2012_v12n3_75.pdf">
+                            심연, 신학철, <strong>김대기</strong>, 홍요훈, & 이필규. (2012). 강화 학습 알고리즘을 통한 하이브리드 필터링 이미지 추천 시스템. 한국인터넷방송통신학회 논문지, 12(3), 75-81.
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">CERTIFICATES</div>
+            <div class="content">
+                <div class="certificates">
+                    <div class="item">
+                        <a href="/assets/files/1z0-808.pdf">
+                            Oracle Certified Associate, Java SE 8 Programmer, 2016.12.07, Oracle
+                        </a>
+                    </div>
+                    <div class="item">
+                        정보처리기사 (16201021082M), 2016.05.06, 한국산업인력공단
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">LETTER OF RECOMMENDATION</div>
+            <div class="content">
+                <div class="recommendation">
+                    <div class="item">
+                        <div>Randy Park</div>
+                        <i class="ion-quote"></i>
+                        <a href="/assets/files/DaegiLetter.jpg">
+                            It is my great pleasure to recommend one of my best interns, Mr. Daegi Kim...
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% comment %}
+        <section style="display: none;">
+            <div class="title">PERSONAL STATEMENT</div>
+            <div class="content">
+                <div class="introduce">
+                    <p>
+                        개발을 즐기고 특히 웹을 좋아합니다.
+                        웹 개발을 처음하기 시작한 것은 2011년 입니다.
+                        학교 전공 수업인 웹프로그래밍을 수강하면서 시작하게 되었고, 수강 이후에 개인적으로 웹 개발이 재미가 있어서 지금까지 지속적으로 공부해오고 있습니다.
+                        Play! Framework, Ruby on Rails, jQuery, Bootstrap 등의 웹 기술에 관심을 두고 공부해왔고, 개인 프로젝트와 팀 프로젝트에 그 내용을 적용해보기도 했습니다.
+                    </p>
+                    <p>
+                        지금은 언니의파우치 개발팀에서 웹 개발자로 근무하고 있습니다.
+                        처음에 들어왔을때는 7명의 작은팀 이었는데 웹 개발자가 없었습니다.
+                        현재 서비스 되고 있는 <a href="https://www.unpa.me">언니의파우치 홈페이지</a>를 git init 부터 시작하여 지금까지 전담하여 주도적으로 개발하였습니다.
+                    </p>
+                    <p>
+                        또 다른 경력으로는 미국 뉴저지에 있는 United Merchant Services 라는 회사에서 인턴으로 근무하였습니다.
+                        이 기간동안 .NET MVC3 기반의 사내 인트라넷 서비스 개발과 Ruby on Rails 기반의 회사 홈페이지를 제작하는 프로젝트를 한 경험이 있습니다.
+                        이 때 제작한 홈페이지가 바로 <a href="http://www.upsolution.com/">UPSolution</a> 입니다. 당시 CTO 분과 함께 2인이 개발한 웹사이트 입니다.
+                        상무님은 프로젝트 매니저 역할을 하였기 때문에 대부분의 코드를 직접 작성하였습니다.
+                    </p>
+                    <p>
+                        새로운 기술을 배우는 것을 좋아하고 좋아하는 만큼 배우는 속도도 빠릅니다.
+                        UPSolution 홈페이지를 개발할 당시 Ruby On Rails 의 기본 튜토리얼만 아는 상태에서 시작했는데
+                        개발 시작 3개월만에 서비스를 런칭할 수 있었습니다.
+                        또한 데이터베이스 설계 부터 UI 구현까지. 백엔드, 프론트엔드 가리지 않고 풀스택으로 개발할 수 있습니다.
+                        해외 인턴십 당시 테이블 100개 이상의 복잡한 규모의 데이터베이스를 다룬 경험이 있습니다. MSSQL 과 .NET MVC3 로 만들어진 인트라넷 서비스로서
+                        하루 수백만건의 카드 결제 데이터가 데이터베이스에 쌓이는데 이를 가지고 stored procedure, functions 과 같은 기술을 활용하여 복잡한 연산을 처리한 경험이 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+        {% endcomment %}
+    </div>
+</article>
+<script>
+    $(document).ready(function () {
+        $('.gallery').modaal({
+            type: 'image'
+        });
+    });
+</script>

@@ -1,0 +1,199 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+@font-face { font-family: 'NanumSquareRound'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+body {
+  font-size: 14px;
+  line-height: 1.45;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+#resume {
+  font-family: 'NanumSquareRound';
+  color: #000;
+  a {
+    color: #1f8ee6;
+  }
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+  &>.container {
+    padding-top: 70px;
+  }
+  .header {
+    padding: 0.5em;
+    border-bottom: 1px solid #eaeaea;
+    width: 100%;
+    .cell {
+      display: table-cell;
+      vertical-align: middle;
+      img {
+        width: 48px;
+        vertical-align: middle;
+        border-radius: 5px;
+        margin-right: 0.5em;
+      }
+    }
+    .name {
+      font-size: 2em;
+      span {
+        font-size: 0.5em;
+      }
+    }
+    .short-description {
+      font-size: .8em;
+    }
+  }
+  section {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid #eaeaea;
+    }
+    margin: 5em auto;
+    padding: 0.5em 0.5em 5em;
+    &>.title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      text-shadow: 1px 1px 0 #affff5, 2px 2px 0 #affff5, 3px 3px 0 #affff5, 4px 4px 0 #affff5, 5px 5px 0 #affff5;;
+      img {
+        height: 1.2em;
+        vertical-align: baseline;
+      }
+    }
+    &>.content {
+
+    }
+  }
+  .introduce {
+    p {
+      line-height: 1.8em;
+      font-size: 1.1em;
+    }
+  }
+  .skills {
+    .item {
+      &:not(:last-child) {
+        margin-bottom: 1em;
+      }
+      .title {
+
+      }
+    }
+    .description {
+      margin-top: 1em;
+    }
+  }
+  .education {
+    .item {
+      border-left: 3px solid #f6f6f6;
+      padding-left: 1em;
+      &:not(:last-child) {
+        margin-bottom: 3em;
+      }
+      .name {
+        .cell {
+          display: table-cell;
+          vertical-align: middle;
+          img {
+            width: 24px;
+            vertical-align: middle;
+          }
+        }
+      }
+      .major {
+
+      }
+      .description {
+        margin: 1em auto;
+      }
+    }
+  }
+  .career {
+    .item {
+      border-left: 3px solid #f6f6f6;
+      padding-left: 1em;
+      &:not(:last-child) {
+        margin-bottom: 3em;
+      }
+      .name {
+        font-size: 1.2em;
+        margin-bottom: 0.4em;
+      }
+      .description {
+        margin: 1em auto;
+      }
+    }
+  }
+  .projects {
+    .item {
+      border-left: 3px solid #f6f6f6;
+      padding-left: 1em;
+      &:not(:last-child) {
+        margin-bottom: 3em;
+      }
+      .name {
+        font-size: 1.2em;
+      }
+      .description {
+        margin: 1em auto;
+      }
+      .images {
+        margin-top: 2em;
+        font-size: 11px;
+        img {
+          max-height: 50px;
+          border: 1px solid #eaeaea;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  .publications {
+    .item {
+      border-left: 3px solid #f6f6f6;
+      padding-left: 1em;
+    }
+  }
+  .certificates {
+    .item {
+      border-left: 3px solid #f6f6f6;
+      padding-left: 1em;
+    }
+  }
+  .likes {
+    text-align: center;
+  }
+  .recommendation {
+    .item {
+      border-left: 3px solid #f6f6f6;
+      padding-left: 1em;
+      a {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+  }
+  span.label-gray {
+    background-color: #eaeaea;
+    border-radius: 3px;
+    padding: 2px 4px;
+    white-space: nowrap;
+    font-size: 0.9em;
+    cursor: pointer;
+    &:hover {
+      background-color: #1f8ee6;
+      color: #fff;
+    }
+  }
+  span.label-default {
+    font-weight: bold;
+    margin-right: 1em;
+  }
+}
