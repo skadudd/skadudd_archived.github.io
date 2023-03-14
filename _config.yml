@@ -6,18 +6,21 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Performance Marketing With Data | 마케팅 블로그
+title: Data Archive | Doyle
 email: skadudd13@gmail.com
-author: 남영
+author: Doyle
 description: > # this means to ignore newlines until "baseurl:"
-  퍼포먼스 마케팅 블로그
+  데이터 분석의 정수리
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://skadudd.github.io" # the base hostname & protocol for your site
 lang: ko_KR
 
 # Build settings
 markdown: kramdown
-
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
 permalink: /articles/:year/:month/:day/:title
 
 plugins:
