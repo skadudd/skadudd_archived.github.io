@@ -1,0 +1,127 @@
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+body {
+  font-size: 14px;
+  line-height: 1.45;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; }
+
+#resume {
+  font-family: 'NanumSquareRound';
+  color: #000; }
+  #resume a {
+    color: #1f8ee6; }
+  #resume .container {
+    max-width: 768px;
+    margin: 0 auto; }
+  #resume > .container {
+    padding-top: 70px; }
+  #resume .header {
+    padding: 0.5em;
+    border-bottom: 1px solid #eaeaea;
+    width: 100%; }
+    #resume .header .cell {
+      display: table-cell;
+      vertical-align: middle; }
+      #resume .header .cell img {
+        width: 48px;
+        vertical-align: middle;
+        border-radius: 5px;
+        margin-right: 0.5em; }
+    #resume .header .name {
+      font-size: 2em; }
+      #resume .header .name span {
+        font-size: 0.5em; }
+    #resume .header .short-description {
+      font-size: .8em; }
+  #resume section {
+    margin: 5em auto;
+    padding: 0.5em 0.5em 5em; }
+    #resume section:first-child {
+      margin-top: 0; }
+    #resume section:not(:last-child) {
+      border-bottom: 1px solid #eaeaea; }
+    #resume section > .title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      text-shadow: 1px 1px 0 #affff5, 2px 2px 0 #affff5, 3px 3px 0 #affff5, 4px 4px 0 #affff5, 5px 5px 0 #affff5; }
+      #resume section > .title img {
+        height: 1.2em;
+        vertical-align: baseline; }
+  #resume .introduce p {
+    line-height: 1.8em;
+    font-size: 1.1em; }
+  #resume .skills .item:not(:last-child) {
+    margin-bottom: 1em; }
+  #resume .skills .description {
+    margin-top: 1em; }
+  #resume .education .item {
+    border-left: 3px solid #f6f6f6;
+    padding-left: 1em; }
+    #resume .education .item:not(:last-child) {
+      margin-bottom: 3em; }
+    #resume .education .item .name .cell {
+      display: table-cell;
+      vertical-align: middle; }
+      #resume .education .item .name .cell img {
+        width: 24px;
+        vertical-align: middle; }
+    #resume .education .item .description {
+      margin: 1em auto; }
+  #resume .career .item {
+    border-left: 3px solid #f6f6f6;
+    padding-left: 1em; }
+    #resume .career .item:not(:last-child) {
+      margin-bottom: 3em; }
+    #resume .career .item .name {
+      font-size: 1.2em;
+      margin-bottom: 0.4em; }
+    #resume .career .item .description {
+      margin: 1em auto; }
+  #resume .projects .item {
+    border-left: 3px solid #f6f6f6;
+    padding-left: 1em; }
+    #resume .projects .item:not(:last-child) {
+      margin-bottom: 3em; }
+    #resume .projects .item .name {
+      font-size: 1.2em; }
+    #resume .projects .item .description {
+      margin: 1em auto; }
+    #resume .projects .item .images {
+      margin-top: 2em;
+      font-size: 11px; }
+      #resume .projects .item .images img {
+        max-height: 50px;
+        border: 1px solid #eaeaea;
+        border-radius: 5px; }
+  #resume .publications .item {
+    border-left: 3px solid #f6f6f6;
+    padding-left: 1em; }
+  #resume .certificates .item {
+    border-left: 3px solid #f6f6f6;
+    padding-left: 1em; }
+  #resume .likes {
+    text-align: center; }
+  #resume .recommendation .item {
+    border-left: 3px solid #f6f6f6;
+    padding-left: 1em; }
+    #resume .recommendation .item a {
+      font-size: 1.2em;
+      font-weight: bold; }
+  #resume span.label-gray {
+    background-color: #eaeaea;
+    border-radius: 3px;
+    padding: 2px 4px;
+    white-space: nowrap;
+    font-size: 0.9em;
+    cursor: pointer; }
+    #resume span.label-gray:hover {
+      background-color: #1f8ee6;
+      color: #fff; }
+  #resume span.label-default {
+    font-weight: bold;
+    margin-right: 1em; }
