@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="머신러닝">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>모델 평가하는 방법 | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="모델 평가하는 방법" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\beta$ 를 1로 둔다. $F_\beta = (1+\beta)(precision \times recall)$ $\therefore F_1 = (2)(precision \times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브" />
+<meta property="og:description" content="이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\beta$ 를 1로 둔다. $F_\beta = (1+\beta)(precision \times recall)$ $\therefore F_1 = (2)(precision \times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브" />
+<link rel="canonical" href="http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2" />
+<meta property="og:url" content="http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-13T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="모델 평가하는 방법" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2021-03-13T15:00:00+09:00","datePublished":"2021-03-13T15:00:00+09:00","description":"이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\\beta$ 를 1로 둔다. $F_\\beta = (1+\\beta)(precision \\times recall)$ $\\therefore F_1 = (2)(precision \\times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브","headline":"모델 평가하는 방법","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2"},"url":"http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2021/03/13/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        To infinity and beyond
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                           
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">모델 평가하는 방법</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2021-03-13T15:00:00+09:00" itemprop="datePublished">Mar 13, 2021</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/daegikim.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h3 id="이진분류">이진분류</h3>
+
+<p><img src="https://i.imgur.com/Br7Hc8g.png" alt="" /></p>
+
+<ul>
+  <li>
+    <p><img src="https://i.imgur.com/qft6Hs1.png" alt="" /></p>
+  </li>
+  <li>정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율)
+    <ul>
+      <li>$\dfrac{TP + TN}{TP + TN + FP + FN}$</li>
+      <li><img src="https://i.imgur.com/HC7uFwU.png" alt="" /></li>
+    </ul>
+  </li>
+  <li>정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율)
+    <ul>
+      <li>$\dfrac{TP}{TP + FP}$</li>
+      <li><img src="https://i.imgur.com/rceWq5b.png" alt="" /></li>
+    </ul>
+  </li>
+  <li>Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것)
+    <ul>
+      <li>$\dfrac{TP}{TP+FN}$</li>
+      <li><img src="https://i.imgur.com/3N0aELf.png" alt="" /></li>
+    </ul>
+  </li>
+  <li>Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우)
+    <ul>
+      <li>$\dfrac{FP}{FP + TN}$</li>
+      <li><img src="https://i.imgur.com/75lQTC1.png" alt="" /></li>
+    </ul>
+  </li>
+  <li>F1 Score (Recall과 Precision을 결합한 지표)
+    <ul>
+      <li>F-score에서 $\beta$ 를 1로 둔다.
+        <ul>
+          <li>$F_\beta = (1+\beta)(precision \times recall)$</li>
+          <li>$\therefore F_1 = (2)(precision \times recall)$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>ROC  곡선
+    <ul>
+      <li>FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림
+        <ul>
+          <li>FPR : recall, FPR : fall-out</li>
+        </ul>
+      </li>
+      <li>직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다.
+        <ul>
+          <li>완벽한 분류 시
+            <ul>
+              <li><img src="https://i.imgur.com/Yfy1ddz.png" alt="" /></li>
+            </ul>
+          </li>
+          <li>적당히 잘 분류 시
+            <ul>
+              <li><img src="https://i.imgur.com/O8ypt0S.png" alt="" /></li>
+            </ul>
+          </li>
+          <li>분류 성능이 나쁠 시
+            <ul>
+              <li><img src="https://i.imgur.com/5t2qMGq.png" alt="" /></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>AUC
+    <ul>
+      <li>ROC 곡선 아래의 면적이다.</li>
+      <li>일반적으로 1에 가까울 수록 좋은 수치를 가진다.</li>
+      <li>기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다.
+        <ul>
+          <li><img src="https://i.imgur.com/G959pnW.png" alt="" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="wine-분류기-roc-커브">wine 분류기 ROC 커브</h4>
+
+<!--more-->
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">red_url</span> <span class="o">=</span> <span class="s">'https://raw.githubusercontent.com/PinkWink/ML_tutorial/master/dataset/winequality-red.csv'</span>
+<span class="n">white_url</span> <span class="o">=</span> <span class="s">'https://raw.githubusercontent.com/PinkWink/ML_tutorial/master/dataset/winequality-white.csv'</span>
+<span class="n">red_wine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">red_url</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">';'</span><span class="p">)</span>
+<span class="n">white_wine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">white_url</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">';'</span><span class="p">)</span>
+
+<span class="n">wine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">red_wine</span><span class="p">,</span><span class="n">white_wine</span><span class="p">])</span>
+<span class="n">wine</span><span class="p">[</span><span class="s">'taste'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span> <span class="k">if</span> <span class="n">grade</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="mf">0.</span> <span class="k">for</span> <span class="n">grade</span> <span class="ow">in</span> <span class="n">wine</span><span class="p">.</span><span class="n">quality</span><span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">wine</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'quality'</span><span class="p">,</span><span class="s">'taste'</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s">'taste'</span><span class="p">]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+
+<span class="n">wine_tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">13</span><span class="p">)</span>
+<span class="n">wine_tree</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_tr</span> <span class="o">=</span> <span class="n">wine_tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">wine_tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Train Acc : '</span><span class="p">,</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_pred_tr</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Train Acc : '</span><span class="p">,</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred_test</span><span class="p">))</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Acurracy: '</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Recall: '</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Precision: '</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'AUC score: '</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'F1 Score: '</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">pred_proba</span> <span class="o">=</span> <span class="n">wine_tree</span><span class="p">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_proba</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span><span class="n">tpr</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>
