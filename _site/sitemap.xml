@@ -21,6 +21,10 @@
 <lastmod>2021-03-13T15:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4</loc>
+<lastmod>2021-03-14T15:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/about</loc>
 </url>
 <url>
@@ -64,5 +68,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/tag/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page/2/</loc>
 </url>
 </urlset>
