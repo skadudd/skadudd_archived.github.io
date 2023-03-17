@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 16 Mar 2023 10:22:26 +0900</pubDate>
-    <lastBuildDate>Thu, 16 Mar 2023 10:22:26 +0900</lastBuildDate>
+    <pubDate>Fri, 17 Mar 2023 14:16:25 +0900</pubDate>
+    <lastBuildDate>Fri, 17 Mar 2023 14:16:25 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -32,14 +32,13 @@
 &lt;p&gt;(a) more than 2 hits?
 (b) at least 3 misses?&lt;/p&gt;
 
-&lt;p&gt;대충 명사수의 성공확률이 주어졌고, n발을 쐈을때의 결과를 확률로 알아보자는 문제이다.&lt;/p&gt;
+&lt;p&gt;대충 명사수의 성공확률이 주어졌고, $4$발을 쐈을때의 결과를 확률로 알아보자는 문제이다.&lt;/p&gt;
 
 &lt;p&gt;총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. &lt;br /&gt;
 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다.&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}&lt;/script&gt;
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}&lt;/script&gt;
+&lt;script type=&quot;math/tex&quot;&gt;=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다.&lt;/p&gt;
 

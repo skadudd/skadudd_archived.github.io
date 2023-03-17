@@ -12,8 +12,8 @@
 <meta property="og:title" content="이항 분포 문제를 풀어보자" />
 <meta name="author" content="Doyle" />
 <meta property="og:locale" content="ko_KR" />
-<meta name="description" content="더닝크루거 vs 우공이산 매일 12시간씩 통계, 머신러닝을 공부하기에 실력이 일취월장하는 느낌이 든다. 하지만 정작 새로운 문제에 직면했을때 느껴지는 막막함은 내 진짜 실력의 현 주소를 일깨워준다. 아마 삼키는데 급급한 탓에, 소화 덜 된 지식들이 여기저기 흩어져 있기 때문일 것이다. 이 점들을 연결하고 목차가 머릿속에 들어올때, 비로소 퍼포먼스가 나올 것이 분명하다. 아마도 다양한 문제풀이와 오답노트 복습이 점들을 연결하는 가장 빠른 지름길일 것이다. 이항분포 문제풀이 이러한 생각의 일환으로 해커랭크라는 사이트를 찾아냈다. 아래와 같은 통계 문항을 하드코딩으로 풀어 제출하면 점수가 나오는 식. 아래의 문제는 이항분포를 활용한 확률 계산 문제이다. A blindfolded marksman finds that on the average he hits the target 4 times out of 5. If he fires 4 shots, what is the probability of (a) more than 2 hits? (b) at least 3 misses? 대충 명사수의 성공확률이 주어졌고, n발을 쐈을때의 결과를 확률로 알아보자는 문제이다. 총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다. 계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다. 사수는 4/5 즉 0.8의 성공확률을 갖는다. 1번 문항의 경우 2발 보다 많이 맞출 확률을, 2번 문항의 경우 최소 3발이 불발할 확률을 구하는 문제이다. 따라서 답은 아래와 같이 도출된다. 2발 이상 맞출 확률은 0발만 맞출 확률, 1발만 맞출 확률, 2발만 맞출 확률의 합을 전체 확률에서 뺀 값이다. ⇒ 0.819 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027" />
-<meta property="og:description" content="더닝크루거 vs 우공이산 매일 12시간씩 통계, 머신러닝을 공부하기에 실력이 일취월장하는 느낌이 든다. 하지만 정작 새로운 문제에 직면했을때 느껴지는 막막함은 내 진짜 실력의 현 주소를 일깨워준다. 아마 삼키는데 급급한 탓에, 소화 덜 된 지식들이 여기저기 흩어져 있기 때문일 것이다. 이 점들을 연결하고 목차가 머릿속에 들어올때, 비로소 퍼포먼스가 나올 것이 분명하다. 아마도 다양한 문제풀이와 오답노트 복습이 점들을 연결하는 가장 빠른 지름길일 것이다. 이항분포 문제풀이 이러한 생각의 일환으로 해커랭크라는 사이트를 찾아냈다. 아래와 같은 통계 문항을 하드코딩으로 풀어 제출하면 점수가 나오는 식. 아래의 문제는 이항분포를 활용한 확률 계산 문제이다. A blindfolded marksman finds that on the average he hits the target 4 times out of 5. If he fires 4 shots, what is the probability of (a) more than 2 hits? (b) at least 3 misses? 대충 명사수의 성공확률이 주어졌고, n발을 쐈을때의 결과를 확률로 알아보자는 문제이다. 총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다. 계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다. 사수는 4/5 즉 0.8의 성공확률을 갖는다. 1번 문항의 경우 2발 보다 많이 맞출 확률을, 2번 문항의 경우 최소 3발이 불발할 확률을 구하는 문제이다. 따라서 답은 아래와 같이 도출된다. 2발 이상 맞출 확률은 0발만 맞출 확률, 1발만 맞출 확률, 2발만 맞출 확률의 합을 전체 확률에서 뺀 값이다. ⇒ 0.819 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027" />
+<meta name="description" content="더닝크루거 vs 우공이산 매일 12시간씩 통계, 머신러닝을 공부하기에 실력이 일취월장하는 느낌이 든다. 하지만 정작 새로운 문제에 직면했을때 느껴지는 막막함은 내 진짜 실력의 현 주소를 일깨워준다. 아마 삼키는데 급급한 탓에, 소화 덜 된 지식들이 여기저기 흩어져 있기 때문일 것이다. 이 점들을 연결하고 목차가 머릿속에 들어올때, 비로소 퍼포먼스가 나올 것이 분명하다. 아마도 다양한 문제풀이와 오답노트 복습이 점들을 연결하는 가장 빠른 지름길일 것이다. 이항분포 문제풀이 이러한 생각의 일환으로 해커랭크라는 사이트를 찾아냈다. 아래와 같은 통계 문항을 하드코딩으로 풀어 제출하면 점수가 나오는 식. 아래의 문제는 이항분포를 활용한 확률 계산 문제이다. A blindfolded marksman finds that on the average he hits the target 4 times out of 5. If he fires 4 shots, what is the probability of (a) more than 2 hits? (b) at least 3 misses? 대충 명사수의 성공확률이 주어졌고, $4$발을 쐈을때의 결과를 확률로 알아보자는 문제이다. 총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다. 계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다. 사수는 4/5 즉 0.8의 성공확률을 갖는다. 1번 문항의 경우 2발 보다 많이 맞출 확률을, 2번 문항의 경우 최소 3발이 불발할 확률을 구하는 문제이다. 따라서 답은 아래와 같이 도출된다. 2발 이상 맞출 확률은 0발만 맞출 확률, 1발만 맞출 확률, 2발만 맞출 확률의 합을 전체 확률에서 뺀 값이다. ⇒ 0.819 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027" />
+<meta property="og:description" content="더닝크루거 vs 우공이산 매일 12시간씩 통계, 머신러닝을 공부하기에 실력이 일취월장하는 느낌이 든다. 하지만 정작 새로운 문제에 직면했을때 느껴지는 막막함은 내 진짜 실력의 현 주소를 일깨워준다. 아마 삼키는데 급급한 탓에, 소화 덜 된 지식들이 여기저기 흩어져 있기 때문일 것이다. 이 점들을 연결하고 목차가 머릿속에 들어올때, 비로소 퍼포먼스가 나올 것이 분명하다. 아마도 다양한 문제풀이와 오답노트 복습이 점들을 연결하는 가장 빠른 지름길일 것이다. 이항분포 문제풀이 이러한 생각의 일환으로 해커랭크라는 사이트를 찾아냈다. 아래와 같은 통계 문항을 하드코딩으로 풀어 제출하면 점수가 나오는 식. 아래의 문제는 이항분포를 활용한 확률 계산 문제이다. A blindfolded marksman finds that on the average he hits the target 4 times out of 5. If he fires 4 shots, what is the probability of (a) more than 2 hits? (b) at least 3 misses? 대충 명사수의 성공확률이 주어졌고, $4$발을 쐈을때의 결과를 확률로 알아보자는 문제이다. 총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다. 계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다. 사수는 4/5 즉 0.8의 성공확률을 갖는다. 1번 문항의 경우 2발 보다 많이 맞출 확률을, 2번 문항의 경우 최소 3발이 불발할 확률을 구하는 문제이다. 따라서 답은 아래와 같이 도출된다. 2발 이상 맞출 확률은 0발만 맞출 확률, 1발만 맞출 확률, 2발만 맞출 확률의 합을 전체 확률에서 뺀 값이다. ⇒ 0.819 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027" />
 <link rel="canonical" href="http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4" />
 <meta property="og:url" content="http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4" />
 <meta property="og:site_name" content="Data Archive Doyle" />
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="이항 분포 문제를 풀어보자" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2021-03-14T15:00:00+09:00","datePublished":"2021-03-14T15:00:00+09:00","description":"더닝크루거 vs 우공이산 매일 12시간씩 통계, 머신러닝을 공부하기에 실력이 일취월장하는 느낌이 든다. 하지만 정작 새로운 문제에 직면했을때 느껴지는 막막함은 내 진짜 실력의 현 주소를 일깨워준다. 아마 삼키는데 급급한 탓에, 소화 덜 된 지식들이 여기저기 흩어져 있기 때문일 것이다. 이 점들을 연결하고 목차가 머릿속에 들어올때, 비로소 퍼포먼스가 나올 것이 분명하다. 아마도 다양한 문제풀이와 오답노트 복습이 점들을 연결하는 가장 빠른 지름길일 것이다. 이항분포 문제풀이 이러한 생각의 일환으로 해커랭크라는 사이트를 찾아냈다. 아래와 같은 통계 문항을 하드코딩으로 풀어 제출하면 점수가 나오는 식. 아래의 문제는 이항분포를 활용한 확률 계산 문제이다. A blindfolded marksman finds that on the average he hits the target 4 times out of 5. If he fires 4 shots, what is the probability of (a) more than 2 hits? (b) at least 3 misses? 대충 명사수의 성공확률이 주어졌고, n발을 쐈을때의 결과를 확률로 알아보자는 문제이다. 총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다. 계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다. 사수는 4/5 즉 0.8의 성공확률을 갖는다. 1번 문항의 경우 2발 보다 많이 맞출 확률을, 2번 문항의 경우 최소 3발이 불발할 확률을 구하는 문제이다. 따라서 답은 아래와 같이 도출된다. 2발 이상 맞출 확률은 0발만 맞출 확률, 1발만 맞출 확률, 2발만 맞출 확률의 합을 전체 확률에서 뺀 값이다. ⇒ 0.819 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027","headline":"이항 분포 문제를 풀어보자","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4"},"url":"http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2021-03-14T15:00:00+09:00","datePublished":"2021-03-14T15:00:00+09:00","description":"더닝크루거 vs 우공이산 매일 12시간씩 통계, 머신러닝을 공부하기에 실력이 일취월장하는 느낌이 든다. 하지만 정작 새로운 문제에 직면했을때 느껴지는 막막함은 내 진짜 실력의 현 주소를 일깨워준다. 아마 삼키는데 급급한 탓에, 소화 덜 된 지식들이 여기저기 흩어져 있기 때문일 것이다. 이 점들을 연결하고 목차가 머릿속에 들어올때, 비로소 퍼포먼스가 나올 것이 분명하다. 아마도 다양한 문제풀이와 오답노트 복습이 점들을 연결하는 가장 빠른 지름길일 것이다. 이항분포 문제풀이 이러한 생각의 일환으로 해커랭크라는 사이트를 찾아냈다. 아래와 같은 통계 문항을 하드코딩으로 풀어 제출하면 점수가 나오는 식. 아래의 문제는 이항분포를 활용한 확률 계산 문제이다. A blindfolded marksman finds that on the average he hits the target 4 times out of 5. If he fires 4 shots, what is the probability of (a) more than 2 hits? (b) at least 3 misses? 대충 명사수의 성공확률이 주어졌고, $4$발을 쐈을때의 결과를 확률로 알아보자는 문제이다. 총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다. 계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다. 사수는 4/5 즉 0.8의 성공확률을 갖는다. 1번 문항의 경우 2발 보다 많이 맞출 확률을, 2번 문항의 경우 최소 3발이 불발할 확률을 구하는 문제이다. 따라서 답은 아래와 같이 도출된다. 2발 이상 맞출 확률은 0발만 맞출 확률, 1발만 맞출 확률, 2발만 맞출 확률의 합을 전체 확률에서 뺀 값이다. ⇒ 0.819 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027","headline":"이항 분포 문제를 풀어보자","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4"},"url":"http://localhost:4000/articles/2021/03/14/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -117,7 +117,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
        <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
       </span>
       <span class="right">
-        <span class="post-author-image" style="background-image:url(/assets/images/daegikim.png);"></span>
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
       </span>
     </p>
   </header>
@@ -142,14 +142,13 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 <p>(a) more than 2 hits?
 (b) at least 3 misses?</p>
 
-<p>대충 명사수의 성공확률이 주어졌고, n발을 쐈을때의 결과를 확률로 알아보자는 문제이다.</p>
+<p>대충 명사수의 성공확률이 주어졌고, $4$발을 쐈을때의 결과를 확률로 알아보자는 문제이다.</p>
 
 <p>총을 쏘는 행위 자체는 각각 독립일 테니, 베르누이 시행 결과의 합이 될 것이다. <br />
 이항확률변수의 분포를 나타내는 질량함수는 아래와 같다.</p>
 
-<script type="math/tex; mode=display">P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}</script>
-
-<script type="math/tex; mode=display">=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}</script>
+<p><script type="math/tex">P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}</script>
+<script type="math/tex">=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}</script></p>
 
 <p>계산에는 조합이 포함되기에, 팩토리얼 함수를 재귀함수로 선언했다.</p>
 
