@@ -6,9 +6,248 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 17 Mar 2023 18:43:17 +0900</pubDate>
-    <lastBuildDate>Fri, 17 Mar 2023 18:43:17 +0900</lastBuildDate>
+    <pubDate>Tue, 21 Mar 2023 11:53:18 +0900</pubDate>
+    <lastBuildDate>Tue, 21 Mar 2023 11:53:18 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>이디야는 스타벅스 주변에 매장을 낸다. 진실 혹은 거짓</title>
+        <description>&lt;h3 id=&quot;스타벅스-옆에는-항상-이디야가-있다&quot;&gt;스타벅스 옆에는 항상 이디야가 있다?&lt;/h3&gt;
+&lt;p&gt;이디야는 스타벅스 근처에 매장을 내며 낙수효과를 노리는 전략을 운용한다고 한다.
+이디야측은 부정하지만, 데이터로 검증된 사례이다.
+그럼 스타벅스 주변에 어떤식으로 이디야가 포진해있을까? 이를 확인하기 위해 태블로를 활용하여 시각화 자료를 제작해보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;목표-대시보드&quot;&gt;목표 대시보드&lt;/h3&gt;
+&lt;iframe src=&quot;https://giphy.com/embed/zGPK1cnzPN8pTKdph7&quot; width=&quot;480&quot; height=&quot;270&quot; frameborder=&quot;0&quot; class=&quot;giphy-embed&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;a href=&quot;https://giphy.com/gifs/zGPK1cnzPN8pTKdph7&quot;&gt;via GIPHY&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;구성&quot;&gt;구성&lt;/h3&gt;
+&lt;p&gt;데이터셋은 아래와 같이, 스타벅스와 이디야의 정보가 횡으로 나열되어 있다. 
+각 브랜드의 총 레코드 수는 동일하나, 구별 매장 수는 상이하다.
+두 종류의 거리를 계산하기 위해서는 위경도를 포함한 데이터셋이 아래와 같이 횡으로 나열되어 있는 쉐입이 용이하다. 만약 데이터셋이 2개로 이원화되어 있다면, 데이터 로드 후, 관계 설정을 하는 등의 전처리가 필요하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/Pbkj62V.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;대시보드에 포함되는 요소는 크게 총 4개로 나뉘어지며, 부수적인 텍스트 박스를 위한 시트는 우선 제외했다.
+구성은 아래와 같다. 아래의 순서대로 제작해보자.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;서울시 구획 지도&lt;/li&gt;
+  &lt;li&gt;상세 지도&lt;/li&gt;
+  &lt;li&gt;이디야 매장 수와 스타벅스와의 관계를 나타내는 테이블&lt;/li&gt;
+  &lt;li&gt;기타 텍스트카드&lt;/li&gt;
+  &lt;li&gt;대시보드와 동작 연결&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;서울시-구획-지도-만들기&quot;&gt;서울시 구획 지도 만들기&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/9ob0x31.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;서울시 구 이름을 활용하여 맵을 형성했고, 매개변수로 조정된 스타벅스와 이디야간의 평균 거리를 구별, 색상별로 표현했다. 마지막으로 해당 거리 내 이디야 매장 수를 레이블로 표현했다.&lt;/p&gt;
+
+&lt;h4 id=&quot;a-지도-맵핑&quot;&gt;A. 지도 맵핑&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;데이터셋에 포함된 구 컬럼을 지리적 역할 &amp;gt; 시군구로 변경해준 후, 더블클릭하면 열, 행 란에 생성된 위경도가 배치되며 지도가 표시된다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;img src=&quot;https://i.imgur.com/FGPcNQ2.png&quot; alt=&quot;400&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;‘마크 &amp;gt; 맵’ 을 통해 구획을 영역으로 표시하자.
+    &lt;ol&gt;
+      &lt;li&gt;태블로에 내장된 서울시 지역구 정보로인해 자동으로 맵핑이되지만, 강서구, 중구와 같이 대한민국 내 중복되는 구 이름의 경우 오류가 발생한다.&lt;/li&gt;
+      &lt;li&gt;지도 우하단 ‘2개의 알수없는 항목 &amp;gt; 위치편집’을 클릭하여 위치 편집 모달을 연다.&lt;/li&gt;
+      &lt;li&gt;‘주,시,도’ 드롭다운을 눌러 위치를 서울특별시로 고정하여 에러를 해결한다.
+        &lt;ul&gt;
+          &lt;li&gt;&lt;img src=&quot;https://i.imgur.com/oFqSE12.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;b-거리-매개변수-생성하기&quot;&gt;B. 거리 매개변수 생성하기&lt;/h4&gt;
+&lt;p&gt;앞서 설명했듯, 현재 데이터셋에는 스타벅스의 데이터와 이디야의 데이터가 횡으로 연결된 형태를 띄고있다. 따라서 각각의 위경도가 따로 주어져있는 상황이다. 
+태블로 맵에서 각 레코드의 위치를 표기하거나 추가적인 계산을 진행하기 위해서는 위경도를 활용하여 정확한 위치를 정해주어야한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;계산된 필드 만들기로 위치 데이터 성성
+    &lt;ol&gt;
+      &lt;li&gt;MAKE POINT 함수를 활용한다.&lt;/li&gt;
+      &lt;li&gt;스타벅스와 이디야의 각각의 위경도 컬럼명을 대입하여 위치를 생성하자. 각 명칭은 E Location, S Location으로 지정한다.
+        &lt;ul&gt;
+          &lt;li&gt;E Location : ‘계산된 필드 만들기 &amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MAKEPOINT([E Lat],[E Lng])&lt;/code&gt;’&lt;/li&gt;
+          &lt;li&gt;S Location : ‘계산된 필드 만들기 &amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MAKEPOINT([S Lat],[S Lng])&lt;/code&gt;’&lt;img src=&quot;https://i.imgur.com/GQ7GoTO.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;계산된 필드 만들기로 거리 계산
+    &lt;ol&gt;
+      &lt;li&gt;거리를 계산하는 수식을 생성한다. DISTANCE 함수를 활용한다. 위치간 거리를 미터 단위로 계산하자.
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DISTANCE([E Location],[S Location],'m')&lt;/code&gt;&lt;img src=&quot;https://i.imgur.com/V0JEfef.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;매개변수 생성 및 계산된 항목과 연동하기
+    &lt;ol&gt;
+      &lt;li&gt;거리를 유동적으로 선언할 수 있도록 매개변수를 생성하자.
+        &lt;ol&gt;
+          &lt;li&gt;‘좌측 패널에서 우클릭 &amp;gt; 매개변수 만들기’&lt;/li&gt;
+          &lt;li&gt;이름은 Distance_parameters, 데이터 유형은 실수, 허용 가능한 값은 범위로 적용한다.&lt;/li&gt;
+          &lt;li&gt;최소값, 최대값을 클릭하여 활성화하고, 각각 100,2000,100을 입력한 후 저장한다.&lt;img src=&quot;https://i.imgur.com/E6Ml0Xc.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;매개변수와 연동하여 True, False Boolean 값을 전달하는 계산 항목을 생성하자.
+        &lt;ol&gt;
+          &lt;li&gt;이름은 Distance_switch로 설정한다.&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Distance_parameters &amp;gt; Distance&lt;/code&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;방금 생성한 계산된 항목을 이용한 계산된 항목을 생성한다.
+        &lt;ol&gt;
+          &lt;li&gt;공간 함수는 True False Boolean 형식의 논리연산자 구조를 활용하지 못하기 때문에 2개의 계산된 필드를 활용했다.&lt;/li&gt;
+          &lt;li&gt;이름은 E_counter로 설정한다.&lt;/li&gt;
+          &lt;li&gt;수식은 다음과 같다. &lt;code class=&quot;highlighter-rouge&quot;&gt;if [Distance_switch] == True then [E Name] end&lt;/code&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;c-맵에-시각화하기&quot;&gt;C. 맵에 시각화하기&lt;/h4&gt;
+&lt;p&gt;일련의 전처리 작업이 완료되었다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;매개변수 거리값 설정에 따라 이디야 매장수를 표현하는 맵을 생성하자.
+    &lt;ol&gt;
+      &lt;li&gt;E_counter를 마크 &amp;gt; 레이블에 드롭한 후, 측정값 &amp;gt; 카운트 (고유)로 설정한다. 이 작업을 통해 구마다 &lt;code class=&quot;highlighter-rouge&quot;&gt;Distance_among&lt;/code&gt; 매개변수 값보다 가까운 거리 내의 이디야 매장 갯수가 지도에 반영된다.&lt;/li&gt;
+      &lt;li&gt;마크 내 레이블로 설정된 항목을 cmd를 누른 상태로 색상으로 드롭하자.  &lt;img src=&quot;https://i.imgur.com/ItonaWD.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;이디야-매장-수와-스타벅스와의-관계를-나타내는-테이블-만들기&quot;&gt;이디야 매장 수와 스타벅스와의 관계를 나타내는 테이블 만들기&lt;/h3&gt;
+&lt;p&gt;구 이름을 컬럼값으로, 구별 이디야 매장 수와, 역시 매개변수의 거리값에 연동된 이디야 매장수, 그리고 두 수의 비율을 행으로 갖는 차트를 생성해보자. 이전 시트에서 생성한 매개변수를 보이도록 설정한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;구별 이디야 매장 갯수 행
+    &lt;ol&gt;
+      &lt;li&gt;E Name 차원 데이터를 메트릭 데이터로 cmd + 드래그앤 드롭하여 복사한다.&lt;/li&gt;
+      &lt;li&gt;각 매장의 이름이 (카운트(고유))로 성질이 변화된다. 마크 &amp;gt; 텍스트로 드롭한다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;거리에 따른 이디야 매장 갯수 행
+    &lt;ol&gt;
+      &lt;li&gt;이전 시트에서 생성했던, E_counter 역시 메트릭 데이터로 복사한다.&lt;/li&gt;
+      &lt;li&gt;역시 텍스트로 드롭하여 추가한다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;비율 행
+    &lt;ol&gt;
+      &lt;li&gt;거리에 따른 이디야 매장 갯수를 구별 이디야 매장 수로 나누어, 스타벅스와 가까운 매장이 얼마나 분포했는지 확인하자.&lt;/li&gt;
+      &lt;li&gt;계산된 필드 만들기를 열어 1,2번의 데이터를 나누어준다.&lt;img src=&quot;https://i.imgur.com/qEPsrKA.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;생성된 데이터를 마크 &amp;gt; 텍스트에 드롭한다.&lt;/li&gt;
+      &lt;li&gt;우클릭하여 서식 &amp;gt; 숫자 &amp;gt; 백분율, 소수점 0 으로 설정한다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;표 행열 전환하여 형태를 완성한다.
+    &lt;ol&gt;
+      &lt;li&gt;아래와 같다.&lt;img src=&quot;https://i.imgur.com/F6UKMAD.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;상세-지도-만들기&quot;&gt;상세 지도 만들기&lt;/h3&gt;
+&lt;p&gt;1번에서 완성한 구별 구획지도와 연동되어 더욱 상세한 정보를 전달하는 역할을 담당할 예정이다. 
+3번 지도에는 1번 지도에서 선택한 구의 상세 지도가 확대되어 보이게 된다. 해당 구의 스타벅스 매장이 매개변수에서 설정한 거리를 반영하여 영역으로 표시된다. 그리고 그 반경 내에 이디야의 각 매장별 레코드가 포함되어 있는 모양새이다. 
+움직임은 모든 시트를 제작한 후, 대시보드 &amp;gt; 동작 기능을 통해 제작할 예정이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;스타벅스의 구 데이터를 더블클릭하여 위경도를 열과 행에 드롭하자.
+    &lt;ol&gt;
+      &lt;li&gt;만약 위경도가 생성되지 않는다면, 해당 데이터를 우클릭하여 지리적역할로 변경해주어야 한다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;매개변수의 거리값을 지도상에서 영역으로 표시하기 위해, 계산된 필드를 생성한다.
+    &lt;ol&gt;
+      &lt;li&gt;BUFFER 내장함수를 활용하여 영역을 생성할 수 있고, 위치는 MAKEPOINT 내장함수를 이용한다.&lt;/li&gt;
+      &lt;li&gt;cal_buffer : &lt;code class=&quot;highlighter-rouge&quot;&gt;BUFFER(MAKEPOINT([S Lat],[S Lng]),[Distance_among],'m')&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;생성된 데이터를 마크 &amp;gt; 세부정보로 드롭한다. 이제 매개변수를 조정할 때마다 그 거리를 반영한 영역이 지도상에 표시된다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;1장에서 생성했던 E_counter 데이터를 마크 &amp;gt; 레이블로 드롭하여 영역 내 이디야 매장 갯수를 텍스트로 표시하자.
+    &lt;ol&gt;
+      &lt;li&gt;그 다음, 우클릭 &amp;gt; 측정값 &amp;gt; 카운트 (고유)로 설정값을 변경한다.&lt;img src=&quot;https://i.imgur.com/HacLgDp.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;텍스트-카드-만들기&quot;&gt;텍스트 카드 만들기&lt;/h3&gt;
+&lt;p&gt;생성된 3개의 시트를 대시보드에 배치할 예정이다. 이 대시보드에 강조하고 싶은 정보가 있을때, 텍스트카드를 포함하기도 한다. 이번 대시보드에서는 현재 설정된 매개변수 거리값과, 그 기준에 맞는 서울 내 모든 이디야 매장의 수를 텍스트카드로 제작한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;a-매개변수-거리값-텍스트카드&quot;&gt;A. 매개변수 거리값 텍스트카드&lt;/h4&gt;
+&lt;p&gt;앞서 생성한 매개변수를 가시적으로 확인할 수 있도록 표현한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;측정값 혹은 아무 데이터를 마크 &amp;gt; 세부정보로 드롭한다.&lt;/li&gt;
+  &lt;li&gt;매개변수 Distance_among을 마크 &amp;gt; 텍스트로 드롭한다.&lt;/li&gt;
+  &lt;li&gt;1번에서 드롭한 항목을 필드 밖으로 드롭하여 삭제한다.
+    &lt;ol&gt;
+      &lt;li&gt;모종의 이유로 매개변수는 단독으로 마크에 표시되지 않는다. 따라서 위의 불필요한 절차를 밟았다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;텍스트의 서식 탭을 열어 크기를 조정하고, 소수점 자리수를 없애준다,&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;b-매개변수-값으로-필터된-서울-내-이디야-매장-수-텍스트카드&quot;&gt;B. 매개변수 값으로 필터된 서울 내 이디야 매장 수 텍스트카드&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;앞서 생성한 E_counter를 마크 &amp;gt; 텍스트로 드롭한다.&lt;/li&gt;
+  &lt;li&gt;서식 탭을 열어 크기와 소수점 자리수를 조정한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;대시보드-만들기&quot;&gt;대시보드 만들기&lt;/h3&gt;
+
+&lt;h4 id=&quot;a-시트-배치&quot;&gt;A. 시트 배치&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;대시보드를 생성한 후, 크기 &amp;gt; 범위 &amp;gt; 자동으로 전체 화면을 사용한다.&lt;/li&gt;
+  &lt;li&gt;지도 1,3을 좌우로 배치하고, 시트2를 상단에 배치한다.&lt;/li&gt;
+  &lt;li&gt;최상단 좌우에 시트4,5 텍스트 카드와 매개변수를 배치한다.&lt;/li&gt;
+  &lt;li&gt;모든 시트는 우클릭 &amp;gt; 제목 숨기기와 대시보드 상단 &amp;gt; 전체보기로 뷰를 설정한다.&lt;/li&gt;
+  &lt;li&gt;텍스트 카드는 서식 &amp;gt; 가운데정렬, 색상 &amp;gt; 패널 색상 설정 등으로 꾸며준다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;b-동작&quot;&gt;B. 동작&lt;/h4&gt;
+&lt;p&gt;시트 1과 시트2를 연결하는 동작을 생성한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;상단 메뉴 워크시트 &amp;gt; 동작을 눌러 패널을 띄운다.&lt;/li&gt;
+  &lt;li&gt;동작추가 &amp;gt; 필터를 선택한다.&lt;/li&gt;
+  &lt;li&gt;원본시트 &amp;gt; 시트 1, 동작 실행조건 &amp;gt; 선택, 대상시트 &amp;gt; 시트 3&lt;/li&gt;
+  &lt;li&gt;설정값을 완료했으면 확인을 눌러 저장한다.&lt;/li&gt;
+  &lt;li&gt;시트 3의 좌상단 메뉴에 마우스오버하여 맵고정을 해제한다.&lt;img src=&quot;https://i.imgur.com/ElQKMss.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;스타벅스-주변에는-이디야가-있다&quot;&gt;스타벅스 주변에는 이디야가 있다.&lt;/h3&gt;
+&lt;p&gt;요식업계에서 상권분석에 사용되는 척도를 대입해보자. 점포의 500m 이내를 1차 상권, 1km 이내를 2차 상권이라고 보는 업계 도메인 지식을 지표로 사용하면,&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;서울시 전체 스타벅스의 1차 상권 범위에 약 65%, 2차상권 범위에 약 90%의 이디야 매장이 포진해 있다.&lt;/li&gt;
+  &lt;li&gt;도심권 상권구역인 종로,중구,용산구의 경우, 1차 상권 범위에 약 91%의 이디야 매장이 포진해 있다.&lt;/li&gt;
+  &lt;li&gt;동남권 상권구역인 강남,서초,송파의 경우, 1창 상권 범위에 약 83%의 이디야 매장이 포진해 있다.
+주요 상권의 경우 유의미한 증거를 확보할 수 있다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;스타벅스가 1997년 1호점을 시작으로 2004년에 100호점을 달성한 점, 이디야의 개업일이 2002년인 점. 그리고 1차 상권이 매장의 매출에 주요한 요인이 되는 점을 고려했을때, 이디야가 낙수효과를 보기 위해 스타벅스의 주변에 자리잡는 전략을 구사했음을 합리적으로 추론해볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;다른 커피브랜드의 비교대상이 없기 때문에 섣부른 결론을 내릴 자료는 아니지만, 추가자료를 포함하여 검증해볼만한 여지가 있음이 확실해 보인다.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 20 Mar 2021 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2021/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</guid>
+        
+        <category>태블로</category>
+        
+        <category>시각화</category>
+        
+        
+        <category>시각화</category>
+        
+      </item>
     
       <item>
         <title>이항 분포 문제를 풀어보자</title>
