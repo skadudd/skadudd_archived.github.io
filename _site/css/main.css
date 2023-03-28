@@ -11,8 +11,11 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #111;
+  font-family: 400 20px 'Noto Sans KR', sans-serif;
+  /* font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  /* color: #111; */
+  color: #3b3b3b;
+  line-height: 1.6;
   background-color: #fdfdfd;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
@@ -28,7 +31,7 @@ h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 .highlight {
-  margin-bottom: 15px; }
+  margin-bottom: 10px; }
 
 /**
  * Images
@@ -49,18 +52,21 @@ figcaption {
 /**
  * Lists
  */
+
 ul, ol {
-  margin-left: 30px; }
+  margin-left: 40px; }
 
 li > ul,
 li > ol {
-  margin-bottom: 0; }
+  margin-bottom: 1em; }
 
 /**
  * Headings
  */
+
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 400; }
+  font-weight: Regular 500; 
+}
 
 /**
  * Links
