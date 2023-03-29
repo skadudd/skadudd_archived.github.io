@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="통계,생존분석">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>생존 분석 - 카플란 마이어 추정 [파이썬 예제] | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="생존 분석 - 카플란 마이어 추정 [파이썬 예제]" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="카플란 마이어 하드코딩 이번 예제에서는 강아지 보호소를 예시로 사용한다. 강아지 보호소에는 새로운 강아지가 입소하고, 입양되어 퇴소하는 사건이 발생한다. 따라서 강아지가 보호소에 남아있는 기간을 생존기간으로, 입양되어 퇴소하는 사건을 위험으로 간주한다. 데이터 셋 구성 가상의 강아지 보호소 데이터 구성은 아래와 같다. start : 보호소 입소 시간 end : 입양 사건 발생 시간. 9는 관측 종료 시점이므로 해당 컬럼이 9일 경우 cencored status : 1일 경우 사건 발생, 0일 경우 사건 미발생 import pandas as pd import numpy as np import matplotlib.pyplot as plt obs = pd.DataFrame() obs[&#39;start&#39;] = 0,1,2,2,4,6,7 obs[&#39;end&#39;] = 5,2,6,9,9,8,9 obs[&#39;status&#39;] = 1,1,1,0,0,1,0 obs start end status 0 0 5 1 1 1 2 1 2 2 6 1 3 2 9 0 4 4 9 0 5 6 8 1 6 7 9 0 A. 레코드 plot def plot_lifelines(obs): for y,row in obs.iterrows(): start = row[&#39;start&#39;] end = row[&#39;end&#39;] status = row[&#39;status&#39;] if status == 0: plt.hlines(y,start,end,color=&#39;C0&#39;) else : plt.hlines(y,start,end,color=&#39;C1&#39;) plt.plot(end,y,marker=&#39;o&#39;,color=&#39;C1&#39;) plt.xlabel(&#39;Time (weeks)&#39;) plt.ylabel(&#39;Dog Index&#39;) plt.gca().invert_yaxis() plot_lifelines(obs) 카플란 마이어 추정 카플란 마이어 추정은 두가지 아이디어에서 시작한다. 레코드의 시작지점을 무시하고 duration time만을 고려한다. 위험함수를 추정한다. 위험함수는 각 기간 내 발생한 사건을 위험에 처한 총 레코드 수로 나누어 도출한다. A. Duration time 을 기준으로 데이터세트 생성 duration = obs[&#39;end&#39;] - obs[&#39;start&#39;] shifted = obs.copy() shifted[&#39;start&#39;] = 0 shifted[&#39;end&#39;] = duration plot_lifelines(shifted) plt.xlabel(&#39;Duration (week)&#39;); B. 위험함수 도출을 위한 At Risk 도출 At Risk는 특정 기간동안 사건이 발생하지 않았거나 절단되지 않은 레코드의 수를 뜻한다. 아래 코드는 numpy의 meshgrid 함수를 이용하여 사건이 발생한 Duration Time과 각 레코드의 end 시점을 각각 비교한다. 사건이 발생한 $Duration Time_i$ 보다 레코드의 $end_i$ 시점이 같거나 크다면, $DurationTime_i$ 내에 생존한 레코드이다. 즉, 사건이 발생한 각각의 Duration Time 내 위험에 노출된 레코드들의 수를 계산한다. ts = duration.unique() ts.sort() ts ⇒ array([1, 2, 4, 5, 7]) E,T = np.meshgrid(shifted[&#39;end&#39;],ts) E array([[5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2]]) at_risk = (T &lt;= E).sum(axis=1) at_risk array([7, 6, 4, 3, 1]) T&lt;br [&lt;br&gt; [1, 1, 1, 1, 1, 1, 1],&lt;br&gt; [2, 2, 2, 2, 2, 2, 2],&lt;br&gt; [4, 4, 4, 4, 4, 4, 4],&lt;br&gt; [5, 5, 5, 5, 5, 5, 5],&lt;br&gt; [7, 7, 7, 7, 7, 7, 7]&lt;br&gt; ]&lt;br&gt; &lt;= E&lt;br&gt; [&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2]&lt;br&gt; ]&lt;br&gt; This results in a boolean array: [&lt;br&gt; [True, True, True, True, True, True, True],&lt;br&gt; [True, False, True, True, True, True, True],&lt;br&gt; [True, False, True, True, True, False, False],&lt;br&gt; [True, False, False, True, True, False, False],&lt;br&gt; [False, False, False, True, False, False, False]&lt;br&gt; ]&lt;br&gt; [7, 6, 4, 3, 1] This gives us the number of individuals who are considered &quot;at risk&quot; for each time point. C. 위험함수 도출을 위한 사건 발생 수 도출 각 t(Duration Time)마다 입양이 발생한 수를 계산한다. adopted = pd.Series(0,index=ts) for t in ts: k = (shifted[&#39;status&#39;]==1) &amp; (t == shifted[&#39;end&#39;]) adopted[t] = k.sum() adopted 1 1 2 1 4 1 5 1 7 0 dtype: int64 d = dict(adopted=adopted, at_risk=at_risk) df= pd.DataFrame(d,index=ts) df adopted at_risk 1 1 7 2 1 6 4 1 4 5 1 3 7 0 1 D. 위험함수 계산. 사건발생 수 / 위험에 노출된 레코드 수 df[&#39;hazard&#39;] = df[&#39;adopted&#39;]/df[&#39;at_risk&#39;] df adopted at_risk hazard 1 1 7 0.142857 2 1 6 0.166667 4 1 4 0.250000 5 1 3 0.333333 7 0 1 0.000000 생존함수 계산 위에서 계산한 위험함수는 특정 기간에 사건이 발생할 확률이다. 이 케이스에서 사건은 입양이다. 따라서 반대의 케이스는 입양이 되지 않은 생존이며, 이 생존의 누적곱이 생존함수가 된다. df[&#39;surv&#39;] = (1 - df[&#39;hazard&#39;]).cumprod() df adopted at_risk hazard surv 1 1 7 0.142857 0.857143 2 1 6 0.166667 0.714286 4 1 4 0.250000 0.535714 5 1 3 0.333333 0.357143 7 0 1 0.000000 0.357143 누적 분포함수는 1 - 생존함수이다. df[&#39;cdf&#39;] = 1 - df[&#39;surv&#39;] df adopted at_risk hazard surv cdf 1 1 7 0.142857 0.857143 0.142857 2 1 6 0.166667 0.714286 0.285714 4 1 4 0.250000 0.535714 0.464286 5 1 3 0.333333 0.357143 0.642857 7 0 1 0.000000 0.357143 0.642857 확률 질량함수는 cdf의 변화량이다 df[&#39;pdf&#39;] = np.diff(df[&#39;cdf&#39;],prepend=0) df adopted at_risk hazard surv cdf pdf 1 1 7 0.142857 0.857143 0.142857 0.142857 2 1 6 0.166667 0.714286 0.285714 0.142857 4 1 4 0.250000 0.535714 0.464286 0.178571 5 1 3 0.333333 0.357143 0.642857 0.178571 7 0 1 0.000000 0.357143 0.642857 0.000000 라이브러리를 이용한 카플란마이어 추정 위의 하드코딩으로 구현한 카플란 마이어 추정은 lifelines 라이브러리를 활용하면 간단히 구현할 수 있다. from lifelines import KaplanMeierFitter kmf = KaplanMeierFitter() T = shifted[&#39;end&#39;] E = shifted[&#39;status&#39;] kmf.fit(T,E) &lt;lifelines.KaplanMeierFitter:&quot;KM_estimate&quot;, fitted with 7 total observations, 3 right-censored observations&gt; kmf.survival_function_ KM_estimate timeline 0.0 1.000000 1.0 0.857143 2.0 0.714286 4.0 0.535714 5.0 0.357143 7.0 0.357143 생존함수의 confidence interval을 구할 수 있다. 현재 예제의 자료가 매우 작기에 CI는 상당히 넓다. ci = kmf.confidence_interval_survival_function_ ci KM_estimate_lower_0.95 KM_estimate_upper_0.95 0.0 1.000000 1.000000 1.0 0.334054 0.978561 2.0 0.258154 0.919797 4.0 0.131988 0.824997 5.0 0.051977 0.698713 7.0 0.051977 0.698713 ts = ci.index low, high = np.transpose(ci.values) plt.fill_between(ts,low,high,color=&#39;grey&#39;,alpha=0.3) kmf.survival_function_.plot(ax=plt.gca()) plt.ylabel(&#39;Survival function&#39;) kmf.median_survival_time_ 5.0 카플란 마이어 곡선 해석 생존 곡선을 통해 다양한 의사결정을 내릴 수 있다. 해당 강아지 보호소의 중위 생존값은 5. 따라서 입소 후 5주째 50%의 입양이 발생한다. 공간 활용 최적화를 위해 어느 주기로 신규 입소견을 받아야 할지 결정할 수 있다. 또한, 입양 사건 발생시 매출이 발생한다면, 생존기간과 매출을 곱하여 LTV와 예상 매출을 계산할 수 있다." />
+<meta property="og:description" content="카플란 마이어 하드코딩 이번 예제에서는 강아지 보호소를 예시로 사용한다. 강아지 보호소에는 새로운 강아지가 입소하고, 입양되어 퇴소하는 사건이 발생한다. 따라서 강아지가 보호소에 남아있는 기간을 생존기간으로, 입양되어 퇴소하는 사건을 위험으로 간주한다. 데이터 셋 구성 가상의 강아지 보호소 데이터 구성은 아래와 같다. start : 보호소 입소 시간 end : 입양 사건 발생 시간. 9는 관측 종료 시점이므로 해당 컬럼이 9일 경우 cencored status : 1일 경우 사건 발생, 0일 경우 사건 미발생 import pandas as pd import numpy as np import matplotlib.pyplot as plt obs = pd.DataFrame() obs[&#39;start&#39;] = 0,1,2,2,4,6,7 obs[&#39;end&#39;] = 5,2,6,9,9,8,9 obs[&#39;status&#39;] = 1,1,1,0,0,1,0 obs start end status 0 0 5 1 1 1 2 1 2 2 6 1 3 2 9 0 4 4 9 0 5 6 8 1 6 7 9 0 A. 레코드 plot def plot_lifelines(obs): for y,row in obs.iterrows(): start = row[&#39;start&#39;] end = row[&#39;end&#39;] status = row[&#39;status&#39;] if status == 0: plt.hlines(y,start,end,color=&#39;C0&#39;) else : plt.hlines(y,start,end,color=&#39;C1&#39;) plt.plot(end,y,marker=&#39;o&#39;,color=&#39;C1&#39;) plt.xlabel(&#39;Time (weeks)&#39;) plt.ylabel(&#39;Dog Index&#39;) plt.gca().invert_yaxis() plot_lifelines(obs) 카플란 마이어 추정 카플란 마이어 추정은 두가지 아이디어에서 시작한다. 레코드의 시작지점을 무시하고 duration time만을 고려한다. 위험함수를 추정한다. 위험함수는 각 기간 내 발생한 사건을 위험에 처한 총 레코드 수로 나누어 도출한다. A. Duration time 을 기준으로 데이터세트 생성 duration = obs[&#39;end&#39;] - obs[&#39;start&#39;] shifted = obs.copy() shifted[&#39;start&#39;] = 0 shifted[&#39;end&#39;] = duration plot_lifelines(shifted) plt.xlabel(&#39;Duration (week)&#39;); B. 위험함수 도출을 위한 At Risk 도출 At Risk는 특정 기간동안 사건이 발생하지 않았거나 절단되지 않은 레코드의 수를 뜻한다. 아래 코드는 numpy의 meshgrid 함수를 이용하여 사건이 발생한 Duration Time과 각 레코드의 end 시점을 각각 비교한다. 사건이 발생한 $Duration Time_i$ 보다 레코드의 $end_i$ 시점이 같거나 크다면, $DurationTime_i$ 내에 생존한 레코드이다. 즉, 사건이 발생한 각각의 Duration Time 내 위험에 노출된 레코드들의 수를 계산한다. ts = duration.unique() ts.sort() ts ⇒ array([1, 2, 4, 5, 7]) E,T = np.meshgrid(shifted[&#39;end&#39;],ts) E array([[5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2]]) at_risk = (T &lt;= E).sum(axis=1) at_risk array([7, 6, 4, 3, 1]) T&lt;br [&lt;br&gt; [1, 1, 1, 1, 1, 1, 1],&lt;br&gt; [2, 2, 2, 2, 2, 2, 2],&lt;br&gt; [4, 4, 4, 4, 4, 4, 4],&lt;br&gt; [5, 5, 5, 5, 5, 5, 5],&lt;br&gt; [7, 7, 7, 7, 7, 7, 7]&lt;br&gt; ]&lt;br&gt; &lt;= E&lt;br&gt; [&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2]&lt;br&gt; ]&lt;br&gt; This results in a boolean array: [&lt;br&gt; [True, True, True, True, True, True, True],&lt;br&gt; [True, False, True, True, True, True, True],&lt;br&gt; [True, False, True, True, True, False, False],&lt;br&gt; [True, False, False, True, True, False, False],&lt;br&gt; [False, False, False, True, False, False, False]&lt;br&gt; ]&lt;br&gt; [7, 6, 4, 3, 1] This gives us the number of individuals who are considered &quot;at risk&quot; for each time point. C. 위험함수 도출을 위한 사건 발생 수 도출 각 t(Duration Time)마다 입양이 발생한 수를 계산한다. adopted = pd.Series(0,index=ts) for t in ts: k = (shifted[&#39;status&#39;]==1) &amp; (t == shifted[&#39;end&#39;]) adopted[t] = k.sum() adopted 1 1 2 1 4 1 5 1 7 0 dtype: int64 d = dict(adopted=adopted, at_risk=at_risk) df= pd.DataFrame(d,index=ts) df adopted at_risk 1 1 7 2 1 6 4 1 4 5 1 3 7 0 1 D. 위험함수 계산. 사건발생 수 / 위험에 노출된 레코드 수 df[&#39;hazard&#39;] = df[&#39;adopted&#39;]/df[&#39;at_risk&#39;] df adopted at_risk hazard 1 1 7 0.142857 2 1 6 0.166667 4 1 4 0.250000 5 1 3 0.333333 7 0 1 0.000000 생존함수 계산 위에서 계산한 위험함수는 특정 기간에 사건이 발생할 확률이다. 이 케이스에서 사건은 입양이다. 따라서 반대의 케이스는 입양이 되지 않은 생존이며, 이 생존의 누적곱이 생존함수가 된다. df[&#39;surv&#39;] = (1 - df[&#39;hazard&#39;]).cumprod() df adopted at_risk hazard surv 1 1 7 0.142857 0.857143 2 1 6 0.166667 0.714286 4 1 4 0.250000 0.535714 5 1 3 0.333333 0.357143 7 0 1 0.000000 0.357143 누적 분포함수는 1 - 생존함수이다. df[&#39;cdf&#39;] = 1 - df[&#39;surv&#39;] df adopted at_risk hazard surv cdf 1 1 7 0.142857 0.857143 0.142857 2 1 6 0.166667 0.714286 0.285714 4 1 4 0.250000 0.535714 0.464286 5 1 3 0.333333 0.357143 0.642857 7 0 1 0.000000 0.357143 0.642857 확률 질량함수는 cdf의 변화량이다 df[&#39;pdf&#39;] = np.diff(df[&#39;cdf&#39;],prepend=0) df adopted at_risk hazard surv cdf pdf 1 1 7 0.142857 0.857143 0.142857 0.142857 2 1 6 0.166667 0.714286 0.285714 0.142857 4 1 4 0.250000 0.535714 0.464286 0.178571 5 1 3 0.333333 0.357143 0.642857 0.178571 7 0 1 0.000000 0.357143 0.642857 0.000000 라이브러리를 이용한 카플란마이어 추정 위의 하드코딩으로 구현한 카플란 마이어 추정은 lifelines 라이브러리를 활용하면 간단히 구현할 수 있다. from lifelines import KaplanMeierFitter kmf = KaplanMeierFitter() T = shifted[&#39;end&#39;] E = shifted[&#39;status&#39;] kmf.fit(T,E) &lt;lifelines.KaplanMeierFitter:&quot;KM_estimate&quot;, fitted with 7 total observations, 3 right-censored observations&gt; kmf.survival_function_ KM_estimate timeline 0.0 1.000000 1.0 0.857143 2.0 0.714286 4.0 0.535714 5.0 0.357143 7.0 0.357143 생존함수의 confidence interval을 구할 수 있다. 현재 예제의 자료가 매우 작기에 CI는 상당히 넓다. ci = kmf.confidence_interval_survival_function_ ci KM_estimate_lower_0.95 KM_estimate_upper_0.95 0.0 1.000000 1.000000 1.0 0.334054 0.978561 2.0 0.258154 0.919797 4.0 0.131988 0.824997 5.0 0.051977 0.698713 7.0 0.051977 0.698713 ts = ci.index low, high = np.transpose(ci.values) plt.fill_between(ts,low,high,color=&#39;grey&#39;,alpha=0.3) kmf.survival_function_.plot(ax=plt.gca()) plt.ylabel(&#39;Survival function&#39;) kmf.median_survival_time_ 5.0 카플란 마이어 곡선 해석 생존 곡선을 통해 다양한 의사결정을 내릴 수 있다. 해당 강아지 보호소의 중위 생존값은 5. 따라서 입소 후 5주째 50%의 입양이 발생한다. 공간 활용 최적화를 위해 어느 주기로 신규 입소견을 받아야 할지 결정할 수 있다. 또한, 입양 사건 발생시 매출이 발생한다면, 생존기간과 매출을 곱하여 LTV와 예상 매출을 계산할 수 있다." />
+<link rel="canonical" href="http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C" />
+<meta property="og:url" content="http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-29T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="생존 분석 - 카플란 마이어 추정 [파이썬 예제]" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2021-03-29T15:00:00+09:00","datePublished":"2021-03-29T15:00:00+09:00","description":"카플란 마이어 하드코딩 이번 예제에서는 강아지 보호소를 예시로 사용한다. 강아지 보호소에는 새로운 강아지가 입소하고, 입양되어 퇴소하는 사건이 발생한다. 따라서 강아지가 보호소에 남아있는 기간을 생존기간으로, 입양되어 퇴소하는 사건을 위험으로 간주한다. 데이터 셋 구성 가상의 강아지 보호소 데이터 구성은 아래와 같다. start : 보호소 입소 시간 end : 입양 사건 발생 시간. 9는 관측 종료 시점이므로 해당 컬럼이 9일 경우 cencored status : 1일 경우 사건 발생, 0일 경우 사건 미발생 import pandas as pd import numpy as np import matplotlib.pyplot as plt obs = pd.DataFrame() obs[&#39;start&#39;] = 0,1,2,2,4,6,7 obs[&#39;end&#39;] = 5,2,6,9,9,8,9 obs[&#39;status&#39;] = 1,1,1,0,0,1,0 obs start end status 0 0 5 1 1 1 2 1 2 2 6 1 3 2 9 0 4 4 9 0 5 6 8 1 6 7 9 0 A. 레코드 plot def plot_lifelines(obs): for y,row in obs.iterrows(): start = row[&#39;start&#39;] end = row[&#39;end&#39;] status = row[&#39;status&#39;] if status == 0: plt.hlines(y,start,end,color=&#39;C0&#39;) else : plt.hlines(y,start,end,color=&#39;C1&#39;) plt.plot(end,y,marker=&#39;o&#39;,color=&#39;C1&#39;) plt.xlabel(&#39;Time (weeks)&#39;) plt.ylabel(&#39;Dog Index&#39;) plt.gca().invert_yaxis() plot_lifelines(obs) 카플란 마이어 추정 카플란 마이어 추정은 두가지 아이디어에서 시작한다. 레코드의 시작지점을 무시하고 duration time만을 고려한다. 위험함수를 추정한다. 위험함수는 각 기간 내 발생한 사건을 위험에 처한 총 레코드 수로 나누어 도출한다. A. Duration time 을 기준으로 데이터세트 생성 duration = obs[&#39;end&#39;] - obs[&#39;start&#39;] shifted = obs.copy() shifted[&#39;start&#39;] = 0 shifted[&#39;end&#39;] = duration plot_lifelines(shifted) plt.xlabel(&#39;Duration (week)&#39;); B. 위험함수 도출을 위한 At Risk 도출 At Risk는 특정 기간동안 사건이 발생하지 않았거나 절단되지 않은 레코드의 수를 뜻한다. 아래 코드는 numpy의 meshgrid 함수를 이용하여 사건이 발생한 Duration Time과 각 레코드의 end 시점을 각각 비교한다. 사건이 발생한 $Duration Time_i$ 보다 레코드의 $end_i$ 시점이 같거나 크다면, $DurationTime_i$ 내에 생존한 레코드이다. 즉, 사건이 발생한 각각의 Duration Time 내 위험에 노출된 레코드들의 수를 계산한다. ts = duration.unique() ts.sort() ts ⇒ array([1, 2, 4, 5, 7]) E,T = np.meshgrid(shifted[&#39;end&#39;],ts) E array([[5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2], [5, 1, 4, 7, 5, 2, 2]]) at_risk = (T &lt;= E).sum(axis=1) at_risk array([7, 6, 4, 3, 1]) T&lt;br [&lt;br&gt; [1, 1, 1, 1, 1, 1, 1],&lt;br&gt; [2, 2, 2, 2, 2, 2, 2],&lt;br&gt; [4, 4, 4, 4, 4, 4, 4],&lt;br&gt; [5, 5, 5, 5, 5, 5, 5],&lt;br&gt; [7, 7, 7, 7, 7, 7, 7]&lt;br&gt; ]&lt;br&gt; &lt;= E&lt;br&gt; [&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2],&lt;br&gt; [5, 1, 4, 7, 5, 2, 2]&lt;br&gt; ]&lt;br&gt; This results in a boolean array: [&lt;br&gt; [True, True, True, True, True, True, True],&lt;br&gt; [True, False, True, True, True, True, True],&lt;br&gt; [True, False, True, True, True, False, False],&lt;br&gt; [True, False, False, True, True, False, False],&lt;br&gt; [False, False, False, True, False, False, False]&lt;br&gt; ]&lt;br&gt; [7, 6, 4, 3, 1] This gives us the number of individuals who are considered &quot;at risk&quot; for each time point. C. 위험함수 도출을 위한 사건 발생 수 도출 각 t(Duration Time)마다 입양이 발생한 수를 계산한다. adopted = pd.Series(0,index=ts) for t in ts: k = (shifted[&#39;status&#39;]==1) &amp; (t == shifted[&#39;end&#39;]) adopted[t] = k.sum() adopted 1 1 2 1 4 1 5 1 7 0 dtype: int64 d = dict(adopted=adopted, at_risk=at_risk) df= pd.DataFrame(d,index=ts) df adopted at_risk 1 1 7 2 1 6 4 1 4 5 1 3 7 0 1 D. 위험함수 계산. 사건발생 수 / 위험에 노출된 레코드 수 df[&#39;hazard&#39;] = df[&#39;adopted&#39;]/df[&#39;at_risk&#39;] df adopted at_risk hazard 1 1 7 0.142857 2 1 6 0.166667 4 1 4 0.250000 5 1 3 0.333333 7 0 1 0.000000 생존함수 계산 위에서 계산한 위험함수는 특정 기간에 사건이 발생할 확률이다. 이 케이스에서 사건은 입양이다. 따라서 반대의 케이스는 입양이 되지 않은 생존이며, 이 생존의 누적곱이 생존함수가 된다. df[&#39;surv&#39;] = (1 - df[&#39;hazard&#39;]).cumprod() df adopted at_risk hazard surv 1 1 7 0.142857 0.857143 2 1 6 0.166667 0.714286 4 1 4 0.250000 0.535714 5 1 3 0.333333 0.357143 7 0 1 0.000000 0.357143 누적 분포함수는 1 - 생존함수이다. df[&#39;cdf&#39;] = 1 - df[&#39;surv&#39;] df adopted at_risk hazard surv cdf 1 1 7 0.142857 0.857143 0.142857 2 1 6 0.166667 0.714286 0.285714 4 1 4 0.250000 0.535714 0.464286 5 1 3 0.333333 0.357143 0.642857 7 0 1 0.000000 0.357143 0.642857 확률 질량함수는 cdf의 변화량이다 df[&#39;pdf&#39;] = np.diff(df[&#39;cdf&#39;],prepend=0) df adopted at_risk hazard surv cdf pdf 1 1 7 0.142857 0.857143 0.142857 0.142857 2 1 6 0.166667 0.714286 0.285714 0.142857 4 1 4 0.250000 0.535714 0.464286 0.178571 5 1 3 0.333333 0.357143 0.642857 0.178571 7 0 1 0.000000 0.357143 0.642857 0.000000 라이브러리를 이용한 카플란마이어 추정 위의 하드코딩으로 구현한 카플란 마이어 추정은 lifelines 라이브러리를 활용하면 간단히 구현할 수 있다. from lifelines import KaplanMeierFitter kmf = KaplanMeierFitter() T = shifted[&#39;end&#39;] E = shifted[&#39;status&#39;] kmf.fit(T,E) &lt;lifelines.KaplanMeierFitter:&quot;KM_estimate&quot;, fitted with 7 total observations, 3 right-censored observations&gt; kmf.survival_function_ KM_estimate timeline 0.0 1.000000 1.0 0.857143 2.0 0.714286 4.0 0.535714 5.0 0.357143 7.0 0.357143 생존함수의 confidence interval을 구할 수 있다. 현재 예제의 자료가 매우 작기에 CI는 상당히 넓다. ci = kmf.confidence_interval_survival_function_ ci KM_estimate_lower_0.95 KM_estimate_upper_0.95 0.0 1.000000 1.000000 1.0 0.334054 0.978561 2.0 0.258154 0.919797 4.0 0.131988 0.824997 5.0 0.051977 0.698713 7.0 0.051977 0.698713 ts = ci.index low, high = np.transpose(ci.values) plt.fill_between(ts,low,high,color=&#39;grey&#39;,alpha=0.3) kmf.survival_function_.plot(ax=plt.gca()) plt.ylabel(&#39;Survival function&#39;) kmf.median_survival_time_ 5.0 카플란 마이어 곡선 해석 생존 곡선을 통해 다양한 의사결정을 내릴 수 있다. 해당 강아지 보호소의 중위 생존값은 5. 따라서 입소 후 5주째 50%의 입양이 발생한다. 공간 활용 최적화를 위해 어느 주기로 신규 입소견을 받아야 할지 결정할 수 있다. 또한, 입양 사건 발생시 매출이 발생한다면, 생존기간과 매출을 곱하여 LTV와 예상 매출을 계산할 수 있다.","headline":"생존 분석 - 카플란 마이어 추정 [파이썬 예제]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C"},"url":"http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2021/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        Doyle, DA
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                             
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">생존 분석 - 카플란 마이어 추정 [파이썬 예제]</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2021-03-29T15:00:00+09:00" itemprop="datePublished">Mar 29, 2021</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="카플란-마이어-하드코딩">카플란 마이어 하드코딩</h2>
+
+<p>이번 예제에서는 강아지 보호소를 예시로 사용한다. 강아지 보호소에는 새로운 강아지가 입소하고, 입양되어 퇴소하는 사건이 발생한다. 따라서 강아지가 보호소에 남아있는 기간을 생존기간으로, 입양되어 퇴소하는 사건을 위험으로 간주한다.</p>
+
+<h3 id="데이터-셋-구성">데이터 셋 구성</h3>
+<p>가상의 강아지 보호소 데이터 구성은 아래와 같다.<br /></p>
+<ul>
+  <li>start : 보호소 입소 시간</li>
+  <li>end : 입양 사건 발생 시간. 9는 관측 종료 시점이므로 해당 컬럼이 9일 경우 cencored</li>
+  <li>status : 1일 경우 사건 발생, 0일 경우 사건 미발생</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="n">obs</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span>
+<span class="n">obs</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span>
+<span class="n">obs</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">obs</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start</th>
+      <th>end</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>9</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>9</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>9</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4 id="a-레코드-plot">A. 레코드 plot</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plot_lifelines</span><span class="p">(</span><span class="n">obs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">plt</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'C0'</span><span class="p">)</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">plt</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'C1'</span><span class="p">)</span>
+            <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'C1'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time (weeks)'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Dog Index'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gca</span><span class="p">().</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+<span class="n">plot_lifelines</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="https://i.imgur.com/s29QseL.png" alt="" /></p>
+
+<h3 id="카플란-마이어-추정">카플란 마이어 추정</h3>
+<p>카플란 마이어 추정은 두가지 아이디어에서 시작한다.</p>
+<ol>
+  <li>레코드의 시작지점을 무시하고 duration time만을 고려한다.</li>
+  <li>위험함수를 추정한다. 위험함수는 각 기간 내 발생한 사건을 위험에 처한 총 레코드 수로 나누어 도출한다.</li>
+</ol>
+
+<h4 id="a-duration-time-을-기준으로-데이터세트-생성">A. Duration time 을 기준으로 데이터세트 생성</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">duration</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span> <span class="o">-</span> <span class="n">obs</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span>
+<span class="n">shifted</span> <span class="o">=</span> <span class="n">obs</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">shifted</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">duration</span>
+
+<span class="n">plot_lifelines</span><span class="p">(</span><span class="n">shifted</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Duration (week)'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/AoD4nlb.png" alt="" /></p>
+
+<h4 id="b-위험함수-도출을-위한-at-risk-도출">B. 위험함수 도출을 위한 At Risk 도출</h4>
+<p>At Risk는 특정 기간동안 사건이 발생하지 않았거나 절단되지 않은 레코드의 수를 뜻한다.
+아래 코드는 numpy의 meshgrid 함수를 이용하여 사건이 발생한 Duration Time과 각 레코드의 end 시점을 각각 비교한다. 
+사건이 발생한 $Duration Time_i$ 보다 레코드의 $end_i$ 시점이 같거나 크다면, $DurationTime_i$ 내에 생존한 레코드이다. 즉, 사건이 발생한 각각의 Duration Time 내 위험에 노출된 레코드들의 수를 계산한다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">duration</span><span class="p">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">ts</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">ts</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>⇒ array([1, 2, 4, 5, 7])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">E</span><span class="p">,</span><span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">],</span><span class="n">ts</span><span class="p">)</span>
+<span class="n">E</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([[5, 1, 4, 7, 5, 2, 2],
+       [5, 1, 4, 7, 5, 2, 2],
+       [5, 1, 4, 7, 5, 2, 2],
+       [5, 1, 4, 7, 5, 2, 2],
+       [5, 1, 4, 7, 5, 2, 2]])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">at_risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">E</span><span class="p">).</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">at_risk</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([7, 6, 4, 3, 1])
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T&lt;br
+[&lt;br&gt;
+    [1, 1, 1, 1, 1, 1, 1],&lt;br&gt;
+    [2, 2, 2, 2, 2, 2, 2],&lt;br&gt;
+    [4, 4, 4, 4, 4, 4, 4],&lt;br&gt;
+    [5, 5, 5, 5, 5, 5, 5],&lt;br&gt;
+    [7, 7, 7, 7, 7, 7, 7]&lt;br&gt;
+]&lt;br&gt;
+&lt;=
+E&lt;br&gt;
+[&lt;br&gt;
+    [5, 1, 4, 7, 5, 2, 2],&lt;br&gt;
+    [5, 1, 4, 7, 5, 2, 2],&lt;br&gt;
+    [5, 1, 4, 7, 5, 2, 2],&lt;br&gt;
+    [5, 1, 4, 7, 5, 2, 2],&lt;br&gt;
+    [5, 1, 4, 7, 5, 2, 2]&lt;br&gt;
+]&lt;br&gt;
+
+This results in a boolean array:
+
+[&lt;br&gt;
+    [True,  True,  True,  True,  True,  True,  True],&lt;br&gt;
+    [True, False,  True, True,  True, True, True],&lt;br&gt;
+    [True, False,  True, True,  True, False, False],&lt;br&gt;
+    [True, False,  False, True,  True, False, False],&lt;br&gt;
+    [False, False, False, True, False, False, False]&lt;br&gt;
+]&lt;br&gt;
+
+[7, 6, 4, 3, 1]
+
+This gives us the number of individuals who are considered "at risk" for each time point.
+</code></pre></div></div>
+
+<h4 id="c-위험함수-도출을-위한-사건-발생-수-도출">C. 위험함수 도출을 위한 사건 발생 수 도출</h4>
+<p>각 t(Duration Time)마다 입양이 발생한 수를 계산한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adopted</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">:</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">shifted</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">])</span>
+    <span class="n">adopted</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span>
+
+<span class="n">adopted</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1    1
+2    1
+4    1
+5    1
+7    0
+dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">adopted</span><span class="o">=</span><span class="n">adopted</span><span class="p">,</span>
+        <span class="n">at_risk</span><span class="o">=</span><span class="n">at_risk</span><span class="p">)</span>
+<span class="n">df</span><span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+<span class="n">df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adopted</th>
+      <th>at_risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4 id="d-위험함수-계산-사건발생-수--위험에-노출된-레코드-수">D. 위험함수 계산. 사건발생 수 / 위험에 노출된 레코드 수</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'hazard'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'adopted'</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">'at_risk'</span><span class="p">]</span>
+<span class="n">df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adopted</th>
+      <th>at_risk</th>
+      <th>hazard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+      <td>0.142857</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>0.166667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0.250000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>3</td>
+      <td>0.333333</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="생존함수-계산">생존함수 계산</h3>
+<p>위에서 계산한 위험함수는 특정 기간에 사건이 발생할 확률이다. 이 케이스에서 사건은 입양이다.
+따라서 반대의 케이스는 입양이 되지 않은 생존이며, 이 생존의 누적곱이 생존함수가 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'surv'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">'hazard'</span><span class="p">]).</span><span class="n">cumprod</span><span class="p">()</span>
+<span class="n">df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adopted</th>
+      <th>at_risk</th>
+      <th>hazard</th>
+      <th>surv</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.857143</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>0.166667</td>
+      <td>0.714286</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0.250000</td>
+      <td>0.535714</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>3</td>
+      <td>0.333333</td>
+      <td>0.357143</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0.000000</td>
+      <td>0.357143</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>누적 분포함수는 1 - 생존함수이다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'cdf'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">'surv'</span><span class="p">]</span>
+<span class="n">df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adopted</th>
+      <th>at_risk</th>
+      <th>hazard</th>
+      <th>surv</th>
+      <th>cdf</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.857143</td>
+      <td>0.142857</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>0.166667</td>
+      <td>0.714286</td>
+      <td>0.285714</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0.250000</td>
+      <td>0.535714</td>
+      <td>0.464286</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>3</td>
+      <td>0.333333</td>
+      <td>0.357143</td>
+      <td>0.642857</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0.000000</td>
+      <td>0.357143</td>
+      <td>0.642857</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>확률 질량함수는 cdf의 변화량이다</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'pdf'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">diff</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'cdf'</span><span class="p">],</span><span class="n">prepend</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adopted</th>
+      <th>at_risk</th>
+      <th>hazard</th>
+      <th>surv</th>
+      <th>cdf</th>
+      <th>pdf</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.857143</td>
+      <td>0.142857</td>
+      <td>0.142857</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>0.166667</td>
+      <td>0.714286</td>
+      <td>0.285714</td>
+      <td>0.142857</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0.250000</td>
+      <td>0.535714</td>
+      <td>0.464286</td>
+      <td>0.178571</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>3</td>
+      <td>0.333333</td>
+      <td>0.357143</td>
+      <td>0.642857</td>
+      <td>0.178571</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0.000000</td>
+      <td>0.357143</td>
+      <td>0.642857</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="라이브러리를-이용한-카플란마이어-추정">라이브러리를 이용한 카플란마이어 추정</h2>
+<p>위의 하드코딩으로 구현한 카플란 마이어 추정은 lifelines 라이브러리를 활용하면 간단히 구현할 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+<span class="n">kmf</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">shifted</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span>
+
+<span class="n">kmf</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">E</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;lifelines.KaplanMeierFitter:"KM_estimate", fitted with 7 total observations, 3 right-censored observations&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kmf</span><span class="p">.</span><span class="n">survival_function_</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>KM_estimate</th>
+    </tr>
+    <tr>
+      <th>timeline</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.857143</td>
+    </tr>
+    <tr>
+      <th>2.0</th>
+      <td>0.714286</td>
+    </tr>
+    <tr>
+      <th>4.0</th>
+      <td>0.535714</td>
+    </tr>
+    <tr>
+      <th>5.0</th>
+      <td>0.357143</td>
+    </tr>
+    <tr>
+      <th>7.0</th>
+      <td>0.357143</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>생존함수의 confidence interval을 구할 수 있다. 현재 예제의 자료가 매우 작기에 CI는 상당히 넓다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ci</span> <span class="o">=</span> <span class="n">kmf</span><span class="p">.</span><span class="n">confidence_interval_survival_function_</span>
+<span class="n">ci</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>KM_estimate_lower_0.95</th>
+      <th>KM_estimate_upper_0.95</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.334054</td>
+      <td>0.978561</td>
+    </tr>
+    <tr>
+      <th>2.0</th>
+      <td>0.258154</td>
+      <td>0.919797</td>
+    </tr>
+    <tr>
+      <th>4.0</th>
+      <td>0.131988</td>
+      <td>0.824997</td>
+    </tr>
+    <tr>
+      <th>5.0</th>
+      <td>0.051977</td>
+      <td>0.698713</td>
+    </tr>
+    <tr>
+      <th>7.0</th>
+      <td>0.051977</td>
+      <td>0.698713</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">ci</span><span class="p">.</span><span class="n">index</span>
+<span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">ci</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'grey'</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">kmf</span><span class="p">.</span><span class="n">survival_function_</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">gca</span><span class="p">())</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Survival function'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/Twq7kCX.png" alt="" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kmf</span><span class="p">.</span><span class="n">median_survival_time_</span>
+</code></pre></div></div>
+<p>5.0</p>
+
+<h3 id="카플란-마이어-곡선-해석">카플란 마이어 곡선 해석</h3>
+<p>생존 곡선을 통해 다양한 의사결정을 내릴 수 있다.</p>
+<ol>
+  <li>해당 강아지 보호소의 중위 생존값은 5. 따라서 입소 후 5주째 50%의 입양이 발생한다.</li>
+  <li>공간 활용 최적화를 위해 어느 주기로 신규 입소견을 받아야 할지 결정할 수 있다.</li>
+  <li>또한, 입양 사건 발생시 매출이 발생한다면, 생존기간과 매출을 곱하여 LTV와 예상 매출을 계산할 수 있다.</li>
+</ol>
+
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>
