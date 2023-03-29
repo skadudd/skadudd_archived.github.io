@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="통계,생존분석">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>엑셀로 풀어보는 생존 분석 로그 순위 검정 | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="엑셀로 풀어보는 생존 분석 로그 순위 검정" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="로그순위 검정 (Log-Rank test) 개념 두개 이상의 그룹간의 생존율의 차이가 유의미한지 알기 위한 방법이다. 두 그룹간의 총괄적인 비교를 위해 아래와 같은 가설을 설정한다. $H_0 : S_1(t) = S_2(t) \text{ for all t}$ $H_1 : S_1(t) \neq S_2(t) \text{ for all t}$ 이후, 관측 자료를 $t_1 &lt; t_2 &lt; \cdots &lt; t_k$ 로 정리한다.   사망 생존 계 그룹1 $D_{1i}$ $N_{1i}-D_{1i}$ $N_{1i}$ 그룹2 $D_{2i}$ $N_{2i}-D_{2i}$ $N_{2i}$ 계 $D_{i}$ $N_{2i}-D_{2i}$ $N_{i}$ $t_i$에서 $N_{1i},N_{2i},D_{i}$ 가 고정되어 있다면, $D_{1i}$가 초기하분포를 따르며, 그 평균과 분산은 아래와 같다. 초기하 분포를 따른다면 각 테이블마다 평균과 분산을 구하고, 이를 활용하여 카이 제곱 검정 통계량을 구할 수 있다. 이 경우, 검정통계량 T는 자유도 1인 카이제곱분포를 따른다. 만약 T의 값이 임계치보다 크다면 두 그룹의 생존함수가 같다는 귀무가설을 기각하고 유의미한 차이가 있다고 볼 수 있다. 또한, 각 시점에서의 가중치를 주어 아래와 같은 검정통계량 식을 도출할 수 있다. 로그 랭크 테스트와 윌콕슨 검정 모두 생존곡선이 crossover될 경우, 그 차이를 테스트할 수 없다. 로그랭크 테스트는 두 그룹에서 한 그룹의 생존확률이 비례적인 증감을 테스트하는데 적합하다. (proportional hazards model) 윌콕슨 테스트는 사건시간이 log-normal distribution(두 그룹간에 분산이 동일하고 평균은 다를 때) 적합하다. 예시 각기 다른 치료법을 적용한 Trial A 그룹과 Trial B 그룹이 아래와 같이 존재한다. 각 컬럼 1은 Duration Time으로 t이다. 각 컬럼 2는 사망이 발생했거나 (1), 절단(0)을 나타낸다. 위 자료를 아래와 같이 정리한다. t : duration time d : 사망 발생 n : 관측 수 S(t) : 생존 함수 ($1-\frac{d}{n}$의 누적 곱) 생존 곡선은 아래와 같이 그려진다. 시각적으로 볼때 두 그룹간 큰 차이가 없을것으로 예상된다. 보다 더 정밀한 비교를 위해 로그 순위 검정을 실시한다. 로그 순위 검정은 앞서 말했듯, 카이 제곱 검정과 유사하다. 로그 순위를 계산하기 위해 각 t별 d의 기댓값을 계산하여 자료를 생성한다. 기댓값 $e_{j}^{A} = n_{j}^{A} \cdot \dfrac{d_j}{n_j}$ $e_{j}^{B} = n_{j}^{B} \cdot \dfrac{d_j}{n_j}$ $d_j = d_j^A+d_j^B, n_j = n_j^A+n_j^B$ $e_j^A + e_j^B = d_j^A + d_j^B$ $H0$이 참이라면, 로그랭크테스트는 자유도가 1인 카이제곱분포를 따른다. 위 두 그룹의 로그랭크통계값은 0.94이고, 이 P-value는 0.33으로 0.05 유의수준보다 크다. 따라서 해당 그룹의 생존율에는 큰 차이가 없다. Reference Log-Rank Test | Real Statistics Using Excel 생존분석 - Survival Function의 차이 Log-Rank Test [통계 공부] Log-rank test(로그 순위법) : 네이버 블로그" />
+<meta property="og:description" content="로그순위 검정 (Log-Rank test) 개념 두개 이상의 그룹간의 생존율의 차이가 유의미한지 알기 위한 방법이다. 두 그룹간의 총괄적인 비교를 위해 아래와 같은 가설을 설정한다. $H_0 : S_1(t) = S_2(t) \text{ for all t}$ $H_1 : S_1(t) \neq S_2(t) \text{ for all t}$ 이후, 관측 자료를 $t_1 &lt; t_2 &lt; \cdots &lt; t_k$ 로 정리한다.   사망 생존 계 그룹1 $D_{1i}$ $N_{1i}-D_{1i}$ $N_{1i}$ 그룹2 $D_{2i}$ $N_{2i}-D_{2i}$ $N_{2i}$ 계 $D_{i}$ $N_{2i}-D_{2i}$ $N_{i}$ $t_i$에서 $N_{1i},N_{2i},D_{i}$ 가 고정되어 있다면, $D_{1i}$가 초기하분포를 따르며, 그 평균과 분산은 아래와 같다. 초기하 분포를 따른다면 각 테이블마다 평균과 분산을 구하고, 이를 활용하여 카이 제곱 검정 통계량을 구할 수 있다. 이 경우, 검정통계량 T는 자유도 1인 카이제곱분포를 따른다. 만약 T의 값이 임계치보다 크다면 두 그룹의 생존함수가 같다는 귀무가설을 기각하고 유의미한 차이가 있다고 볼 수 있다. 또한, 각 시점에서의 가중치를 주어 아래와 같은 검정통계량 식을 도출할 수 있다. 로그 랭크 테스트와 윌콕슨 검정 모두 생존곡선이 crossover될 경우, 그 차이를 테스트할 수 없다. 로그랭크 테스트는 두 그룹에서 한 그룹의 생존확률이 비례적인 증감을 테스트하는데 적합하다. (proportional hazards model) 윌콕슨 테스트는 사건시간이 log-normal distribution(두 그룹간에 분산이 동일하고 평균은 다를 때) 적합하다. 예시 각기 다른 치료법을 적용한 Trial A 그룹과 Trial B 그룹이 아래와 같이 존재한다. 각 컬럼 1은 Duration Time으로 t이다. 각 컬럼 2는 사망이 발생했거나 (1), 절단(0)을 나타낸다. 위 자료를 아래와 같이 정리한다. t : duration time d : 사망 발생 n : 관측 수 S(t) : 생존 함수 ($1-\frac{d}{n}$의 누적 곱) 생존 곡선은 아래와 같이 그려진다. 시각적으로 볼때 두 그룹간 큰 차이가 없을것으로 예상된다. 보다 더 정밀한 비교를 위해 로그 순위 검정을 실시한다. 로그 순위 검정은 앞서 말했듯, 카이 제곱 검정과 유사하다. 로그 순위를 계산하기 위해 각 t별 d의 기댓값을 계산하여 자료를 생성한다. 기댓값 $e_{j}^{A} = n_{j}^{A} \cdot \dfrac{d_j}{n_j}$ $e_{j}^{B} = n_{j}^{B} \cdot \dfrac{d_j}{n_j}$ $d_j = d_j^A+d_j^B, n_j = n_j^A+n_j^B$ $e_j^A + e_j^B = d_j^A + d_j^B$ $H0$이 참이라면, 로그랭크테스트는 자유도가 1인 카이제곱분포를 따른다. 위 두 그룹의 로그랭크통계값은 0.94이고, 이 P-value는 0.33으로 0.05 유의수준보다 크다. 따라서 해당 그룹의 생존율에는 큰 차이가 없다. Reference Log-Rank Test | Real Statistics Using Excel 생존분석 - Survival Function의 차이 Log-Rank Test [통계 공부] Log-rank test(로그 순위법) : 네이버 블로그" />
+<link rel="canonical" href="http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95" />
+<meta property="og:url" content="http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-29T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="엑셀로 풀어보는 생존 분석 로그 순위 검정" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2021-03-29T15:00:00+09:00","datePublished":"2021-03-29T15:00:00+09:00","description":"로그순위 검정 (Log-Rank test) 개념 두개 이상의 그룹간의 생존율의 차이가 유의미한지 알기 위한 방법이다. 두 그룹간의 총괄적인 비교를 위해 아래와 같은 가설을 설정한다. $H_0 : S_1(t) = S_2(t) \\text{ for all t}$ $H_1 : S_1(t) \\neq S_2(t) \\text{ for all t}$ 이후, 관측 자료를 $t_1 &lt; t_2 &lt; \\cdots &lt; t_k$ 로 정리한다.   사망 생존 계 그룹1 $D_{1i}$ $N_{1i}-D_{1i}$ $N_{1i}$ 그룹2 $D_{2i}$ $N_{2i}-D_{2i}$ $N_{2i}$ 계 $D_{i}$ $N_{2i}-D_{2i}$ $N_{i}$ $t_i$에서 $N_{1i},N_{2i},D_{i}$ 가 고정되어 있다면, $D_{1i}$가 초기하분포를 따르며, 그 평균과 분산은 아래와 같다. 초기하 분포를 따른다면 각 테이블마다 평균과 분산을 구하고, 이를 활용하여 카이 제곱 검정 통계량을 구할 수 있다. 이 경우, 검정통계량 T는 자유도 1인 카이제곱분포를 따른다. 만약 T의 값이 임계치보다 크다면 두 그룹의 생존함수가 같다는 귀무가설을 기각하고 유의미한 차이가 있다고 볼 수 있다. 또한, 각 시점에서의 가중치를 주어 아래와 같은 검정통계량 식을 도출할 수 있다. 로그 랭크 테스트와 윌콕슨 검정 모두 생존곡선이 crossover될 경우, 그 차이를 테스트할 수 없다. 로그랭크 테스트는 두 그룹에서 한 그룹의 생존확률이 비례적인 증감을 테스트하는데 적합하다. (proportional hazards model) 윌콕슨 테스트는 사건시간이 log-normal distribution(두 그룹간에 분산이 동일하고 평균은 다를 때) 적합하다. 예시 각기 다른 치료법을 적용한 Trial A 그룹과 Trial B 그룹이 아래와 같이 존재한다. 각 컬럼 1은 Duration Time으로 t이다. 각 컬럼 2는 사망이 발생했거나 (1), 절단(0)을 나타낸다. 위 자료를 아래와 같이 정리한다. t : duration time d : 사망 발생 n : 관측 수 S(t) : 생존 함수 ($1-\\frac{d}{n}$의 누적 곱) 생존 곡선은 아래와 같이 그려진다. 시각적으로 볼때 두 그룹간 큰 차이가 없을것으로 예상된다. 보다 더 정밀한 비교를 위해 로그 순위 검정을 실시한다. 로그 순위 검정은 앞서 말했듯, 카이 제곱 검정과 유사하다. 로그 순위를 계산하기 위해 각 t별 d의 기댓값을 계산하여 자료를 생성한다. 기댓값 $e_{j}^{A} = n_{j}^{A} \\cdot \\dfrac{d_j}{n_j}$ $e_{j}^{B} = n_{j}^{B} \\cdot \\dfrac{d_j}{n_j}$ $d_j = d_j^A+d_j^B, n_j = n_j^A+n_j^B$ $e_j^A + e_j^B = d_j^A + d_j^B$ $H0$이 참이라면, 로그랭크테스트는 자유도가 1인 카이제곱분포를 따른다. 위 두 그룹의 로그랭크통계값은 0.94이고, 이 P-value는 0.33으로 0.05 유의수준보다 크다. 따라서 해당 그룹의 생존율에는 큰 차이가 없다. Reference Log-Rank Test | Real Statistics Using Excel 생존분석 - Survival Function의 차이 Log-Rank Test [통계 공부] Log-rank test(로그 순위법) : 네이버 블로그","headline":"엑셀로 풀어보는 생존 분석 로그 순위 검정","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95"},"url":"http://localhost:4000/articles/2021/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2021/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        Doyle, DA
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                             
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">엑셀로 풀어보는 생존 분석 로그 순위 검정</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2021-03-29T15:00:00+09:00" itemprop="datePublished">Mar 29, 2021</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="로그순위-검정-log-rank-test">로그순위 검정 (Log-Rank test)</h2>
+
+<h3 id="개념">개념</h3>
+<hr />
+
+<p>두개 이상의 그룹간의 생존율의 차이가 유의미한지 알기 위한 방법이다.
+두 그룹간의 총괄적인 비교를 위해 아래와 같은 가설을 설정한다.</p>
+
+<ul>
+  <li>$H_0 : S_1(t) = S_2(t) \text{ for all t}$</li>
+  <li>$H_1 : S_1(t) \neq S_2(t) \text{ for all t}$</li>
+</ul>
+
+<p>이후, 관측 자료를 $t_1 &lt; t_2 &lt; \cdots &lt; t_k$ 로 정리한다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>사망</th>
+      <th>생존</th>
+      <th>계</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>그룹1</td>
+      <td>$D_{1i}$</td>
+      <td>$N_{1i}-D_{1i}$</td>
+      <td>$N_{1i}$</td>
+    </tr>
+    <tr>
+      <td>그룹2</td>
+      <td>$D_{2i}$</td>
+      <td>$N_{2i}-D_{2i}$</td>
+      <td>$N_{2i}$</td>
+    </tr>
+    <tr>
+      <td>계</td>
+      <td>$D_{i}$</td>
+      <td>$N_{2i}-D_{2i}$</td>
+      <td>$N_{i}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>$t_i$에서 $N_{1i},N_{2i},D_{i}$ 가 고정되어 있다면, $D_{1i}$가 초기하분포를 따르며, 그 평균과 분산은 아래와 같다.</p>
+
+<script type="math/tex; mode=display">E(D_{1i}) = N_{1i}D_{i}/N{i} = E_{1i}</script>
+
+<script type="math/tex; mode=display">V(D_{1i}) = V_{1i}</script>
+
+<p>초기하 분포를 따른다면 각 테이블마다 평균과 분산을 구하고, 이를 활용하여 카이 제곱 검정 통계량을 구할 수 있다. 이 경우, 검정통계량 T는 자유도 1인 카이제곱분포를 따른다.</p>
+
+<script type="math/tex; mode=display">T = \dfrac{(\sum_{i=1}^{k} D_{1i}-E_{1i})^2}{\sum_{i=1}^{k} V_{1i}}</script>
+
+<p>만약 T의 값이 임계치보다 크다면 두 그룹의 생존함수가 같다는 귀무가설을 기각하고 유의미한 차이가 있다고 볼 수 있다. 또한, 각 시점에서의 가중치를 주어 아래와 같은 검정통계량 식을 도출할 수 있다.</p>
+
+<script type="math/tex; mode=display">T = \dfrac{(\sum_{i=1}^{k} w_{i}D_{1i}-E_{1i})^2}{\sum_{i=1}^{k} w_{i}^{2}V_{1i}}</script>
+
+<p>로그 랭크 테스트와 윌콕슨 검정 모두 생존곡선이 crossover될 경우, 그 차이를 테스트할 수 없다.
+로그랭크 테스트는 두 그룹에서 한 그룹의 생존확률이 비례적인 증감을 테스트하는데 적합하다. (proportional hazards model)
+윌콕슨 테스트는 사건시간이 log-normal distribution(두 그룹간에 분산이 동일하고 평균은 다를 때) 적합하다.</p>
+
+<h3 id="예시">예시</h3>
+<hr />
+
+<p>각기 다른 치료법을 적용한 Trial A 그룹과 Trial B 그룹이 아래와 같이 존재한다.</p>
+<ul>
+  <li>각 컬럼 1은 Duration Time으로 t이다.</li>
+  <li>각 컬럼 2는 사망이 발생했거나 (1), 절단(0)을 나타낸다.
+<img src="https://i.imgur.com/eSbdZ1G.png" alt="" /></li>
+</ul>
+
+<p>위 자료를 아래와 같이 정리한다.</p>
+<ul>
+  <li>t : duration time</li>
+  <li>d : 사망 발생</li>
+  <li>n : 관측 수</li>
+  <li>S(t) : 생존 함수 ($1-\frac{d}{n}$의 누적 곱)
+<img src="https://i.imgur.com/PH7yb8x.png" alt="" /></li>
+</ul>
+
+<p>생존 곡선은 아래와 같이 그려진다. 시각적으로 볼때 두 그룹간 큰 차이가 없을것으로 예상된다. 보다 더 정밀한 비교를 위해 로그 순위 검정을 실시한다.</p>
+
+<p><img src="https://i.imgur.com/6joIQbd.png" alt="" /></p>
+
+<p>로그 순위 검정은 앞서 말했듯, 카이 제곱 검정과 유사하다. 로그 순위를 계산하기 위해 각 t별 d의 기댓값을 계산하여 자료를 생성한다.</p>
+<ul>
+  <li>기댓값
+    <ul>
+      <li>$e_{j}^{A} = n_{j}^{A} \cdot \dfrac{d_j}{n_j}$</li>
+      <li>$e_{j}^{B} = n_{j}^{B} \cdot \dfrac{d_j}{n_j}$
+        <ul>
+          <li>$d_j = d_j^A+d_j^B, n_j = n_j^A+n_j^B$</li>
+          <li>$e_j^A + e_j^B = d_j^A + d_j^B$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<script type="math/tex; mode=display">LogRank = \dfrac{(Obs_{A} - Exp_{A})^2}{Exp_A} + \dfrac{(Obs_{B} - Exp_{B})^2}{Exp_B}</script>
+
+<script type="math/tex; mode=display">=\dfrac{(12-9.82)^2}{9.82} + \dfrac{(8-10.17)^2}{10.17}</script>
+
+<p><img src="https://i.imgur.com/xFaXp0m.png" alt="" /></p>
+
+<p>$H0$이 참이라면, 로그랭크테스트는 자유도가 1인 카이제곱분포를 따른다.</p>
+
+<script type="math/tex; mode=display">LR \sim \chi^2(1)</script>
+
+<p>위 두 그룹의 로그랭크통계값은 0.94이고, 이 P-value는 0.33으로 0.05 유의수준보다 크다.
+따라서 해당 그룹의 생존율에는 큰 차이가 없다.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="https://real-statistics.com/survival-analysis/kaplan-meier-procedure/log-rank-test/">Log-Rank Test | Real Statistics Using Excel</a><br />
+<a href="https://boogling.tistory.com/entry/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-Survival-Function%EC%9D%98-%EC%B0%A8%EC%9D%B4-Log-Rank-Test">생존분석 - Survival Function의 차이 Log-Rank Test</a><br />
+<a href="https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&amp;blogId=euleekwon&amp;logNo=221441257643">[통계 공부] Log-rank test(로그 순위법) : 네이버 블로그</a></p>
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>
