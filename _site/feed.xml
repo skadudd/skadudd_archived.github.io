@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 29 Mar 2023 15:28:14 +0900</pubDate>
-    <lastBuildDate>Wed, 29 Mar 2023 15:28:14 +0900</lastBuildDate>
+    <pubDate>Wed, 29 Mar 2023 15:37:13 +0900</pubDate>
+    <lastBuildDate>Wed, 29 Mar 2023 15:37:13 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -782,19 +782,25 @@ dtype: int64
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;b-위험-함수-hazard-function&quot;&gt;B. 위험 함수 (Hazard Function)&lt;/h4&gt;
-&lt;p&gt;$h(t)$ : $t$까지 생존했을때, 직후 event가 일어날 조건부 확률. 특정 시기에 사건이 발생할 확률을 추정한다.
-&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+&lt;p&gt;$h(t)$ : $t$까지 생존했을때, 직후 event가 일어날 조건부 확률. 특정 시기에 사건이 발생할 확률을 추정한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
 h(t) = \lim_{\Delta t \to 0} P(t \leq T &lt; t + \Delta|T &gt; t) %]]&gt;&lt;/script&gt;
-&lt;script type=&quot;math/tex&quot;&gt;= \dfrac{f(t)}{S(t)}&lt;/script&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;= \dfrac{f(t)}{S(t)}&lt;/script&gt;
+
 &lt;h3 id=&quot;생존-함수-추정&quot;&gt;생존 함수 추정&lt;/h3&gt;
 &lt;h4 id=&quot;a-카플란-마이어-추정량&quot;&gt;A. 카플란 마이어 추정량&lt;/h4&gt;
 &lt;p&gt;Kaplan-Meier estimation을 통해 집단간의 시간에 따른 생존율을 쉽게 비교할 수 있다. 적은 표본에 대해서도 적용할 수 있어 널리 사용된다.
 요약에는 Median Survivor 값을 사용하며, 기간별 구간 생존비율을 사용할 수 도 있다.&lt;/p&gt;
 
-&lt;p&gt;카플란 추정치의 수식은 아래와 같다. 각 구간별 생존자수의 비율로 구간생존율 $P(t)$를 산출하고, 누적생존율 $S(t)$는 구간생존율 $P(t)$를 차례로 곱하여 산출한다.
-&lt;script type=&quot;math/tex&quot;&gt;S(t_i) = P(T&gt;t_i) = P(T&gt;T_1)P(T&gt;t_2|T&gt;t_1) \cdots P(T&gt;t_i|T&gt;t_i-1)&lt;/script&gt;
-&lt;script type=&quot;math/tex&quot;&gt;=\prod_{{t_i} \leq t} \left( 1-\dfrac{d_i}{n_i} \right),\delta_i = 0(cencoring)\ or \ 1,d_i=\text{사망자수}&lt;/script&gt;
-따라서 카플란 마이어 추정에 의한 생존함수는 어떤 사람이 $t_1$ 시점까지 생존했을 확률과, $t_1$ 시점까지 생존했다면 $t_n$ 시점까지 살아있을 확률들의 곱해진 확률이다. $S(t) = 0.5$ 되는 $t$는 중간 생존 기간이라 한다.&lt;/p&gt;
+&lt;p&gt;카플란 추정치의 수식은 아래와 같다. 각 구간별 생존자수의 비율로 구간생존율 $P(t)$를 산출하고, 누적생존율 $S(t)$는 구간생존율 $P(t)$를 차례로 곱하여 산출한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;S(t_i) = P(T&gt;t_i) = P(T&gt;T_1)P(T&gt;t_2|T&gt;t_1) \cdots P(T&gt;t_i|T&gt;t_i-1)&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;=\prod_{{t_i} \leq t} \left( 1-\dfrac{d_i}{n_i} \right),\delta_i = 0(cencoring)\ or \ 1,d_i=\text{사망자수}&lt;/script&gt;
+
+&lt;p&gt;따라서 카플란 마이어 추정에 의한 생존함수는 어떤 사람이 $t_1$ 시점까지 생존했을 확률과, $t_1$ 시점까지 생존했다면 $t_n$ 시점까지 살아있을 확률들의 곱해진 확률이다. $S(t) = 0.5$ 되는 $t$는 중간 생존 기간이라 한다.&lt;/p&gt;
 
 &lt;h5 id=&quot;a1-카플란-마이어-추정-예제-1&quot;&gt;A.1. 카플란 마이어 추정 예제 1.)&lt;/h5&gt;
 &lt;p&gt;샘플 5명, 관측기간 중 4명이 사망하고 1명이 cencored된 예제이다. 코드 없이 시나리오를 통해 이해해보자.&lt;/p&gt;
@@ -854,8 +860,9 @@ h(t) = \lim_{\Delta t \to 0} P(t \leq T &lt; t + \Delta|T &gt; t) %]]&gt;&lt;/sc
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=e50uqS45sZE&amp;amp;ab_channel=%ED%86%B5%EA%B3%84%EB%8A%94%EC%97%90%EC%9D%B4%EC%8A%A4&quot;&gt;(44) [최지민 박사의 통계 TV] 카플란-마이어 추정 - YouTube&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://3months.tistory.com/349&quot;&gt;생존분석 - 생존분석의 목적과 생존함수, 위험함수의 정의 :: Deep Play&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://bioinformaticsandme.tistory.com/223&quot;&gt;생존 분석 (Survival analysis) :: BioinformaticsAndMe&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;https://sticky-ai.github.io/survival%20analysis/2020/07/29/survival_analysis_kaplan_meier/&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://sticky-ai.github.io/survival%20analysis/2020/07/29/survival_analysis_kaplan_meier/&quot;&gt;STIKY AI&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://allendowney.github.io/SurvivalAnalysisPython/02_kaplan_meier.html&quot;&gt;Kaplan-Meier Estimation — Survival Analysis in Python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://boxnwhis.kr/2015/03/15/drawing_survival_curves_of_users.html&quot;&gt;BOX AND WHISKER&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Sat, 27 Mar 2021 15:00:00 +0900</pubDate>
