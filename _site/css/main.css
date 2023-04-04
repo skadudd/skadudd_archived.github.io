@@ -109,6 +109,19 @@ pre {
     padding-left: 0; }
 
 /**
+ * Table
+ */
+table { border-collapse: collapse; padding-top: 10px; padding-bottom: 10px;}
+tr { border-top: 1px solid black; border-bottom: 1px solid black; }
+tr:nth-child(odd) { background-color: #efefef; }
+tr:nth-child(even) { background-color: #ffffff; }
+tr:hover { background-color: #ddf1fa; cursor: pointer; }
+td { padding: 5px; }
+th { padding: 5px 10px; text-align: center !important; }
+
+
+
+/**
  * Wrapper
  */
 .wrapper {
