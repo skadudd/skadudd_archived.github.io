@@ -150,7 +150,16 @@ pre {
     }
 }
 
-
+/**
+ * Table
+ */
+ table { border-collapse: collapse; }
+ tr { border-top: 1px solid black; border-bottom: 1px solid black; }
+ tr:nth-child(odd) { background-color: #f3f3f3; }
+ tr:nth-child(even) { background-color: #ffffff; }
+ tr:hover { background-color: #cce3f8fe; cursor: pointer; }
+ td { padding: 5px 12px; }
+ th { padding: 5px 10px; text-align: center !important;}
 
 /**
  * Wrapper
