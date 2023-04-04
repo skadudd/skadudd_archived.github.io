@@ -149,17 +149,17 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <li>status : 1일 경우 사건 발생, 0일 경우 사건 미발생</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="n">obs</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+obs = pd.DataFrame()
 
-<span class="n">obs</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span>
-<span class="n">obs</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span>
-<span class="n">obs</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span>
-<span class="n">obs</span>
-</code></pre></div></div>
+obs['start'] = 0,1,2,2,4,6,7
+obs['end'] = 5,2,6,9,9,8,9
+obs['status'] = 1,1,1,0,0,1,0
+obs
+</code></pre>
 
 <div>
 <style scoped="">
@@ -232,23 +232,23 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </div>
 
 <h4 id="a-레코드-plot">A. 레코드 plot</h4>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plot_lifelines</span><span class="p">(</span><span class="n">obs</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">y</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">start</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span>
-        <span class="n">end</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span>
+<pre><code class="language-python">def plot_lifelines(obs):
+    for y,row in obs.iterrows():
+        start = row['start']
+        end = row['end']
+        status = row['status']
 
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">plt</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'C0'</span><span class="p">)</span>
-        <span class="k">else</span> <span class="p">:</span>
-            <span class="n">plt</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'C1'</span><span class="p">)</span>
-            <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'C1'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time (weeks)'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Dog Index'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="p">.</span><span class="n">gca</span><span class="p">().</span><span class="n">invert_yaxis</span><span class="p">()</span>
+        if status == 0:
+            plt.hlines(y,start,end,color='C0')
+        else :
+            plt.hlines(y,start,end,color='C1')
+            plt.plot(end,y,marker='o',color='C1')
+    plt.xlabel('Time (weeks)')
+    plt.ylabel('Dog Index')
+    plt.gca().invert_yaxis()
 
-<span class="n">plot_lifelines</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
-</code></pre></div></div>
+plot_lifelines(obs)
+</code></pre>
 <p><img src="https://i.imgur.com/s29QseL.png" alt="" /></p>
 
 <h3 id="카플란-마이어-추정">카플란 마이어 추정</h3>
@@ -259,14 +259,14 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </ol>
 
 <h4 id="a-duration-time-을-기준으로-데이터세트-생성">A. Duration time 을 기준으로 데이터세트 생성</h4>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">duration</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span> <span class="o">-</span> <span class="n">obs</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span>
-<span class="n">shifted</span> <span class="o">=</span> <span class="n">obs</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">shifted</span><span class="p">[</span><span class="s">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">duration</span>
+<pre><code class="language-python">duration = obs['end'] - obs['start']
+shifted = obs.copy()
+shifted['start'] = 0
+shifted['end'] = duration
 
-<span class="n">plot_lifelines</span><span class="p">(</span><span class="n">shifted</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Duration (week)'</span><span class="p">);</span>
-</code></pre></div></div>
+plot_lifelines(shifted)
+plt.xlabel('Duration (week)');
+</code></pre>
 
 <p><img src="https://i.imgur.com/AoD4nlb.png" alt="" /></p>
 
@@ -274,31 +274,31 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 <p>At Risk는 특정 기간동안 사건이 발생하지 않았거나 절단되지 않은 레코드의 수를 뜻한다.
 아래 코드는 numpy의 meshgrid 함수를 이용하여 사건이 발생한 Duration Time과 각 레코드의 end 시점을 각각 비교한다. 
 사건이 발생한 $Duration Time_i$ 보다 레코드의 $end_i$ 시점이 같거나 크다면, $DurationTime_i$ 내에 생존한 레코드이다. 즉, 사건이 발생한 각각의 Duration Time 내 위험에 노출된 레코드들의 수를 계산한다.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">duration</span><span class="p">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="n">ts</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="n">ts</span>
-</code></pre></div></div>
+<pre><code class="language-python">ts = duration.unique()
+ts.sort()
+ts
+</code></pre>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>⇒ array([1, 2, 4, 5, 7])
-</code></pre></div></div>
+<pre><code>⇒ array([1, 2, 4, 5, 7])
+</code></pre>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">E</span><span class="p">,</span><span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">],</span><span class="n">ts</span><span class="p">)</span>
-<span class="n">E</span>
-</code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([[5, 1, 4, 7, 5, 2, 2],
+<pre><code class="language-python">E,T = np.meshgrid(shifted['end'],ts)
+E
+</code></pre>
+<pre><code>array([[5, 1, 4, 7, 5, 2, 2],
        [5, 1, 4, 7, 5, 2, 2],
        [5, 1, 4, 7, 5, 2, 2],
        [5, 1, 4, 7, 5, 2, 2],
        [5, 1, 4, 7, 5, 2, 2]])
-</code></pre></div></div>
+</code></pre>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">at_risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">E</span><span class="p">).</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">at_risk</span>
-</code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([7, 6, 4, 3, 1])
-</code></pre></div></div>
+<pre><code class="language-python">at_risk = (T &lt;= E).sum(axis=1)
+at_risk
+</code></pre>
+<pre><code>array([7, 6, 4, 3, 1])
+</code></pre>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T&lt;br
+<pre><code>T&lt;br
 [&lt;br&gt;
     [1, 1, 1, 1, 1, 1, 1],&lt;br&gt;
     [2, 2, 2, 2, 2, 2, 2],&lt;br&gt;
@@ -329,32 +329,32 @@ This results in a boolean array:
 [7, 6, 4, 3, 1]
 
 This gives us the number of individuals who are considered "at risk" for each time point.
-</code></pre></div></div>
+</code></pre>
 
 <h4 id="c-위험함수-도출을-위한-사건-발생-수-도출">C. 위험함수 도출을 위한 사건 발생 수 도출</h4>
 <p>각 t(Duration Time)마다 입양이 발생한 수를 계산한다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adopted</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+<pre><code class="language-python">adopted = pd.Series(0,index=ts)
 
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">:</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">shifted</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">])</span>
-    <span class="n">adopted</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span>
+for t in ts:
+    k = (shifted['status']==1) &amp; (t == shifted['end'])
+    adopted[t] = k.sum()
 
-<span class="n">adopted</span>
-</code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1    1
+adopted
+</code></pre>
+<pre><code>1    1
 2    1
 4    1
 5    1
 7    0
 dtype: int64
-</code></pre></div></div>
+</code></pre>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">adopted</span><span class="o">=</span><span class="n">adopted</span><span class="p">,</span>
-        <span class="n">at_risk</span><span class="o">=</span><span class="n">at_risk</span><span class="p">)</span>
-<span class="n">df</span><span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
-<span class="n">df</span>
-</code></pre></div></div>
+<pre><code class="language-python">d = dict(adopted=adopted,
+        at_risk=at_risk)
+df= pd.DataFrame(d,index=ts)
+df
+</code></pre>
 
 <div>
 <style scoped="">
@@ -409,9 +409,9 @@ dtype: int64
 </div>
 
 <h4 id="d-위험함수-계산-사건발생-수--위험에-노출된-레코드-수">D. 위험함수 계산. 사건발생 수 / 위험에 노출된 레코드 수</h4>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'hazard'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'adopted'</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">'at_risk'</span><span class="p">]</span>
-<span class="n">df</span>
-</code></pre></div></div>
+<pre><code class="language-python">df['hazard'] = df['adopted']/df['at_risk']
+df
+</code></pre>
 
 <div>
 <style scoped="">
@@ -475,9 +475,9 @@ dtype: int64
 <p>위에서 계산한 위험함수는 특정 기간에 사건이 발생할 확률이다. 이 케이스에서 사건은 입양이다.
 따라서 반대의 케이스는 입양이 되지 않은 생존이며, 이 생존의 누적곱이 생존함수가 된다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'surv'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">'hazard'</span><span class="p">]).</span><span class="n">cumprod</span><span class="p">()</span>
-<span class="n">df</span>
-</code></pre></div></div>
+<pre><code class="language-python">df['surv'] = (1 - df['hazard']).cumprod()
+df
+</code></pre>
 
 <div>
 <style scoped="">
@@ -544,9 +544,9 @@ dtype: int64
 </div>
 
 <p>누적 분포함수는 1 - 생존함수이다.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'cdf'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">'surv'</span><span class="p">]</span>
-<span class="n">df</span>
-</code></pre></div></div>
+<pre><code class="language-python">df['cdf'] = 1 - df['surv']
+df
+</code></pre>
 
 <div>
 <style scoped="">
@@ -620,9 +620,9 @@ dtype: int64
 
 <p>확률 질량함수는 cdf의 변화량이다</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'pdf'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">diff</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'cdf'</span><span class="p">],</span><span class="n">prepend</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">df</span>
-</code></pre></div></div>
+<pre><code class="language-python">df['pdf'] = np.diff(df['cdf'],prepend=0)
+df
+</code></pre>
 
 <div>
 <style scoped="">
@@ -703,19 +703,19 @@ dtype: int64
 <h2 id="라이브러리를-이용한-카플란마이어-추정">라이브러리를 이용한 카플란마이어 추정</h2>
 <p>위의 하드코딩으로 구현한 카플란 마이어 추정은 lifelines 라이브러리를 활용하면 간단히 구현할 수 있다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
-<span class="n">kmf</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<pre><code class="language-python">from lifelines import KaplanMeierFitter
+kmf = KaplanMeierFitter()
 
-<span class="n">T</span> <span class="o">=</span> <span class="n">shifted</span><span class="p">[</span><span class="s">'end'</span><span class="p">]</span>
-<span class="n">E</span> <span class="o">=</span> <span class="n">shifted</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span>
+T = shifted['end']
+E = shifted['status']
 
-<span class="n">kmf</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">E</span><span class="p">)</span>
-</code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;lifelines.KaplanMeierFitter:"KM_estimate", fitted with 7 total observations, 3 right-censored observations&gt;
-</code></pre></div></div>
+kmf.fit(T,E)
+</code></pre>
+<pre><code>&lt;lifelines.KaplanMeierFitter:"KM_estimate", fitted with 7 total observations, 3 right-censored observations&gt;
+</code></pre>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kmf</span><span class="p">.</span><span class="n">survival_function_</span>
-</code></pre></div></div>
+<pre><code class="language-python">kmf.survival_function_
+</code></pre>
 
 <div>
 <style scoped="">
@@ -772,9 +772,9 @@ dtype: int64
 </div>
 
 <p>생존함수의 confidence interval을 구할 수 있다. 현재 예제의 자료가 매우 작기에 CI는 상당히 넓다.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ci</span> <span class="o">=</span> <span class="n">kmf</span><span class="p">.</span><span class="n">confidence_interval_survival_function_</span>
-<span class="n">ci</span>
-</code></pre></div></div>
+<pre><code class="language-python">ci = kmf.confidence_interval_survival_function_
+ci
+</code></pre>
 
 <div>
 <style scoped="">
@@ -833,17 +833,17 @@ dtype: int64
 </table>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">ci</span><span class="p">.</span><span class="n">index</span>
-<span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">ci</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'grey'</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">kmf</span><span class="p">.</span><span class="n">survival_function_</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">gca</span><span class="p">())</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Survival function'</span><span class="p">)</span>
-</code></pre></div></div>
+<pre><code class="language-python">ts = ci.index
+low, high = np.transpose(ci.values)
+plt.fill_between(ts,low,high,color='grey',alpha=0.3)
+kmf.survival_function_.plot(ax=plt.gca())
+plt.ylabel('Survival function')
+</code></pre>
 
 <p><img src="https://i.imgur.com/Twq7kCX.png" alt="" /></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kmf</span><span class="p">.</span><span class="n">median_survival_time_</span>
-</code></pre></div></div>
+<pre><code class="language-python">kmf.median_survival_time_
+</code></pre>
 <p>5.0</p>
 
 <h3 id="카플란-마이어-곡선-해석">카플란 마이어 곡선 해석</h3>

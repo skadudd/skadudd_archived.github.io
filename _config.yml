@@ -17,6 +17,9 @@ lang: ko_KR
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter : rougue
 highlighter: rouge
 lsi: false
 excerpt_separator: "\n\n"

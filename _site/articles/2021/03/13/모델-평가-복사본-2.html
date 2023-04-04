@@ -223,52 +223,52 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 <h4 id="wine-분류기-roc-커브">wine 분류기 ROC 커브</h4>
 
 <!--more-->
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
-<span class="n">red_url</span> <span class="o">=</span> <span class="s">'https://raw.githubusercontent.com/PinkWink/ML_tutorial/master/dataset/winequality-red.csv'</span>
-<span class="n">white_url</span> <span class="o">=</span> <span class="s">'https://raw.githubusercontent.com/PinkWink/ML_tutorial/master/dataset/winequality-white.csv'</span>
-<span class="n">red_wine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">red_url</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">';'</span><span class="p">)</span>
-<span class="n">white_wine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">white_url</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">';'</span><span class="p">)</span>
+red_url = 'https://raw.githubusercontent.com/PinkWink/ML_tutorial/master/dataset/winequality-red.csv'
+white_url = 'https://raw.githubusercontent.com/PinkWink/ML_tutorial/master/dataset/winequality-white.csv'
+red_wine = pd.read_csv(red_url,sep=';')
+white_wine = pd.read_csv(white_url,sep=';')
 
-<span class="n">wine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">red_wine</span><span class="p">,</span><span class="n">white_wine</span><span class="p">])</span>
-<span class="n">wine</span><span class="p">[</span><span class="s">'taste'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span> <span class="k">if</span> <span class="n">grade</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="mf">0.</span> <span class="k">for</span> <span class="n">grade</span> <span class="ow">in</span> <span class="n">wine</span><span class="p">.</span><span class="n">quality</span><span class="p">]</span>
+wine = pd.concat([red_wine,white_wine])
+wine['taste'] = [1. if grade &gt; 5 else 0. for grade in wine.quality]
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">wine</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'quality'</span><span class="p">,</span><span class="s">'taste'</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s">'taste'</span><span class="p">]</span>
+X = wine.drop(['quality','taste'],axis=1)
+y = wine['taste']
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size = 0.2, random_state=13)
 
-<span class="n">wine_tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">13</span><span class="p">)</span>
-<span class="n">wine_tree</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred_tr</span> <span class="o">=</span> <span class="n">wine_tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">wine_tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+wine_tree = DecisionTreeClassifier(max_depth = 2, random_state = 13)
+wine_tree.fit(X_train,y_train)
+y_pred_tr = wine_tree.predict(X_train)
+y_pred_test = wine_tree.predict(X_test)
 
-<span class="k">print</span><span class="p">(</span><span class="s">'Train Acc : '</span><span class="p">,</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_pred_tr</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'Train Acc : '</span><span class="p">,</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred_test</span><span class="p">))</span>
+print('Train Acc : ',accuracy_score(y_train,y_pred_tr))
+print('Train Acc : ',accuracy_score(y_test,y_pred_test))
 
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">)</span>
+from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve)
 
-<span class="k">print</span><span class="p">(</span><span class="s">'Acurracy: '</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'Recall: '</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'Precision: '</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'AUC score: '</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'F1 Score: '</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
+print('Acurracy: ', accuracy_score(y_test, y_pred_test))
+print('Recall: ', recall_score(y_test, y_pred_test))
+print('Precision: ', precision_score(y_test, y_pred_test))
+print('AUC score: ', roc_auc_score(y_test, y_pred_test))
+print('F1 Score: ', f1_score(y_test, y_pred_test))
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+import matplotlib.pyplot as plt
 
-<span class="n">pred_proba</span> <span class="o">=</span> <span class="n">wine_tree</span><span class="p">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_proba</span><span class="p">)</span>
+pred_proba = wine_tree.predict_proba(X_test)[:,1]
+fpr, tpr, thresholds = roc_curve(y_test, pred_proba)
 
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span><span class="n">tpr</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
+plt.figure(figsize=(10,8))
+plt.plot([0,1],[0,1])
+plt.plot(fpr,tpr)
+plt.grid()
+plt.show()
+</code></pre>
 
   </div>
 </article>

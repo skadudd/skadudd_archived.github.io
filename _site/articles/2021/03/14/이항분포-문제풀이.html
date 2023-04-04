@@ -175,30 +175,30 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 최소 3발이 불발할 확률은 0발만 맞출 확률, 1발만 맞출 확률의 합이다. ⇒ 0.027</p>
 
 <!--more-->
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+<pre><code class="language-python">import sys
 
-<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span>
-
-
-<span class="k">def</span> <span class="nf">get_binominal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">rounder</span><span class="p">):</span>
-    <span class="n">cal</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rounder</span><span class="p">):</span>
-
-        <span class="n">cal</span> <span class="o">+=</span> <span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">x</span><span class="p">)))</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="o">**</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">cal</span>
+def factorial(n):
+    if n &gt; 0:
+        return n * factorial(n-1)
+    else:
+        return 1
 
 
-<span class="n">more_than_2hit</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">get_binominal</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">at_least_3miss</span> <span class="o">=</span> <span class="n">get_binominal</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+def get_binominal(n,p,rounder):
+    cal = 0
+    for x in range(rounder):
 
-<span class="k">print</span><span class="p">(</span><span class="s">"{:.3f}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">more_than_2hit</span><span class="p">,</span><span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s">"{:.3f}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">at_least_3miss</span><span class="p">,</span><span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">))</span>
+        cal += (factorial(n)/(factorial(x) * factorial(n - x))) * (p**x) * ((1 - p) ** (n - x))
+    return cal
 
-</code></pre></div></div>
+
+more_than_2hit = 1-get_binominal(4,0.8,3)
+at_least_3miss = get_binominal(4,0.8,2)
+
+print("{:.3f}".format(more_than_2hit,file=sys.stdout))
+print("{:.3f}".format(at_least_3miss,file=sys.stdout))
+
+</code></pre>
 
   </div>
 </article>

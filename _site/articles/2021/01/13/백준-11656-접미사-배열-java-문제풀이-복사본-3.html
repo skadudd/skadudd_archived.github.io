@@ -118,142 +118,142 @@
     <p>네이버 검색광고 API를 활용하여 손쉽게 리포팅을 받을 수 있다. !</p>
 
 <!--more-->
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">signaturehelper</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">rrule</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="o">*</span>
+<pre><code class="language-python">import os
+import time
+import shutil
+import random
+import json
+import glob
+import requests
+import signaturehelper
+import pandas as pd
+from pandas import DataFrame
+from pathlib import Path
+import csv
+from dateutil import rrule
+from datetime import datetime, timedelta
+from dateutil.parser import *
 
-<span class="n">BASE_URL</span> <span class="o">=</span> <span class="s">'https://api.naver.com'</span>
-<span class="n">API_KEY</span> <span class="o">=</span> <span class="s">'API Key'</span>
-<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s">'Secret key'</span>
-<span class="n">CUSTOMER_ID</span> <span class="o">=</span> <span class="s">'Customer ID'</span>
-<span class="n">input_file</span> <span class="o">=</span> <span class="s">'../DB_for_GA_naver/'</span>
-<span class="n">output_file</span> <span class="o">=</span> <span class="s">'../DB_of_naver_combined/'</span>
-<span class="n">campaignList</span> <span class="o">=</span> <span class="p">[</span><span class="s">'cmp-a001-01-000000003407889'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003407888'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003645640'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003605317'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003711127'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003711121'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003707633'</span><span class="p">,</span>
-                <span class="s">'cmp-a001-01-000000003707625'</span>
-                <span class="p">]</span>
+BASE_URL = 'https://api.naver.com'
+API_KEY = 'API Key'
+SECRET_KEY = 'Secret key'
+CUSTOMER_ID = 'Customer ID'
+input_file = '../DB_for_GA_naver/'
+output_file = '../DB_of_naver_combined/'
+campaignList = ['cmp-a001-01-000000003407889',
+                'cmp-a001-01-000000003407888',
+                'cmp-a001-01-000000003645640',
+                'cmp-a001-01-000000003605317',
+                'cmp-a001-01-000000003711127',
+                'cmp-a001-01-000000003711121',
+                'cmp-a001-01-000000003707633',
+                'cmp-a001-01-000000003707625'
+                ]
 
-<span class="c1">#1. GET Summary Report per multiple entities 
-</span><span class="n">input_start_date</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">'보고 시작 날짜 : '</span><span class="p">)</span>
-<span class="n">input_end_date</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">'보고 종료 날짜 : '</span><span class="p">)</span>
+#1. GET Summary Report per multiple entities 
+input_start_date = input('보고 시작 날짜 : ')
+input_end_date = input('보고 종료 날짜 : ')
 
-<span class="n">start_date</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">input_start_date</span><span class="p">)</span>
-<span class="n">end_date</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">input_end_date</span><span class="p">)</span>
+start_date = parse(input_start_date)
+end_date = parse(input_end_date)
 
-<span class="c1">#import key
-</span><span class="k">def</span> <span class="nf">get_header</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">):</span>
-    <span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
-    <span class="n">signature</span> <span class="o">=</span> <span class="n">signaturehelper</span><span class="p">.</span><span class="n">Signature</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">SECRET_KEY</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json; charset=UTF-8'</span><span class="p">,</span> <span class="s">'X-Timestamp'</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span> <span class="s">'X-API-KEY'</span><span class="p">:</span> <span class="n">API_KEY</span><span class="p">,</span> <span class="s">'X-Customer'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">CUSTOMER_ID</span><span class="p">),</span> <span class="s">'X-Signature'</span><span class="p">:</span> <span class="n">signature</span><span class="p">}</span>
+#import key
+def get_header(method, uri, api_key, secret_key, customer_id):
+    timestamp = str(round(time.time() * 1000))
+    signature = signaturehelper.Signature.generate(timestamp, method, uri, SECRET_KEY)
+    return {'Content-Type': 'application/json; charset=UTF-8', 'X-Timestamp': timestamp, 'X-API-KEY': API_KEY, 'X-Customer': str(CUSTOMER_ID), 'X-Signature': signature}
 
-<span class="k">def</span> <span class="nf">iterate_request</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">rrule</span><span class="p">.</span><span class="n">rrule</span><span class="p">(</span><span class="n">rrule</span><span class="p">.</span><span class="n">DAILY</span><span class="p">,</span> <span class="n">dtstart</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">until</span><span class="o">=</span><span class="n">end_date</span><span class="p">):</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dt</span><span class="p">.</span><span class="n">date</span><span class="p">())</span>
-        <span class="k">try</span> <span class="p">:</span> 
-            <span class="n">data_to_csv</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
-        <span class="k">except</span> <span class="p">:</span> 
-            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'no data in </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+def iterate_request():
+    for dt in rrule.rrule(rrule.DAILY, dtstart=start_date, until=end_date):
+        date = str(dt.date())
+        try : 
+            data_to_csv(date)
+        except : 
+            print(f'no data in {date}')
 
-<span class="c1">#requested data to csv
-</span><span class="k">def</span> <span class="nf">data_to_csv</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">campaignList</span> <span class="p">:</span>
-        <span class="n">uri</span> <span class="o">=</span> <span class="s">'/stats'</span>
-        <span class="n">method</span> <span class="o">=</span> <span class="s">'GET'</span>
-        <span class="n">rangeOftime</span> <span class="o">=</span> <span class="p">{</span><span class="s">"since"</span> <span class="p">:</span> <span class="n">date</span><span class="p">,</span> <span class="s">"until"</span> <span class="p">:</span> <span class="n">date</span><span class="p">}</span>
-        <span class="n">json_range_of_time</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">rangeOftime</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">stat_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span>
-        <span class="n">params</span><span class="o">=</span><span class="p">{</span>
-            <span class="s">'ids'</span><span class="p">:</span> <span class="n">stat_ids</span><span class="p">,</span>
-            <span class="s">'fields'</span><span class="p">:</span> <span class="s">'["clkCnt","impCnt","salesAmt"]'</span><span class="p">,</span> 
-            <span class="s">'timeRange'</span><span class="p">:</span> <span class="n">json_range_of_time</span> <span class="p">}</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="n">uri</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">get_header</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">,</span> <span class="n">SECRET_KEY</span><span class="p">,</span> <span class="n">CUSTOMER_ID</span><span class="p">))</span>
-        <span class="c1"># print("response status_code = {}".format(r.status_code))
-</span>        <span class="c1"># print("response body = {}".format(r.json()))
-</span>        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+#requested data to csv
+def data_to_csv(date):
+    for v in campaignList :
+        uri = '/stats'
+        method = 'GET'
+        rangeOftime = {"since" : date, "until" : date}
+        json_range_of_time = json.dumps(rangeOftime, indent=2)
+        stat_ids = [v]
+        params={
+            'ids': stat_ids,
+            'fields': '["clkCnt","impCnt","salesAmt"]', 
+            'timeRange': json_range_of_time }
+        r = requests.get(BASE_URL + uri, params, headers=get_header(method, uri, API_KEY, SECRET_KEY, CUSTOMER_ID))
+        # print("response status_code = {}".format(r.status_code))
+        # print("response body = {}".format(r.json()))
+        json_data = json.loads(r.text)
 
-        <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">json_data</span><span class="p">[</span><span class="s">'data'</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'no data in </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s"> on </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
-            <span class="k">continue</span>
+        if(len(json_data['data']) == 0) :
+            print(f'no data in {v} on {date}')
+            continue
         
-        <span class="n">data</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="s">'data'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        data = json_data['data'][0]
 
-        <span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">'campaign : '</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">striped_date</span> <span class="o">=</span> <span class="n">date</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'-'</span><span class="p">,</span><span class="s">''</span><span class="p">)</span>
-        <span class="n">medium</span> <span class="o">=</span> <span class="s">'cpc'</span>
-        <span class="n">source</span> <span class="o">=</span> <span class="s">'search.naver.com'</span>
-        <span class="n">clkCnt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'clkCnt'</span><span class="p">]</span>
-        <span class="n">impCnt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'impCnt'</span><span class="p">]</span>
-        <span class="n">salesAmt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'salesAmt'</span><span class="p">]</span>
-        <span class="n">campaign</span> <span class="o">=</span> <span class="mi">0</span>
+        print(v)
+        print('campaign : ',data)
+        striped_date = date.replace('-','')
+        medium = 'cpc'
+        source = 'search.naver.com'
+        clkCnt = data['clkCnt']
+        impCnt = data['impCnt']
+        salesAmt = data['salesAmt']
+        campaign = 0
 
-        <span class="k">if</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003407889'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_cnc_contents'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003407888'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_cnc'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003707625'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_cnc_Mobile'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003645640'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_3dp'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003707633'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_3dp_Mobile'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003711121'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_INJ'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003711127'</span><span class="p">)</span> <span class="p">:</span> 
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_INJ_Mobile'</span>
-        <span class="k">elif</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">'cmp-a001-01-000000003605317'</span><span class="p">)</span> <span class="p">:</span>
-            <span class="n">campaign</span> <span class="o">=</span> <span class="s">'NSA_Brand'</span>
+        if(v == 'cmp-a001-01-000000003407889') :
+            campaign = 'NSA_cnc_contents'
+        elif(v == 'cmp-a001-01-000000003407888') :
+            campaign = 'NSA_cnc'
+        elif(v == 'cmp-a001-01-000000003707625') :
+            campaign = 'NSA_cnc_Mobile'
+        elif(v == 'cmp-a001-01-000000003645640') :
+            campaign = 'NSA_3dp'
+        elif(v == 'cmp-a001-01-000000003707633') :
+            campaign = 'NSA_3dp_Mobile'
+        elif(v == 'cmp-a001-01-000000003711121') :
+            campaign = 'NSA_INJ'
+        elif(v == 'cmp-a001-01-000000003711127') : 
+            campaign = 'NSA_INJ_Mobile'
+        elif(v == 'cmp-a001-01-000000003605317') :
+            campaign = 'NSA_Brand'
 
-        <span class="n">newRow</span> <span class="o">=</span> <span class="p">[</span><span class="n">striped_date</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">clkCnt</span><span class="p">,</span> <span class="n">salesAmt</span><span class="p">,</span> <span class="n">impCnt</span><span class="p">,</span> <span class="n">campaign</span><span class="p">]</span>
-        <span class="n">ad_data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'ga:date'</span><span class="p">:[</span><span class="n">striped_date</span><span class="p">],</span> <span class="s">'ga:medium'</span><span class="p">:[</span><span class="n">medium</span><span class="p">],</span> <span class="s">'ga:source'</span><span class="p">:[</span><span class="n">source</span><span class="p">],</span> <span class="s">'ga:adClicks'</span><span class="p">:[</span><span class="n">clkCnt</span><span class="p">],</span> <span class="s">'ga:adCost'</span><span class="p">:[</span><span class="n">salesAmt</span><span class="p">],</span> <span class="s">'ga:impressions'</span><span class="p">:[</span><span class="n">impCnt</span><span class="p">],</span> <span class="s">'ga:campaign'</span><span class="p">:[</span><span class="n">campaign</span><span class="p">]</span> <span class="p">}</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ad_data</span><span class="p">)</span>
+        newRow = [striped_date, medium, source, clkCnt, salesAmt, impCnt, campaign]
+        ad_data = {'ga:date':[striped_date], 'ga:medium':[medium], 'ga:source':[source], 'ga:adClicks':[clkCnt], 'ga:adCost':[salesAmt], 'ga:impressions':[impCnt], 'ga:campaign':[campaign] }
+        df = pd.DataFrame(data=ad_data)
         
-        <span class="n">df</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">striped_date</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">campaign</span><span class="si">}</span><span class="s">.csv'</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        df.to_csv(Path(input_file, f'{striped_date} {source} {campaign}.csv'), index=False)
 
-<span class="k">def</span> <span class="nf">merge_csv</span><span class="p">():</span> 
-    <span class="n">allFile_list</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="s">'*.csv'</span><span class="p">))</span>
-    <span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
+def merge_csv(): 
+    allFile_list = glob.glob(os.path.join(input_file, '*.csv'))
+    all_data = []
 
-    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">allFile_list</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
-        <span class="n">all_data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    for file in allFile_list:
+        df = pd.read_csv(file)
+        all_data.append(df)
 
-    <span class="n">data_combine</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">data_combine</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">start_date</span><span class="p">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s">_</span><span class="si">{</span><span class="n">end_date</span><span class="p">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s">_combined.csv'</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span> <span class="p">)</span>
+    data_combine = pd.concat(all_data, axis=0, ignore_index=True)
+    data_combine.to_csv(Path(output_file, f'{start_date.date()}_{end_date.date()}_combined.csv'), index=False )
 
-<span class="k">def</span> <span class="nf">removeAllFile</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">input_file</span><span class="p">):</span>
-        <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">input_file</span><span class="p">):</span>
-            <span class="n">os</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">file</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">'input 폴더 삭제 완료'</span>
-    <span class="k">else</span> <span class="p">:</span>
-        <span class="k">return</span> <span class="s">'input 폴더 에러'</span>
+def removeAllFile():
+    if os.path.exists(input_file):
+        for file in os.scandir(input_file):
+            os.remove(file.path)
+        return 'input 폴더 삭제 완료'
+    else :
+        return 'input 폴더 에러'
 
-<span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
-    <span class="n">iterate_request</span><span class="p">()</span>
-    <span class="n">merge_csv</span><span class="p">()</span>
-    <span class="n">removeAllFile</span><span class="p">()</span>
+def init():
+    iterate_request()
+    merge_csv()
+    removeAllFile()
 
-<span class="n">init</span><span class="p">()</span>
-</code></pre></div></div>
-<p><code class="highlighter-rouge">.python</code> 백틱</p>
+init()
+</code></pre>
+<p><code>.python</code> 백틱</p>
 
   </div>
 </article>
