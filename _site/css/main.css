@@ -117,6 +117,7 @@ pre {
  tr:hover { background-color: #cce3f8fe; cursor: pointer; }
  td { padding: 5px 12px; }
  th { padding: 5px 10px; text-align: center !important;}
+
 /**
  * Wrapper
  */
