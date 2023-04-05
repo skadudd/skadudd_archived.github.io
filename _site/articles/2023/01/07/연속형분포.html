@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="통계,분포">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>기초통계 - 연속형확률분포 | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="기초통계 - 연속형확률분포" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="연속형 확률분포 분포간 관계도 함수 A. 확률 밀도 함수(pdf) 확률밀도함수 : 연속형 확률 변수 x에 대해 함수 f(x) 가 아래의 조건을 만족하면 확률밀도함수라고 함. 모든 X에 대해서 $f(x) \geq 0$ $P(x \in (-\infty, \infty)) = \int_{-\infty}^{\infty}f(x)dx = 1$ $P(a \leq X \leq b) = \int_{a}^{b}f(x)dx$ 확률 밀도 함수의 성질 (선은 면적이 없기 때문에 0. ) $P(X = a) = P(a \leq X \leq a) = \int_{a}^{a}dx = 0$ $P(a \leq X \leq b) = P(a \leq X &lt; b) = P(a &lt; X \leq b) = P(a &lt; X &lt; b)$ 확률 밀도함수의 평균과 분산 $E(X) = \int_{-\infty}^{\infty}xf(x)dx$ $Var(x) = E(X - \mu)^2$ $= \int_{-\infty}^{\infty}(x - \mu)^2f(x)dx$ B. 누적분포함수(cdf) 누적분포함수 : 확류밀도함수를 적분하면 누적분포함수가 된다. $F(x) = P[X \leq x] = \int_{-\infty}^{x}f(x)dx$ $\dfrac{d}{dx}F(x) = f(x)$ 누적분포함수를 미분하면 pdf가 됨 누적분포함수의 성질 $0 \leq F(x) \leq 1$ 만약 $b \geq a, F(b) \geq F(a)$ $F(b) - F(a) = P[a \leq X \leq b]$ 분포 A. 균일 분포 정의 uniform distribution : 확률 변수 X가 a와 b사이에서 아래와 같은 확률 밀도 함수 (pdf)를 가짐 pdf : $f(x) = \begin{cases}\dfrac{1}{b-a}, a \leq x \leq b \ 0, otherwise \end{cases}$ cdf : $f(x) = \begin{cases} 0, x \leq a \ \dfrac{1}{b-a}, a \leq x \leq b \ 1, x\geq b \end{cases}$ 평균과 분산 평균 (기댓값)$E[X] = \dfrac{b+a}{2} ⇒ E[X] = \int_{a}^{b}xf(x)dx = \int_{a}^{b}x\dfrac{1}{b-a}dx = \left[\dfrac{1}{b-a}\dfrac{1}{2} x^2\right]_{a}^{b} = \dfrac{b^2 - a^2}{2(b-a)}= \dfrac{b+a}{2}$ $\therefore \dfrac{b+a}{2}$ $E[X^2] = \int_{a}^{b}x^2\dfrac{1}{b-a} = \left[\dfrac{1}{b-a}\dfrac{1}{3}x^3\right]_{a}^{b} = \dfrac{b^3-a^3}{3(b-a)} = \dfrac{(b-a)(b^2+ab+a^2)}{3(b-a)}=\dfrac{(b^2+ab+a^2)}{3}$ $\therefore\dfrac{(b^2+ab+a^2)}{3}$ 분산 $var[X] = E[X^2] - (E[X])^2 = \dfrac{b^2+ab+a^2}{3} - (\dfrac{b+a}{2})^2 = \dfrac{(b^2+ab+a^2)}{3}-\dfrac{(b^2+2ab+a^2)}{4} = \dfrac{4b^2+4ab+4a^2-3b^2-6ab-3a^2}{12} = \dfrac{b^2-2ab+a^2}{12}$ $\therefore \dfrac{(b-a)^2}{12}$ B. 정규분포 정의 가우스 분포라고도 불림. $X \sim N(\mu,\sigma^2)$ 2개의 표준편차 $(\mu \pm 2\sigma)$ 안에는 95/44%의 확률변수값들이 있어야 함. 좌유 3개의 표준편차 $(\mu \pm 3\sigma)$ 안에는 99.74%에 이르는 대부분의 값들이 반드시 있어야 함. 확률 밀도 함수 확률 밀도 함수 평균 분산 $var[X] = \sigma^2$ 평균과 분산 유도 reference 정규분포의 공식 유도 - 공돌이의 수학정리노트 C. 표준 정규분포 정의 확률변수 X를 표준화한 확률변수 Z의 분포 정규분포를 따르는 확률변수 $X \sim N(\mu,\sigma^2)$ . 확률변수 $X$를 $Z(=\dfrac{X-\mu}{\sigma})$ 로 치환하면 확률변수 Z의 분포는 표준정규분포가 됨. 평균이 0, 분산은 1의 값을 가짐. 확률밀도함수 $f(z) = \dfrac{1}{\sqrt{2\pi}}e^{-\dfrac{1}{2}(z)^2}, (-\infty &lt; z &lt; +\infty)$ 정규 분포의 성질 $X \sim N(\mu, \sigma^2)$ 일때, 임의의 상수 a,b에 대해 $aX+b \sim N(a\mu + b, a^2\sigma^2)$ $X \sim N(\mu, \sigma^2)$ 일때, $z = \dfrac{X-\mu}{\sigma}, z\sim N(0,1)$ $X \sim N(\mu, \sigma_{1}^{2)},Y \sim N(\mu, \sigma_{2}^{2)}$ 이고 X,Y가 독립일때 $aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2} + 2\sigma_{1,2})$ X,Y가 독립일시, 공분산은 0 $\therefore aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2})$ 신뢰구간 z값 $0.95 : 1.96$ $0.99 : 2.58$ $0.999 : 3.29$ 이항분포의 정규 근사 $X\sim B(n,p)$ 일때, 확률 변수 X는 n이 충분히 크면 근사적으로 정규 분포 $X \sim N(np,np(1-p))$를 따른다. $Z = \dfrac{X-np}{\sqrt{(np(1-p))}} \sim N(0,1)$ 예시 평균키 $175cm$ 분산이 $25cm^2$ 인 정규분포에서 170cm ~ 180cm 의 구간확률은? 평균 = 0, 표준편차 = 1 $-1 \leq Z \leq 1$ 0.6826 아침식사로 먹는 빵의 열량 $X\sim N(200,12^2)$ 우유의 열량 $Y\sim N(85,9^2)$ 이며 서로 독립이다. 아침에 300cal 이상 섭취할 확률은? $aX + bY \sim N(a \mu_{1} + b \mu_{2}, a^{2}\sigma_{1}^{2}+ b^2\sigma_{2}^2)$ ⇒ $(285,15^2)$ $Z = \dfrac{X - \mu}{\sigma} = \dfrac{300-285}{15} = 1$ ⇒ 표준정규분포표 0.8413 $P(Z \leq 1) = 0.1587$ D. 지수분포 포아송 분포 지수분포 일정한 시간이나 구간에서 발생하는 특정한 사건의 수를 변수값으로 하는 확률변수의 분포 한 사건이 발생한 후 다음 사건이 발생할 때 까지의 시간이나 면적을 변수값으로 하는 확률변수의 분포 새로 구입한 자동차에서 발견되는 흠집 수 새로 구입한 자동차에서 1개의 흠집이 발견되고 또 다른 흠집이 발견되기까지의 면적 1달동안 아파트 엘레베이터의 고장 건수 엘레베이터가 고장난 후 다시 고장날때까지 걸리는 시간 정의 단위 시간, 면적, 거리에서 발생하는 사건의 횟수가 포아송 분포에 따른다면, 사건과 사건 사이의 시간을 변수값으로 하는 확률변수는 연속확률변수가 됨. 이 확률변수는 지수분포한다, 특징 확률변수 X의 값이 증가함에 따라 오른쪽꼬리가 감소하는 경사진 모양의 분포를 한다. 람다 값에 따라 모양이 달라진다 람다 값이 클수록 수직축의 절편값이 커진다. 지수분포를 하는 확률변수의 평균과 표준편차는 같다. 확률밀도함수 pdf $f(x) = \lambda e^{-\lambda x}, (0 &lt; x &lt; \infty, 0&lt;\lambda)$ cdf $F(x) = 1 - e^{\lambda x}, x\geq 0$ 용어 x : 한 사건이 발생한 후 다음 사건까지의 시간(길이,면적)을 변수값으로 하는 확률 변수 e : 자연 로그의 밑수 $\lambda$ : 일정한 단위 내 평균적으로 발생하는 사건의 수, 포아송분포하는 확률변수의 평균 평균과 분산 평균 : $\mu = E(X) = \dfrac{1}{\lambda}$ 분산 : $\dfrac{1}{\lambda^2}$ 확률 계산 확률변수값이 a시간보다 작을 확률 $P(X\leq a)$ $P(X\leq a) = P(0 \leq X \leq a)$ $= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$ $=\left[-e^{\lambda x}\right]_{0}^{a} = (-e^{-\lambda a})-(-e^{-\lambda \cdot 0})$ $\therefore 1-e^{-\lambda a}$ 확률변수값이 a시간보다 클 확률 $P(X\geq a)$ $P(X\geq a)$ $= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$ $=\left[-e^{\lambda x}\right]_{a}^{\infty} = (-e^{-\lambda \infty})-(-e^{-\lambda \cdot a})$ $\therefore e^{-\lambda a}$ 확률변수값이 a에서 b 사이일 확률 $P(a \leq X \leq b)$ $P(a \leq X \leq b)$ $=\int_{a}^{b}f(x)dx = \int_{a}^{b}\lambda e^{-\lambda x}dx$ $\therefore(-e^{-\lambda b})-(-e^{- \lambda a})$ 예시 A은행에서 시간당 2명의 손님이 계좌를 개설한다. 30분 이내로 새로운 계좌가 개설될 확률은? $1-e^{-\frac{1}{30}\times 30} \approx 0.63$ 버스 정류장에 시간당 평균 6대가 정차한다. 10분에서 20분 대기할 확률은? $P(10\leq X\leq 20)$ $(1-e^{-\frac{1}{10}\times 20})-\left(1-e^{-\frac{1}{10}\times 10}\right) \approx 0.233$ 계산 참고 지수가 소수일 때 계산하는 방법 - wikiHow 지수분포 문제풀이 한계 지수분포의 무기억성 어떤 시점으로 부터 소요되는 시간은 과거 시간에 영향을 받지 않음. 예로, 한달동안 사용한 전구와 새 전구의 남은 수명은 같다고 생각함. 때문에 생존분석에서는 Weibull 분포, log-normal 분포를 사용해 예측한다 E. 카이제곱분포 카이제곱분포 정의 $x_{i}(i=1,2\cdots,n)$를 정규분포하는 모집단 $N(\mu,\sigma^2)$에서 추출한 서로 독립적인 표본 관측치일 경우 이들은 각각 독립적이며 정규분포하는 확률변수가 됨. 이를 표준화한 값 $(Z_{i})$들 역시 서로 독립이며 표준정규분포하는 확률변수값들이 됨. n개의 확률변수 $(Z_{i})$를 제곱하여 더한 변수는 카이제곱분포하는 확률변수가 됨. $Z = Z_{1}^{2}+ Z = Z_{2}^{2}+ \cdots + Z = Z_{n}^2$ n의 갯수에 따라 카이제곱분포의 자유도가 결정됨. 특징 확률변수는 연속확률변수로, 항상 양의 값만 가짐 오른쪽 꼬리를 가진 비대칭 분포 자유도$(df)$에 따라 모양이 변함 자유도$(df)$가 커질수록 정규분포에 가까워짐 용도 단일 모집단의 분산에 대한 추정과 검정을 할 경우 사용됨. 표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$을 추정할때 표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$에 대한 가설을 검정할때 변수간 독립인지 모집단의 분산 $\sigma^2$과 표본분산 $S^2$의 비를 나타내는 확률 변수는 자유도가 (n-1)인 카이제곱분포한다. $\dfrac{(n-1)S^{2}}{\sigma^{2}}\sim x^2_{n-1}$ 레퍼런스 카이제곱 분포와 검정 - 공돌이의 수학정리노트 F. F분포 F분포 정의 서로 독립인 두 정규모집단의 분산 또는 표준편차들의 비율에 대한 통계적 추론. 혹은 분산분석에 활용된다. 나눗셈을 통해 분산이 1(같은지)인지 아닌지 확인 $Y_{1} \sim x^2(v_1),Y_{2} \sim x^2(v_2)$ 이면 $F\sim \dfrac{y1/v1}{y2/v2},F&gt;0$ 2개의 카이제곱분포하는 확률변수 값을 각각의 자유도로 나눈, 평균 카이제곱값의 비를 변수값으로 하는 확률변수의 분포. 확률변수 각 카이제곱분포의 평균의 비이므로 $F = \dfrac{\dfrac{x^2{(n{1}-1)}}{(n_{1}-1)}}{\dfrac{x^2{(n{2}-1)}}{(n_{2}-1)}}$ 정리하면 (모집단의 분산이 서로 차이가 없음을 전제로 하므로 1이됨) $ \dfrac{\dfrac{S^21}{\sigma^2_1}}{\dfrac{S^2_2}{\sigma^2_2}} = \dfrac{\dfrac{S^2_1}{S^2_2}}{\dfrac{\sigma^2_1}{\sigma^2{2}}}=\dfrac{S^2_1}{S^2_2} $ //에러 체크 특징 2개의 자유도에 따라 F분포의 모양이 결정됨. 오른쪽꼬리를 갖는 비대칭 모양이나, 자유도가 증가함에 따라 정규분포 모양을 띈다. 항상 양의 값을 가진다. 카이제곱 분포와 다르게 두집단의 분산을 다룬다. F분포의 역수를 취할 수 있다. $F_{1-a}(k,m) = \dfrac{1}{F_a(m,k)}$ 즉 $F_{0.95,10,20} = \dfrac{1}{F_{0.05,20,10}}$ 예제 모집단 1에서 20개, 모집단 2에서 10개 추출했다. $Y_{1}\sim N(\mu_{1}= 4, \sigma_1^{2}=4^2),Y_2\sim N(\mu_{2}= 12, \sigma_2^{2}=8^2)$ 이 F분포에서 표본분산비율이 c값보다 적을 확률이 0.05. 여기서 c를 찾아라. $P \left[\dfrac{S_{1}^{2}}{S_{2}^{2}}\leq c \right] = 0.05$ 풀이 $F=\dfrac{S_{1}^2/\sigma_{1}^2}{S_{2}^2/\sigma_{2}^2}\sim F(19,9)$ $\dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{a_2^2}{a_1^2}c = \dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{8^2}{4^2}c=P[F \leq 4c] = 0.05$ $P[F&gt;f_{0.95}]=0.05$ $4c=f_{0.95}(19,9)=\dfrac{1}{f_{0.05}(9,19)}=\dfrac{1}{2.42}$ c=0.103 G. t분포 t분포 정의 정규분포와 거의 유사하나 꼬리가 더 두꺼운 분포를 띈다. 자유도가 30개 이상이면 표준정규분포(Z분포)와 거의 일치한다. 특징 표준정규분포(Z분포)와 같이 평균이 0 자유도에 따라 분포 모양이 변함 자유도가 증가함에 따라 분산은 1에 접근함 표본의 크기가 커질수록 자유도는 증가. 30개 이상일시 Z분포와 거의 동일한 분포 $\overline{x}$의 표준화한 Z값과 거의 같다. $Z=\dfrac{\overline{x}-\mu}{\dfrac{\sigma}{\sqrt{n}}}$ 모집단의 표준편차 대신, 표본의 표준편차를 사용한것. 확률변수 $t_{(n-1)} = \dfrac{\overline{x}-\mu}{\dfrac{S}{\sqrt{n}}}$ 예시 $x_{1} \cdots x_{25}$ 은 $\sim iid N(100,10^2)$일때 $P[T&lt;c] \leq 0.05$ 를 구하라. $T\sim t(v=24) ⇒ P[T \leq -t_{a,24}] ⇒ P[T \geq t_{a,24}]$ $a = 1.711$ $\therefore -1.711$" />
+<meta property="og:description" content="연속형 확률분포 분포간 관계도 함수 A. 확률 밀도 함수(pdf) 확률밀도함수 : 연속형 확률 변수 x에 대해 함수 f(x) 가 아래의 조건을 만족하면 확률밀도함수라고 함. 모든 X에 대해서 $f(x) \geq 0$ $P(x \in (-\infty, \infty)) = \int_{-\infty}^{\infty}f(x)dx = 1$ $P(a \leq X \leq b) = \int_{a}^{b}f(x)dx$ 확률 밀도 함수의 성질 (선은 면적이 없기 때문에 0. ) $P(X = a) = P(a \leq X \leq a) = \int_{a}^{a}dx = 0$ $P(a \leq X \leq b) = P(a \leq X &lt; b) = P(a &lt; X \leq b) = P(a &lt; X &lt; b)$ 확률 밀도함수의 평균과 분산 $E(X) = \int_{-\infty}^{\infty}xf(x)dx$ $Var(x) = E(X - \mu)^2$ $= \int_{-\infty}^{\infty}(x - \mu)^2f(x)dx$ B. 누적분포함수(cdf) 누적분포함수 : 확류밀도함수를 적분하면 누적분포함수가 된다. $F(x) = P[X \leq x] = \int_{-\infty}^{x}f(x)dx$ $\dfrac{d}{dx}F(x) = f(x)$ 누적분포함수를 미분하면 pdf가 됨 누적분포함수의 성질 $0 \leq F(x) \leq 1$ 만약 $b \geq a, F(b) \geq F(a)$ $F(b) - F(a) = P[a \leq X \leq b]$ 분포 A. 균일 분포 정의 uniform distribution : 확률 변수 X가 a와 b사이에서 아래와 같은 확률 밀도 함수 (pdf)를 가짐 pdf : $f(x) = \begin{cases}\dfrac{1}{b-a}, a \leq x \leq b \ 0, otherwise \end{cases}$ cdf : $f(x) = \begin{cases} 0, x \leq a \ \dfrac{1}{b-a}, a \leq x \leq b \ 1, x\geq b \end{cases}$ 평균과 분산 평균 (기댓값)$E[X] = \dfrac{b+a}{2} ⇒ E[X] = \int_{a}^{b}xf(x)dx = \int_{a}^{b}x\dfrac{1}{b-a}dx = \left[\dfrac{1}{b-a}\dfrac{1}{2} x^2\right]_{a}^{b} = \dfrac{b^2 - a^2}{2(b-a)}= \dfrac{b+a}{2}$ $\therefore \dfrac{b+a}{2}$ $E[X^2] = \int_{a}^{b}x^2\dfrac{1}{b-a} = \left[\dfrac{1}{b-a}\dfrac{1}{3}x^3\right]_{a}^{b} = \dfrac{b^3-a^3}{3(b-a)} = \dfrac{(b-a)(b^2+ab+a^2)}{3(b-a)}=\dfrac{(b^2+ab+a^2)}{3}$ $\therefore\dfrac{(b^2+ab+a^2)}{3}$ 분산 $var[X] = E[X^2] - (E[X])^2 = \dfrac{b^2+ab+a^2}{3} - (\dfrac{b+a}{2})^2 = \dfrac{(b^2+ab+a^2)}{3}-\dfrac{(b^2+2ab+a^2)}{4} = \dfrac{4b^2+4ab+4a^2-3b^2-6ab-3a^2}{12} = \dfrac{b^2-2ab+a^2}{12}$ $\therefore \dfrac{(b-a)^2}{12}$ B. 정규분포 정의 가우스 분포라고도 불림. $X \sim N(\mu,\sigma^2)$ 2개의 표준편차 $(\mu \pm 2\sigma)$ 안에는 95/44%의 확률변수값들이 있어야 함. 좌유 3개의 표준편차 $(\mu \pm 3\sigma)$ 안에는 99.74%에 이르는 대부분의 값들이 반드시 있어야 함. 확률 밀도 함수 확률 밀도 함수 평균 분산 $var[X] = \sigma^2$ 평균과 분산 유도 reference 정규분포의 공식 유도 - 공돌이의 수학정리노트 C. 표준 정규분포 정의 확률변수 X를 표준화한 확률변수 Z의 분포 정규분포를 따르는 확률변수 $X \sim N(\mu,\sigma^2)$ . 확률변수 $X$를 $Z(=\dfrac{X-\mu}{\sigma})$ 로 치환하면 확률변수 Z의 분포는 표준정규분포가 됨. 평균이 0, 분산은 1의 값을 가짐. 확률밀도함수 $f(z) = \dfrac{1}{\sqrt{2\pi}}e^{-\dfrac{1}{2}(z)^2}, (-\infty &lt; z &lt; +\infty)$ 정규 분포의 성질 $X \sim N(\mu, \sigma^2)$ 일때, 임의의 상수 a,b에 대해 $aX+b \sim N(a\mu + b, a^2\sigma^2)$ $X \sim N(\mu, \sigma^2)$ 일때, $z = \dfrac{X-\mu}{\sigma}, z\sim N(0,1)$ $X \sim N(\mu, \sigma_{1}^{2)},Y \sim N(\mu, \sigma_{2}^{2)}$ 이고 X,Y가 독립일때 $aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2} + 2\sigma_{1,2})$ X,Y가 독립일시, 공분산은 0 $\therefore aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2})$ 신뢰구간 z값 $0.95 : 1.96$ $0.99 : 2.58$ $0.999 : 3.29$ 이항분포의 정규 근사 $X\sim B(n,p)$ 일때, 확률 변수 X는 n이 충분히 크면 근사적으로 정규 분포 $X \sim N(np,np(1-p))$를 따른다. $Z = \dfrac{X-np}{\sqrt{(np(1-p))}} \sim N(0,1)$ 예시 평균키 $175cm$ 분산이 $25cm^2$ 인 정규분포에서 170cm ~ 180cm 의 구간확률은? 평균 = 0, 표준편차 = 1 $-1 \leq Z \leq 1$ 0.6826 아침식사로 먹는 빵의 열량 $X\sim N(200,12^2)$ 우유의 열량 $Y\sim N(85,9^2)$ 이며 서로 독립이다. 아침에 300cal 이상 섭취할 확률은? $aX + bY \sim N(a \mu_{1} + b \mu_{2}, a^{2}\sigma_{1}^{2}+ b^2\sigma_{2}^2)$ ⇒ $(285,15^2)$ $Z = \dfrac{X - \mu}{\sigma} = \dfrac{300-285}{15} = 1$ ⇒ 표준정규분포표 0.8413 $P(Z \leq 1) = 0.1587$ D. 지수분포 포아송 분포 지수분포 일정한 시간이나 구간에서 발생하는 특정한 사건의 수를 변수값으로 하는 확률변수의 분포 한 사건이 발생한 후 다음 사건이 발생할 때 까지의 시간이나 면적을 변수값으로 하는 확률변수의 분포 새로 구입한 자동차에서 발견되는 흠집 수 새로 구입한 자동차에서 1개의 흠집이 발견되고 또 다른 흠집이 발견되기까지의 면적 1달동안 아파트 엘레베이터의 고장 건수 엘레베이터가 고장난 후 다시 고장날때까지 걸리는 시간 정의 단위 시간, 면적, 거리에서 발생하는 사건의 횟수가 포아송 분포에 따른다면, 사건과 사건 사이의 시간을 변수값으로 하는 확률변수는 연속확률변수가 됨. 이 확률변수는 지수분포한다, 특징 확률변수 X의 값이 증가함에 따라 오른쪽꼬리가 감소하는 경사진 모양의 분포를 한다. 람다 값에 따라 모양이 달라진다 람다 값이 클수록 수직축의 절편값이 커진다. 지수분포를 하는 확률변수의 평균과 표준편차는 같다. 확률밀도함수 pdf $f(x) = \lambda e^{-\lambda x}, (0 &lt; x &lt; \infty, 0&lt;\lambda)$ cdf $F(x) = 1 - e^{\lambda x}, x\geq 0$ 용어 x : 한 사건이 발생한 후 다음 사건까지의 시간(길이,면적)을 변수값으로 하는 확률 변수 e : 자연 로그의 밑수 $\lambda$ : 일정한 단위 내 평균적으로 발생하는 사건의 수, 포아송분포하는 확률변수의 평균 평균과 분산 평균 : $\mu = E(X) = \dfrac{1}{\lambda}$ 분산 : $\dfrac{1}{\lambda^2}$ 확률 계산 확률변수값이 a시간보다 작을 확률 $P(X\leq a)$ $P(X\leq a) = P(0 \leq X \leq a)$ $= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$ $=\left[-e^{\lambda x}\right]_{0}^{a} = (-e^{-\lambda a})-(-e^{-\lambda \cdot 0})$ $\therefore 1-e^{-\lambda a}$ 확률변수값이 a시간보다 클 확률 $P(X\geq a)$ $P(X\geq a)$ $= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$ $=\left[-e^{\lambda x}\right]_{a}^{\infty} = (-e^{-\lambda \infty})-(-e^{-\lambda \cdot a})$ $\therefore e^{-\lambda a}$ 확률변수값이 a에서 b 사이일 확률 $P(a \leq X \leq b)$ $P(a \leq X \leq b)$ $=\int_{a}^{b}f(x)dx = \int_{a}^{b}\lambda e^{-\lambda x}dx$ $\therefore(-e^{-\lambda b})-(-e^{- \lambda a})$ 예시 A은행에서 시간당 2명의 손님이 계좌를 개설한다. 30분 이내로 새로운 계좌가 개설될 확률은? $1-e^{-\frac{1}{30}\times 30} \approx 0.63$ 버스 정류장에 시간당 평균 6대가 정차한다. 10분에서 20분 대기할 확률은? $P(10\leq X\leq 20)$ $(1-e^{-\frac{1}{10}\times 20})-\left(1-e^{-\frac{1}{10}\times 10}\right) \approx 0.233$ 계산 참고 지수가 소수일 때 계산하는 방법 - wikiHow 지수분포 문제풀이 한계 지수분포의 무기억성 어떤 시점으로 부터 소요되는 시간은 과거 시간에 영향을 받지 않음. 예로, 한달동안 사용한 전구와 새 전구의 남은 수명은 같다고 생각함. 때문에 생존분석에서는 Weibull 분포, log-normal 분포를 사용해 예측한다 E. 카이제곱분포 카이제곱분포 정의 $x_{i}(i=1,2\cdots,n)$를 정규분포하는 모집단 $N(\mu,\sigma^2)$에서 추출한 서로 독립적인 표본 관측치일 경우 이들은 각각 독립적이며 정규분포하는 확률변수가 됨. 이를 표준화한 값 $(Z_{i})$들 역시 서로 독립이며 표준정규분포하는 확률변수값들이 됨. n개의 확률변수 $(Z_{i})$를 제곱하여 더한 변수는 카이제곱분포하는 확률변수가 됨. $Z = Z_{1}^{2}+ Z = Z_{2}^{2}+ \cdots + Z = Z_{n}^2$ n의 갯수에 따라 카이제곱분포의 자유도가 결정됨. 특징 확률변수는 연속확률변수로, 항상 양의 값만 가짐 오른쪽 꼬리를 가진 비대칭 분포 자유도$(df)$에 따라 모양이 변함 자유도$(df)$가 커질수록 정규분포에 가까워짐 용도 단일 모집단의 분산에 대한 추정과 검정을 할 경우 사용됨. 표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$을 추정할때 표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$에 대한 가설을 검정할때 변수간 독립인지 모집단의 분산 $\sigma^2$과 표본분산 $S^2$의 비를 나타내는 확률 변수는 자유도가 (n-1)인 카이제곱분포한다. $\dfrac{(n-1)S^{2}}{\sigma^{2}}\sim x^2_{n-1}$ 레퍼런스 카이제곱 분포와 검정 - 공돌이의 수학정리노트 F. F분포 F분포 정의 서로 독립인 두 정규모집단의 분산 또는 표준편차들의 비율에 대한 통계적 추론. 혹은 분산분석에 활용된다. 나눗셈을 통해 분산이 1(같은지)인지 아닌지 확인 $Y_{1} \sim x^2(v_1),Y_{2} \sim x^2(v_2)$ 이면 $F\sim \dfrac{y1/v1}{y2/v2},F&gt;0$ 2개의 카이제곱분포하는 확률변수 값을 각각의 자유도로 나눈, 평균 카이제곱값의 비를 변수값으로 하는 확률변수의 분포. 확률변수 각 카이제곱분포의 평균의 비이므로 $F = \dfrac{\dfrac{x^2{(n{1}-1)}}{(n_{1}-1)}}{\dfrac{x^2{(n{2}-1)}}{(n_{2}-1)}}$ 정리하면 (모집단의 분산이 서로 차이가 없음을 전제로 하므로 1이됨) $ \dfrac{\dfrac{S^21}{\sigma^2_1}}{\dfrac{S^2_2}{\sigma^2_2}} = \dfrac{\dfrac{S^2_1}{S^2_2}}{\dfrac{\sigma^2_1}{\sigma^2{2}}}=\dfrac{S^2_1}{S^2_2} $ //에러 체크 특징 2개의 자유도에 따라 F분포의 모양이 결정됨. 오른쪽꼬리를 갖는 비대칭 모양이나, 자유도가 증가함에 따라 정규분포 모양을 띈다. 항상 양의 값을 가진다. 카이제곱 분포와 다르게 두집단의 분산을 다룬다. F분포의 역수를 취할 수 있다. $F_{1-a}(k,m) = \dfrac{1}{F_a(m,k)}$ 즉 $F_{0.95,10,20} = \dfrac{1}{F_{0.05,20,10}}$ 예제 모집단 1에서 20개, 모집단 2에서 10개 추출했다. $Y_{1}\sim N(\mu_{1}= 4, \sigma_1^{2}=4^2),Y_2\sim N(\mu_{2}= 12, \sigma_2^{2}=8^2)$ 이 F분포에서 표본분산비율이 c값보다 적을 확률이 0.05. 여기서 c를 찾아라. $P \left[\dfrac{S_{1}^{2}}{S_{2}^{2}}\leq c \right] = 0.05$ 풀이 $F=\dfrac{S_{1}^2/\sigma_{1}^2}{S_{2}^2/\sigma_{2}^2}\sim F(19,9)$ $\dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{a_2^2}{a_1^2}c = \dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{8^2}{4^2}c=P[F \leq 4c] = 0.05$ $P[F&gt;f_{0.95}]=0.05$ $4c=f_{0.95}(19,9)=\dfrac{1}{f_{0.05}(9,19)}=\dfrac{1}{2.42}$ c=0.103 G. t분포 t분포 정의 정규분포와 거의 유사하나 꼬리가 더 두꺼운 분포를 띈다. 자유도가 30개 이상이면 표준정규분포(Z분포)와 거의 일치한다. 특징 표준정규분포(Z분포)와 같이 평균이 0 자유도에 따라 분포 모양이 변함 자유도가 증가함에 따라 분산은 1에 접근함 표본의 크기가 커질수록 자유도는 증가. 30개 이상일시 Z분포와 거의 동일한 분포 $\overline{x}$의 표준화한 Z값과 거의 같다. $Z=\dfrac{\overline{x}-\mu}{\dfrac{\sigma}{\sqrt{n}}}$ 모집단의 표준편차 대신, 표본의 표준편차를 사용한것. 확률변수 $t_{(n-1)} = \dfrac{\overline{x}-\mu}{\dfrac{S}{\sqrt{n}}}$ 예시 $x_{1} \cdots x_{25}$ 은 $\sim iid N(100,10^2)$일때 $P[T&lt;c] \leq 0.05$ 를 구하라. $T\sim t(v=24) ⇒ P[T \leq -t_{a,24}] ⇒ P[T \geq t_{a,24}]$ $a = 1.711$ $\therefore -1.711$" />
+<link rel="canonical" href="http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC" />
+<meta property="og:url" content="http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-07T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="기초통계 - 연속형확률분포" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2023-01-07T15:00:00+09:00","datePublished":"2023-01-07T15:00:00+09:00","description":"연속형 확률분포 분포간 관계도 함수 A. 확률 밀도 함수(pdf) 확률밀도함수 : 연속형 확률 변수 x에 대해 함수 f(x) 가 아래의 조건을 만족하면 확률밀도함수라고 함. 모든 X에 대해서 $f(x) \\geq 0$ $P(x \\in (-\\infty, \\infty)) = \\int_{-\\infty}^{\\infty}f(x)dx = 1$ $P(a \\leq X \\leq b) = \\int_{a}^{b}f(x)dx$ 확률 밀도 함수의 성질 (선은 면적이 없기 때문에 0. ) $P(X = a) = P(a \\leq X \\leq a) = \\int_{a}^{a}dx = 0$ $P(a \\leq X \\leq b) = P(a \\leq X &lt; b) = P(a &lt; X \\leq b) = P(a &lt; X &lt; b)$ 확률 밀도함수의 평균과 분산 $E(X) = \\int_{-\\infty}^{\\infty}xf(x)dx$ $Var(x) = E(X - \\mu)^2$ $= \\int_{-\\infty}^{\\infty}(x - \\mu)^2f(x)dx$ B. 누적분포함수(cdf) 누적분포함수 : 확류밀도함수를 적분하면 누적분포함수가 된다. $F(x) = P[X \\leq x] = \\int_{-\\infty}^{x}f(x)dx$ $\\dfrac{d}{dx}F(x) = f(x)$ 누적분포함수를 미분하면 pdf가 됨 누적분포함수의 성질 $0 \\leq F(x) \\leq 1$ 만약 $b \\geq a, F(b) \\geq F(a)$ $F(b) - F(a) = P[a \\leq X \\leq b]$ 분포 A. 균일 분포 정의 uniform distribution : 확률 변수 X가 a와 b사이에서 아래와 같은 확률 밀도 함수 (pdf)를 가짐 pdf : $f(x) = \\begin{cases}\\dfrac{1}{b-a}, a \\leq x \\leq b \\ 0, otherwise \\end{cases}$ cdf : $f(x) = \\begin{cases} 0, x \\leq a \\ \\dfrac{1}{b-a}, a \\leq x \\leq b \\ 1, x\\geq b \\end{cases}$ 평균과 분산 평균 (기댓값)$E[X] = \\dfrac{b+a}{2} ⇒ E[X] = \\int_{a}^{b}xf(x)dx = \\int_{a}^{b}x\\dfrac{1}{b-a}dx = \\left[\\dfrac{1}{b-a}\\dfrac{1}{2} x^2\\right]_{a}^{b} = \\dfrac{b^2 - a^2}{2(b-a)}= \\dfrac{b+a}{2}$ $\\therefore \\dfrac{b+a}{2}$ $E[X^2] = \\int_{a}^{b}x^2\\dfrac{1}{b-a} = \\left[\\dfrac{1}{b-a}\\dfrac{1}{3}x^3\\right]_{a}^{b} = \\dfrac{b^3-a^3}{3(b-a)} = \\dfrac{(b-a)(b^2+ab+a^2)}{3(b-a)}=\\dfrac{(b^2+ab+a^2)}{3}$ $\\therefore\\dfrac{(b^2+ab+a^2)}{3}$ 분산 $var[X] = E[X^2] - (E[X])^2 = \\dfrac{b^2+ab+a^2}{3} - (\\dfrac{b+a}{2})^2 = \\dfrac{(b^2+ab+a^2)}{3}-\\dfrac{(b^2+2ab+a^2)}{4} = \\dfrac{4b^2+4ab+4a^2-3b^2-6ab-3a^2}{12} = \\dfrac{b^2-2ab+a^2}{12}$ $\\therefore \\dfrac{(b-a)^2}{12}$ B. 정규분포 정의 가우스 분포라고도 불림. $X \\sim N(\\mu,\\sigma^2)$ 2개의 표준편차 $(\\mu \\pm 2\\sigma)$ 안에는 95/44%의 확률변수값들이 있어야 함. 좌유 3개의 표준편차 $(\\mu \\pm 3\\sigma)$ 안에는 99.74%에 이르는 대부분의 값들이 반드시 있어야 함. 확률 밀도 함수 확률 밀도 함수 평균 분산 $var[X] = \\sigma^2$ 평균과 분산 유도 reference 정규분포의 공식 유도 - 공돌이의 수학정리노트 C. 표준 정규분포 정의 확률변수 X를 표준화한 확률변수 Z의 분포 정규분포를 따르는 확률변수 $X \\sim N(\\mu,\\sigma^2)$ . 확률변수 $X$를 $Z(=\\dfrac{X-\\mu}{\\sigma})$ 로 치환하면 확률변수 Z의 분포는 표준정규분포가 됨. 평균이 0, 분산은 1의 값을 가짐. 확률밀도함수 $f(z) = \\dfrac{1}{\\sqrt{2\\pi}}e^{-\\dfrac{1}{2}(z)^2}, (-\\infty &lt; z &lt; +\\infty)$ 정규 분포의 성질 $X \\sim N(\\mu, \\sigma^2)$ 일때, 임의의 상수 a,b에 대해 $aX+b \\sim N(a\\mu + b, a^2\\sigma^2)$ $X \\sim N(\\mu, \\sigma^2)$ 일때, $z = \\dfrac{X-\\mu}{\\sigma}, z\\sim N(0,1)$ $X \\sim N(\\mu, \\sigma_{1}^{2)},Y \\sim N(\\mu, \\sigma_{2}^{2)}$ 이고 X,Y가 독립일때 $aX + bY \\sim N(a\\mu_{1} + b\\mu_{2}, a^{2}\\sigma_{1}^{2} + b^{2} \\sigma_{2}^{2} + 2\\sigma_{1,2})$ X,Y가 독립일시, 공분산은 0 $\\therefore aX + bY \\sim N(a\\mu_{1} + b\\mu_{2}, a^{2}\\sigma_{1}^{2} + b^{2} \\sigma_{2}^{2})$ 신뢰구간 z값 $0.95 : 1.96$ $0.99 : 2.58$ $0.999 : 3.29$ 이항분포의 정규 근사 $X\\sim B(n,p)$ 일때, 확률 변수 X는 n이 충분히 크면 근사적으로 정규 분포 $X \\sim N(np,np(1-p))$를 따른다. $Z = \\dfrac{X-np}{\\sqrt{(np(1-p))}} \\sim N(0,1)$ 예시 평균키 $175cm$ 분산이 $25cm^2$ 인 정규분포에서 170cm ~ 180cm 의 구간확률은? 평균 = 0, 표준편차 = 1 $-1 \\leq Z \\leq 1$ 0.6826 아침식사로 먹는 빵의 열량 $X\\sim N(200,12^2)$ 우유의 열량 $Y\\sim N(85,9^2)$ 이며 서로 독립이다. 아침에 300cal 이상 섭취할 확률은? $aX + bY \\sim N(a \\mu_{1} + b \\mu_{2}, a^{2}\\sigma_{1}^{2}+ b^2\\sigma_{2}^2)$ ⇒ $(285,15^2)$ $Z = \\dfrac{X - \\mu}{\\sigma} = \\dfrac{300-285}{15} = 1$ ⇒ 표준정규분포표 0.8413 $P(Z \\leq 1) = 0.1587$ D. 지수분포 포아송 분포 지수분포 일정한 시간이나 구간에서 발생하는 특정한 사건의 수를 변수값으로 하는 확률변수의 분포 한 사건이 발생한 후 다음 사건이 발생할 때 까지의 시간이나 면적을 변수값으로 하는 확률변수의 분포 새로 구입한 자동차에서 발견되는 흠집 수 새로 구입한 자동차에서 1개의 흠집이 발견되고 또 다른 흠집이 발견되기까지의 면적 1달동안 아파트 엘레베이터의 고장 건수 엘레베이터가 고장난 후 다시 고장날때까지 걸리는 시간 정의 단위 시간, 면적, 거리에서 발생하는 사건의 횟수가 포아송 분포에 따른다면, 사건과 사건 사이의 시간을 변수값으로 하는 확률변수는 연속확률변수가 됨. 이 확률변수는 지수분포한다, 특징 확률변수 X의 값이 증가함에 따라 오른쪽꼬리가 감소하는 경사진 모양의 분포를 한다. 람다 값에 따라 모양이 달라진다 람다 값이 클수록 수직축의 절편값이 커진다. 지수분포를 하는 확률변수의 평균과 표준편차는 같다. 확률밀도함수 pdf $f(x) = \\lambda e^{-\\lambda x}, (0 &lt; x &lt; \\infty, 0&lt;\\lambda)$ cdf $F(x) = 1 - e^{\\lambda x}, x\\geq 0$ 용어 x : 한 사건이 발생한 후 다음 사건까지의 시간(길이,면적)을 변수값으로 하는 확률 변수 e : 자연 로그의 밑수 $\\lambda$ : 일정한 단위 내 평균적으로 발생하는 사건의 수, 포아송분포하는 확률변수의 평균 평균과 분산 평균 : $\\mu = E(X) = \\dfrac{1}{\\lambda}$ 분산 : $\\dfrac{1}{\\lambda^2}$ 확률 계산 확률변수값이 a시간보다 작을 확률 $P(X\\leq a)$ $P(X\\leq a) = P(0 \\leq X \\leq a)$ $= \\int_{0}^{a}f(x)dx = \\int_{0}^{a}\\lambda e^{-\\lambda x}dx$ $=\\left[-e^{\\lambda x}\\right]_{0}^{a} = (-e^{-\\lambda a})-(-e^{-\\lambda \\cdot 0})$ $\\therefore 1-e^{-\\lambda a}$ 확률변수값이 a시간보다 클 확률 $P(X\\geq a)$ $P(X\\geq a)$ $= \\int_{0}^{a}f(x)dx = \\int_{0}^{a}\\lambda e^{-\\lambda x}dx$ $=\\left[-e^{\\lambda x}\\right]_{a}^{\\infty} = (-e^{-\\lambda \\infty})-(-e^{-\\lambda \\cdot a})$ $\\therefore e^{-\\lambda a}$ 확률변수값이 a에서 b 사이일 확률 $P(a \\leq X \\leq b)$ $P(a \\leq X \\leq b)$ $=\\int_{a}^{b}f(x)dx = \\int_{a}^{b}\\lambda e^{-\\lambda x}dx$ $\\therefore(-e^{-\\lambda b})-(-e^{- \\lambda a})$ 예시 A은행에서 시간당 2명의 손님이 계좌를 개설한다. 30분 이내로 새로운 계좌가 개설될 확률은? $1-e^{-\\frac{1}{30}\\times 30} \\approx 0.63$ 버스 정류장에 시간당 평균 6대가 정차한다. 10분에서 20분 대기할 확률은? $P(10\\leq X\\leq 20)$ $(1-e^{-\\frac{1}{10}\\times 20})-\\left(1-e^{-\\frac{1}{10}\\times 10}\\right) \\approx 0.233$ 계산 참고 지수가 소수일 때 계산하는 방법 - wikiHow 지수분포 문제풀이 한계 지수분포의 무기억성 어떤 시점으로 부터 소요되는 시간은 과거 시간에 영향을 받지 않음. 예로, 한달동안 사용한 전구와 새 전구의 남은 수명은 같다고 생각함. 때문에 생존분석에서는 Weibull 분포, log-normal 분포를 사용해 예측한다 E. 카이제곱분포 카이제곱분포 정의 $x_{i}(i=1,2\\cdots,n)$를 정규분포하는 모집단 $N(\\mu,\\sigma^2)$에서 추출한 서로 독립적인 표본 관측치일 경우 이들은 각각 독립적이며 정규분포하는 확률변수가 됨. 이를 표준화한 값 $(Z_{i})$들 역시 서로 독립이며 표준정규분포하는 확률변수값들이 됨. n개의 확률변수 $(Z_{i})$를 제곱하여 더한 변수는 카이제곱분포하는 확률변수가 됨. $Z = Z_{1}^{2}+ Z = Z_{2}^{2}+ \\cdots + Z = Z_{n}^2$ n의 갯수에 따라 카이제곱분포의 자유도가 결정됨. 특징 확률변수는 연속확률변수로, 항상 양의 값만 가짐 오른쪽 꼬리를 가진 비대칭 분포 자유도$(df)$에 따라 모양이 변함 자유도$(df)$가 커질수록 정규분포에 가까워짐 용도 단일 모집단의 분산에 대한 추정과 검정을 할 경우 사용됨. 표본 분산 $S^2$을 이용해 모집단 분산$\\sigma^2$을 추정할때 표본 분산 $S^2$을 이용해 모집단 분산$\\sigma^2$에 대한 가설을 검정할때 변수간 독립인지 모집단의 분산 $\\sigma^2$과 표본분산 $S^2$의 비를 나타내는 확률 변수는 자유도가 (n-1)인 카이제곱분포한다. $\\dfrac{(n-1)S^{2}}{\\sigma^{2}}\\sim x^2_{n-1}$ 레퍼런스 카이제곱 분포와 검정 - 공돌이의 수학정리노트 F. F분포 F분포 정의 서로 독립인 두 정규모집단의 분산 또는 표준편차들의 비율에 대한 통계적 추론. 혹은 분산분석에 활용된다. 나눗셈을 통해 분산이 1(같은지)인지 아닌지 확인 $Y_{1} \\sim x^2(v_1),Y_{2} \\sim x^2(v_2)$ 이면 $F\\sim \\dfrac{y1/v1}{y2/v2},F&gt;0$ 2개의 카이제곱분포하는 확률변수 값을 각각의 자유도로 나눈, 평균 카이제곱값의 비를 변수값으로 하는 확률변수의 분포. 확률변수 각 카이제곱분포의 평균의 비이므로 $F = \\dfrac{\\dfrac{x^2{(n{1}-1)}}{(n_{1}-1)}}{\\dfrac{x^2{(n{2}-1)}}{(n_{2}-1)}}$ 정리하면 (모집단의 분산이 서로 차이가 없음을 전제로 하므로 1이됨) $ \\dfrac{\\dfrac{S^21}{\\sigma^2_1}}{\\dfrac{S^2_2}{\\sigma^2_2}} = \\dfrac{\\dfrac{S^2_1}{S^2_2}}{\\dfrac{\\sigma^2_1}{\\sigma^2{2}}}=\\dfrac{S^2_1}{S^2_2} $ //에러 체크 특징 2개의 자유도에 따라 F분포의 모양이 결정됨. 오른쪽꼬리를 갖는 비대칭 모양이나, 자유도가 증가함에 따라 정규분포 모양을 띈다. 항상 양의 값을 가진다. 카이제곱 분포와 다르게 두집단의 분산을 다룬다. F분포의 역수를 취할 수 있다. $F_{1-a}(k,m) = \\dfrac{1}{F_a(m,k)}$ 즉 $F_{0.95,10,20} = \\dfrac{1}{F_{0.05,20,10}}$ 예제 모집단 1에서 20개, 모집단 2에서 10개 추출했다. $Y_{1}\\sim N(\\mu_{1}= 4, \\sigma_1^{2}=4^2),Y_2\\sim N(\\mu_{2}= 12, \\sigma_2^{2}=8^2)$ 이 F분포에서 표본분산비율이 c값보다 적을 확률이 0.05. 여기서 c를 찾아라. $P \\left[\\dfrac{S_{1}^{2}}{S_{2}^{2}}\\leq c \\right] = 0.05$ 풀이 $F=\\dfrac{S_{1}^2/\\sigma_{1}^2}{S_{2}^2/\\sigma_{2}^2}\\sim F(19,9)$ $\\dfrac{S_{1}^2\\sigma_{2}^2}{S_{2}^2/\\sigma_{1}^2}\\leq \\dfrac{a_2^2}{a_1^2}c = \\dfrac{S_{1}^2\\sigma_{2}^2}{S_{2}^2/\\sigma_{1}^2}\\leq \\dfrac{8^2}{4^2}c=P[F \\leq 4c] = 0.05$ $P[F&gt;f_{0.95}]=0.05$ $4c=f_{0.95}(19,9)=\\dfrac{1}{f_{0.05}(9,19)}=\\dfrac{1}{2.42}$ c=0.103 G. t분포 t분포 정의 정규분포와 거의 유사하나 꼬리가 더 두꺼운 분포를 띈다. 자유도가 30개 이상이면 표준정규분포(Z분포)와 거의 일치한다. 특징 표준정규분포(Z분포)와 같이 평균이 0 자유도에 따라 분포 모양이 변함 자유도가 증가함에 따라 분산은 1에 접근함 표본의 크기가 커질수록 자유도는 증가. 30개 이상일시 Z분포와 거의 동일한 분포 $\\overline{x}$의 표준화한 Z값과 거의 같다. $Z=\\dfrac{\\overline{x}-\\mu}{\\dfrac{\\sigma}{\\sqrt{n}}}$ 모집단의 표준편차 대신, 표본의 표준편차를 사용한것. 확률변수 $t_{(n-1)} = \\dfrac{\\overline{x}-\\mu}{\\dfrac{S}{\\sqrt{n}}}$ 예시 $x_{1} \\cdots x_{25}$ 은 $\\sim iid N(100,10^2)$일때 $P[T&lt;c] \\leq 0.05$ 를 구하라. $T\\sim t(v=24) ⇒ P[T \\leq -t_{a,24}] ⇒ P[T \\geq t_{a,24}]$ $a = 1.711$ $\\therefore -1.711$","headline":"기초통계 - 연속형확률분포","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC"},"url":"http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        Doyle, DA
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                               
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">기초통계 - 연속형확률분포</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2023-01-07T15:00:00+09:00" itemprop="datePublished">Jan 7, 2023</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="연속형-확률분포">연속형 확률분포</h2>
+
+<h3 id="분포간-관계도">분포간 관계도</h3>
+<p><img src="https://i.imgur.com/S851Wmd.png" alt="" /></p>
+
+<h3 id="함수">함수</h3>
+<h4 id="a-확률-밀도-함수pdf">A. 확률 밀도 함수(pdf)</h4>
+<ul>
+  <li>확률밀도함수 : 연속형 확률 변수 x에 대해 함수 f(x) 가 아래의 조건을 만족하면 확률밀도함수라고 함.
+    <ol>
+      <li>모든 X에 대해서 $f(x) \geq 0$</li>
+      <li>$P(x \in (-\infty, \infty)) = \int_{-\infty}^{\infty}f(x)dx = 1$</li>
+      <li>$P(a \leq X \leq b) = \int_{a}^{b}f(x)dx$</li>
+    </ol>
+  </li>
+  <li>확률 밀도 함수의 성질 (선은 면적이 없기 때문에 0. )
+    <ol>
+      <li>$P(X = a) = P(a \leq X \leq a) = \int_{a}^{a}dx = 0$</li>
+      <li>$P(a \leq X \leq b) = P(a \leq X &lt; b) = P(a &lt; X \leq b) = P(a &lt; X &lt; b)$</li>
+    </ol>
+  </li>
+  <li>확률 밀도함수의 평균과 분산
+    <ol>
+      <li>$E(X) = \int_{-\infty}^{\infty}xf(x)dx$</li>
+      <li>$Var(x) = E(X - \mu)^2$
+        <ol>
+          <li>$= \int_{-\infty}^{\infty}(x - \mu)^2f(x)dx$</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="b-누적분포함수cdf">B. 누적분포함수(cdf)</h4>
+<ul>
+  <li>누적분포함수 : 확류밀도함수를 적분하면 누적분포함수가 된다.
+    <ol>
+      <li>$F(x) = P[X \leq x] = \int_{-\infty}^{x}f(x)dx$</li>
+      <li>$\dfrac{d}{dx}F(x) = f(x)$ 누적분포함수를 미분하면 pdf가 됨</li>
+    </ol>
+  </li>
+  <li>누적분포함수의 성질
+    <ol>
+      <li>$0 \leq F(x) \leq 1$</li>
+      <li>만약 $b \geq a, F(b) \geq F(a)$</li>
+      <li>$F(b) - F(a) = P[a \leq X \leq b]$ 
+<img src="https://i.imgur.com/0MkToik.png" alt="" /></li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="분포">분포</h3>
+<h4 id="a-균일-분포">A. 균일 분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>uniform distribution : 확률 변수 X가 a와 b사이에서 아래와 같은 확률 밀도 함수 (pdf)를 가짐<img src="https://i.imgur.com/RNRolpx.png" alt="250" /></li>
+      <li>pdf : $f(x) = \begin{cases}\dfrac{1}{b-a}, a \leq x \leq b \ 0, otherwise  \end{cases}$</li>
+      <li>cdf : $f(x) = \begin{cases} 0,  x \leq a \ \dfrac{1}{b-a}, a \leq x \leq b \ 1, x\geq b \end{cases}$</li>
+    </ul>
+  </li>
+  <li>평균과 분산
+    <ul>
+      <li>평균 (기댓값)$E[X] = \dfrac{b+a}{2} ⇒ E[X] = \int_{a}^{b}xf(x)dx = \int_{a}^{b}x\dfrac{1}{b-a}dx = \left[\dfrac{1}{b-a}\dfrac{1}{2} x^2\right]_{a}^{b} = \dfrac{b^2 - a^2}{2(b-a)}= \dfrac{b+a}{2}$
+        <ul>
+          <li>$\therefore \dfrac{b+a}{2}$</li>
+        </ul>
+      </li>
+      <li>$E[X^2] = \int_{a}^{b}x^2\dfrac{1}{b-a} = \left[\dfrac{1}{b-a}\dfrac{1}{3}x^3\right]_{a}^{b} = \dfrac{b^3-a^3}{3(b-a)} = \dfrac{(b-a)(b^2+ab+a^2)}{3(b-a)}=\dfrac{(b^2+ab+a^2)}{3}$
+        <ul>
+          <li>$\therefore\dfrac{(b^2+ab+a^2)}{3}$</li>
+        </ul>
+      </li>
+      <li>분산 $var[X] = E[X^2] - (E[X])^2 = \dfrac{b^2+ab+a^2}{3} - (\dfrac{b+a}{2})^2 = \dfrac{(b^2+ab+a^2)}{3}-\dfrac{(b^2+2ab+a^2)}{4} = \dfrac{4b^2+4ab+4a^2-3b^2-6ab-3a^2}{12} = \dfrac{b^2-2ab+a^2}{12}$
+        <ul>
+          <li>$\therefore \dfrac{(b-a)^2}{12}$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="b-정규분포">B. 정규분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>가우스 분포라고도 불림.</li>
+      <li>$X \sim N(\mu,\sigma^2)$<img src="https://i.imgur.com/zC7XmD0.png" alt="" /></li>
+      <li>2개의 표준편차 $(\mu \pm 2\sigma)$ 안에는 95/44%의 확률변수값들이 있어야 함.</li>
+      <li>좌유 3개의 표준편차 $(\mu \pm 3\sigma)$ 안에는 99.74%에 이르는 대부분의 값들이 반드시 있어야 함.</li>
+    </ul>
+  </li>
+  <li>확률 밀도 함수
+    <ul>
+      <li>확률 밀도 함수<script type="math/tex">% <![CDATA[
+f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}\right]^2}, -\infty < x < \infty, -\infty < \mu < \infty, \sigma^2 > 0 %]]></script></li>
+      <li>평균 <script type="math/tex">E[x] = \mu</script></li>
+      <li>분산
+        <ul>
+          <li>$var[X] = \sigma^2$</li>
+        </ul>
+      </li>
+      <li>평균과 분산 유도 reference
+        <ul>
+          <li><a href="https://angeloyeo.github.io/2020/09/14/normal_distribution_derivation.html">정규분포의 공식 유도 - 공돌이의 수학정리노트</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="c-표준-정규분포">C. 표준 정규분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>확률변수 X를 표준화한 확률변수 Z의 분포</li>
+      <li>정규분포를 따르는 확률변수 $X \sim N(\mu,\sigma^2)$ . 확률변수 $X$를 $Z(=\dfrac{X-\mu}{\sigma})$ 로 치환하면 확률변수 Z의 분포는 표준정규분포가 됨.</li>
+      <li>평균이 0, 분산은 1의 값을 가짐.</li>
+    </ul>
+  </li>
+  <li>확률밀도함수
+    <ul>
+      <li>$f(z) = \dfrac{1}{\sqrt{2\pi}}e^{-\dfrac{1}{2}(z)^2}, (-\infty &lt; z &lt; +\infty)$</li>
+    </ul>
+  </li>
+  <li>정규 분포의 성질
+    <ul>
+      <li>$X \sim N(\mu, \sigma^2)$ 일때, 임의의 상수 a,b에 대해 $aX+b \sim N(a\mu + b, a^2\sigma^2)$</li>
+      <li>$X \sim N(\mu, \sigma^2)$ 일때, $z = \dfrac{X-\mu}{\sigma}, z\sim N(0,1)$</li>
+      <li>$X \sim N(\mu, \sigma_{1}^{2)},Y \sim N(\mu, \sigma_{2}^{2)}$ 이고 X,Y가 독립일때 $aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2} + 2\sigma_{1,2})$
+        <ul>
+          <li>X,Y가 독립일시, 공분산은 0</li>
+          <li>$\therefore aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2})$</li>
+        </ul>
+      </li>
+      <li>신뢰구간 z값
+        <ul>
+          <li>$0.95 : 1.96$</li>
+          <li>$0.99 : 2.58$</li>
+          <li>$0.999 : 3.29$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>이항분포의 정규 근사
+    <ul>
+      <li>$X\sim B(n,p)$ 일때, 확률 변수 X는 n이 충분히 크면 근사적으로 정규 분포 $X \sim N(np,np(1-p))$를 따른다.</li>
+      <li>$Z = \dfrac{X-np}{\sqrt{(np(1-p))}} \sim N(0,1)$</li>
+    </ul>
+  </li>
+  <li>예시
+    <ol>
+      <li>평균키 $175cm$ 분산이 $25cm^2$ 인 정규분포에서 170cm ~ 180cm 의 구간확률은?
+        <ol>
+          <li>평균 = 0, 표준편차 = 1</li>
+          <li>$-1 \leq Z \leq 1$</li>
+          <li>0.6826</li>
+        </ol>
+      </li>
+      <li>아침식사로 먹는 빵의 열량 $X\sim N(200,12^2)$ 우유의 열량 $Y\sim N(85,9^2)$ 이며 서로 독립이다. 아침에 300cal 이상 섭취할 확률은?
+        <ol>
+          <li>$aX + bY \sim N(a \mu_{1} + b \mu_{2}, a^{2}\sigma_{1}^{2}+ b^2\sigma_{2}^2)$  ⇒ $(285,15^2)$</li>
+          <li>$Z = \dfrac{X - \mu}{\sigma} = \dfrac{300-285}{15} = 1$ ⇒ 표준정규분포표 0.8413</li>
+          <li>$P(Z \leq 1) = 0.1587$</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="d-지수분포">D. 지수분포</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">포아송 분포</th>
+      <th style="text-align: center">지수분포</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">일정한 시간이나 구간에서 발생하는 특정한 사건의 수를 변수값으로 하는 확률변수의 분포</td>
+      <td style="text-align: center">한 사건이 발생한 후 다음 사건이 발생할 때 까지의 시간이나 면적을 변수값으로 하는 확률변수의 분포</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">새로 구입한 자동차에서 발견되는 흠집 수</td>
+      <td style="text-align: center">새로 구입한 자동차에서 1개의 흠집이 발견되고 또 다른 흠집이 발견되기까지의 면적</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1달동안 아파트 엘레베이터의 고장 건수</td>
+      <td style="text-align: center">엘레베이터가 고장난 후 다시 고장날때까지 걸리는 시간</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<ul>
+  <li>정의
+    <ul>
+      <li>단위 시간, 면적, 거리에서 발생하는 사건의 횟수가 포아송 분포에 따른다면, 사건과 사건 사이의 시간을 변수값으로 하는 확률변수는 연속확률변수가 됨. 이 확률변수는 지수분포한다,</li>
+    </ul>
+  </li>
+  <li>특징
+    <ol>
+      <li>확률변수 X의 값이 증가함에 따라 오른쪽꼬리가 감소하는 경사진 모양의 분포를 한다.</li>
+      <li>람다 값에 따라 모양이 달라진다</li>
+      <li>람다 값이 클수록 수직축의 절편값이 커진다.</li>
+      <li>지수분포를 하는 확률변수의 평균과 표준편차는 같다.</li>
+    </ol>
+  </li>
+  <li>확률밀도함수
+    <ul>
+      <li>pdf
+        <ul>
+          <li>$f(x) = \lambda e^{-\lambda x}, (0 &lt; x &lt; \infty, 0&lt;\lambda)$</li>
+        </ul>
+      </li>
+      <li>cdf
+        <ul>
+          <li>$F(x) = 1 - e^{\lambda x}, x\geq 0$</li>
+        </ul>
+      </li>
+      <li>용어
+        <ul>
+          <li>x : 한 사건이 발생한 후 다음 사건까지의 시간(길이,면적)을 변수값으로 하는 확률 변수</li>
+          <li>e : 자연 로그의 밑수</li>
+          <li>$\lambda$ : 일정한 단위 내 평균적으로 발생하는 사건의 수, 포아송분포하는 확률변수의 평균</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>평균과 분산
+    <ul>
+      <li>평균 : $\mu = E(X) = \dfrac{1}{\lambda}$</li>
+      <li>분산 : $\dfrac{1}{\lambda^2}$</li>
+    </ul>
+  </li>
+  <li>확률 계산
+    <ul>
+      <li>확률변수값이 a시간보다 작을 확률 $P(X\leq a)$
+        <ul>
+          <li>$P(X\leq a) = P(0 \leq X \leq a)$
+            <ul>
+              <li>$= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$</li>
+              <li>$=\left[-e^{\lambda x}\right]_{0}^{a} = (-e^{-\lambda a})-(-e^{-\lambda \cdot 0})$</li>
+              <li>$\therefore 1-e^{-\lambda a}$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>확률변수값이 a시간보다 클 확률 $P(X\geq a)$
+        <ul>
+          <li>$P(X\geq a)$
+            <ul>
+              <li>$= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$</li>
+              <li>$=\left[-e^{\lambda x}\right]_{a}^{\infty} = (-e^{-\lambda \infty})-(-e^{-\lambda \cdot a})$</li>
+              <li>$\therefore e^{-\lambda a}$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>확률변수값이 a에서 b 사이일 확률 $P(a \leq X \leq b)$
+        <ul>
+          <li>$P(a \leq X \leq b)$
+            <ul>
+              <li>$=\int_{a}^{b}f(x)dx = \int_{a}^{b}\lambda e^{-\lambda x}dx$</li>
+              <li>$\therefore(-e^{-\lambda b})-(-e^{- \lambda a})$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>예시
+    <ul>
+      <li>A은행에서 시간당 2명의 손님이 계좌를 개설한다. 30분 이내로 새로운 계좌가 개설될 확률은?
+        <ul>
+          <li>$1-e^{-\frac{1}{30}\times 30} \approx 0.63$</li>
+        </ul>
+      </li>
+      <li>버스 정류장에 시간당 평균 6대가 정차한다. 10분에서 20분 대기할 확률은?
+        <ul>
+          <li>$P(10\leq X\leq 20)$</li>
+          <li>$(1-e^{-\frac{1}{10}\times 20})-\left(1-e^{-\frac{1}{10}\times 10}\right) \approx 0.233$</li>
+        </ul>
+      </li>
+      <li>계산 참고
+        <ul>
+          <li><a href="https://ko.wikihow.com/%EC%A7%80%EC%88%98%EA%B0%80-%EC%86%8C%EC%88%98%EC%9D%BC-%EB%95%8C-%EA%B3%84%EC%82%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95">지수가 소수일 때 계산하는 방법 - wikiHow</a></li>
+          <li><a href="https://math100.tistory.com/36">지수분포 문제풀이</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>한계
+    <ul>
+      <li>지수분포의 무기억성
+        <ul>
+          <li>어떤 시점으로 부터 소요되는 시간은 과거 시간에 영향을 받지 않음.</li>
+          <li>예로, 한달동안 사용한 전구와 새 전구의 남은 수명은 같다고 생각함.</li>
+        </ul>
+      </li>
+      <li>때문에 생존분석에서는 Weibull 분포, log-normal 분포를 사용해 예측한다</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="e-카이제곱분포">E. 카이제곱분포</h4>
+<ul>
+  <li>카이제곱분포
+    <ul>
+      <li>정의
+        <ol>
+          <li>$x_{i}(i=1,2\cdots,n)$를 정규분포하는 모집단 $N(\mu,\sigma^2)$에서 추출한 서로 독립적인 표본 관측치일 경우</li>
+          <li>이들은 각각 독립적이며 정규분포하는 확률변수가 됨.</li>
+          <li>이를 표준화한 값 $(Z_{i})$들 역시 서로 독립이며 표준정규분포하는 확률변수값들이 됨.</li>
+          <li>n개의 확률변수 $(Z_{i})$를 제곱하여 더한 변수는 카이제곱분포하는 확률변수가 됨.
+            <ol>
+              <li>$Z = Z_{1}^{2}+ Z = Z_{2}^{2}+ \cdots + Z = Z_{n}^2$</li>
+            </ol>
+          </li>
+          <li>n의 갯수에 따라 카이제곱분포의 자유도가 결정됨.</li>
+        </ol>
+      </li>
+      <li>특징
+        <ul>
+          <li>확률변수는 연속확률변수로, 항상 양의 값만 가짐</li>
+          <li>오른쪽 꼬리를 가진 비대칭 분포</li>
+          <li>자유도$(df)$에 따라 모양이 변함</li>
+          <li>자유도$(df)$가 커질수록 정규분포에 가까워짐</li>
+        </ul>
+      </li>
+      <li>용도
+        <ul>
+          <li>단일 모집단의 분산에 대한 추정과 검정을 할 경우 사용됨.
+            <ul>
+              <li>표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$을 추정할때</li>
+              <li>표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$에 대한 가설을 검정할때</li>
+              <li>변수간 독립인지</li>
+            </ul>
+          </li>
+          <li>모집단의 분산 $\sigma^2$과 표본분산 $S^2$의 비를 나타내는 확률 변수는 자유도가 (n-1)인 카이제곱분포한다.
+            <ul>
+              <li>$\dfrac{(n-1)S^{2}}{\sigma^{2}}\sim x^2_{n-1}$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>레퍼런스
+        <ul>
+          <li><a href="https://angeloyeo.github.io/2021/12/13/chi_square.html">카이제곱 분포와 검정 - 공돌이의 수학정리노트</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="f-f분포">F. F분포</h4>
+<ul>
+  <li>F분포
+    <ul>
+      <li>정의
+        <ul>
+          <li>서로 독립인 두 정규모집단의 분산 또는 표준편차들의 비율에 대한 통계적 추론. 혹은 분산분석에 활용된다.</li>
+          <li>나눗셈을 통해 분산이 1(같은지)인지 아닌지 확인</li>
+          <li>$Y_{1} \sim x^2(v_1),Y_{2} \sim x^2(v_2)$ 이면 $F\sim \dfrac{y1/v1}{y2/v2},F&gt;0$
+            <ul>
+              <li>2개의 카이제곱분포하는 확률변수 값을 각각의 자유도로 나눈, 평균 카이제곱값의 비를 변수값으로 하는 확률변수의 분포.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>확률변수
+        <ul>
+          <li>각 카이제곱분포의 평균의 비이므로
+            <ul>
+              <li>$F = \dfrac{\dfrac{x^2<em>{(n</em>{1}-1)}}{(n_{1}-1)}}{\dfrac{x^2<em>{(n</em>{2}-1)}}{(n_{2}-1)}}$</li>
+            </ul>
+          </li>
+          <li>정리하면 (모집단의 분산이 서로 차이가 없음을 전제로 하므로 1이됨)
+            <ul>
+              <li>$ \dfrac{\dfrac{S^2<em>1}{\sigma^2_1}}{\dfrac{S^2_2}{\sigma^2_2}} = \dfrac{\dfrac{S^2_1}{S^2_2}}{\dfrac{\sigma^2_1}{\sigma^2</em>{2}}}=\dfrac{S^2_1}{S^2_2} $ //에러 체크</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>특징
+        <ul>
+          <li>2개의 자유도에 따라 F분포의 모양이 결정됨.</li>
+          <li>오른쪽꼬리를 갖는 비대칭 모양이나, 자유도가 증가함에 따라 정규분포 모양을 띈다.</li>
+          <li>항상 양의 값을 가진다.</li>
+          <li>카이제곱 분포와 다르게 두집단의 분산을 다룬다.</li>
+          <li>F분포의 역수를 취할 수 있다.
+            <ul>
+              <li>$F_{1-a}(k,m) = \dfrac{1}{F_a(m,k)}$</li>
+              <li>즉 $F_{0.95,10,20} = \dfrac{1}{F_{0.05,20,10}}$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>예제
+        <ul>
+          <li>모집단 1에서 20개, 모집단 2에서 10개 추출했다.
+            <ul>
+              <li>$Y_{1}\sim N(\mu_{1}= 4, \sigma_1^{2}=4^2),Y_2\sim N(\mu_{2}= 12, \sigma_2^{2}=8^2)$</li>
+            </ul>
+          </li>
+          <li>이 F분포에서 표본분산비율이 c값보다 적을 확률이 0.05. 여기서 c를 찾아라.
+            <ul>
+              <li>$P \left[\dfrac{S_{1}^{2}}{S_{2}^{2}}\leq c \right] = 0.05$</li>
+            </ul>
+          </li>
+          <li>풀이
+            <ul>
+              <li>$F=\dfrac{S_{1}^2/\sigma_{1}^2}{S_{2}^2/\sigma_{2}^2}\sim F(19,9)$</li>
+              <li>$\dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{a_2^2}{a_1^2}c = \dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{8^2}{4^2}c=P[F \leq 4c] = 0.05$</li>
+              <li>$P[F&gt;f_{0.95}]=0.05$</li>
+              <li>$4c=f_{0.95}(19,9)=\dfrac{1}{f_{0.05}(9,19)}=\dfrac{1}{2.42}$</li>
+              <li>c=0.103</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="g-t분포">G. t분포</h4>
+<ul>
+  <li>t분포
+    <ul>
+      <li>정의
+        <ul>
+          <li>정규분포와 거의 유사하나 꼬리가 더 두꺼운 분포를 띈다.</li>
+          <li>자유도가 30개 이상이면 표준정규분포(Z분포)와 거의 일치한다.</li>
+        </ul>
+      </li>
+      <li>특징
+        <ul>
+          <li>표준정규분포(Z분포)와 같이 평균이 0</li>
+          <li>자유도에 따라 분포 모양이 변함</li>
+          <li>자유도가 증가함에 따라 분산은 1에 접근함</li>
+          <li>표본의 크기가 커질수록 자유도는 증가. 30개 이상일시 Z분포와 거의 동일한 분포</li>
+          <li>$\overline{x}$의 표준화한 Z값과 거의 같다. $Z=\dfrac{\overline{x}-\mu}{\dfrac{\sigma}{\sqrt{n}}}$
+            <ul>
+              <li>모집단의 표준편차 대신, 표본의 표준편차를 사용한것.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>확률변수
+        <ul>
+          <li>$t_{(n-1)} = \dfrac{\overline{x}-\mu}{\dfrac{S}{\sqrt{n}}}$</li>
+        </ul>
+      </li>
+      <li>예시
+        <ul>
+          <li>$x_{1} \cdots x_{25}$ 은 $\sim iid N(100,10^2)$일때 $P[T&lt;c] \leq 0.05$ 를 구하라.
+            <ul>
+              <li>$T\sim t(v=24) ⇒ P[T \leq -t_{a,24}] ⇒ P[T \geq t_{a,24}]$</li>
+              <li>$a = 1.711$</li>
+              <li>$\therefore -1.711$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>

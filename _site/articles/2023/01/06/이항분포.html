@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="통계,분포">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>기초통계 - 이산확률분포 | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="기초통계 - 이산확률분포" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="이산확률분포 A. 이산확률분포 정리 표 B. 이산형 균등분포 주사위를 한번 굴려서 나오는 숫자를 확률변수 X라 하면 확률 변수 X는 아래와 같다. x 1 2 3 4 5 6 f(x) 1/6 1/6 1/6 1/6 1/6 1/6 정의 확률 변수 X가 유한개이고 모든 확률 변수에 대해 균일한 확률을 갖는 분포 $fx(x) = p(X = x) = \dfrac{1}{n}$ 기대값 $=\dfrac{n+1}{2}$ 분산 = $=\dfrac{(N^{2}-1)}{12}$ 도출 기대값 $E[X]$ $E[X] = \sum\limits xf(x) = \frac{1}{n} \sum\limits x$ $=\dfrac{1}{n} \times \dfrac{n(n+1)}{2}$ $=\dfrac{n+1}{2}$ 분산 $var[x] = E(X^2)-[E(X)]^2$ $E(X^{2}) - \mu^{2} = \dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$ $=\dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$ $=\dfrac{(N+1)(N-1)}{12}$ $=\dfrac{(N^{2}-1)}{12}$ C. 베르누이 시행 정의 상호 배반적인 2가지 결과만을 기대할 수 있는 시행을 말한다. (ie., 동전던지기, 시험 합불) 기대값 = $p$ 분산 = $p(1-p) = pq$ 특징 베르누이 시행결과를 나타내는 확률변수는 1,0만을 갖는다 성공확률과 실패확률의 합은 항상 1이다. 성공확률 $p$, 실패확률 $1-p$ 각각의 시행은 서로 독립적이기에 여러번 걸친 시행간에 서로 영향을 미치지 않는다. D. 이항 분포 정의 한번 이상 반복 실시한 베르누이 시행 결과의 합을 변숙밧으로 하는 확률 변수의 분포. 성공확률이 0.5에 가깝고 시행 횟수가 많을수록 정규분포에 가까워진다. 반대의 경우 한쪽 극단으로 치우친 분포가 된다. 특징 이항확률변수의 값은 여러 개의 베르누이 시행 결과의 합 이항확률변수를 구성하는 베르누이 시행은 상호 독립 각각의 베르누이시행에서 성공할 확률은 모두 동일 이항분포의 확률질량함수 기대값과 분산 (n : 베르누이 시행횟수, p : 표본으로부터 추정한 $\pi$ 값, $ q : 1-p $ ) 기대값 = $np$ 분산 = $np(1-p) = npq$ 정의 여러개의 베르누이 확률변수값의 합으로 나타는 이항확률변수의 분포를 나타내는 확률질량함수 $P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}$ $=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}$ $X$ : 성공횟수를 나타내는 이항확률변수 $x$ : 임의의 변수값을 나타내는 성공변수 $n$ : 시행횟수 $p$ : 베르누이 시행의 성공 확률 (ie., 반도체 공장에서 불량이 발생할 확률이 10%라 할때, 10개의 제품을 제작했을때 불량이 2개 이하일 확률 $P(X \leq 2) = P(X=0) + P(X=1) + P(X=2)$ $P(X \leq 2) = {10 \choose 0}0.1^{0}(0.9)^{10-0} + {10 \choose 1}0.1^{1}(0.9)^{10-1} + {10 \choose 2}0.1^{2}(0.9)^{10-2}$ E. 포아송 분포 정의 어느 희귀한 사건이 일정한 시간대에 발생할 확률 분포. 야구장에서 파울볼을 잡을 횟수, 버스 정류장에서 특정 버스가 5분 이내에 도착한 횟수 등 이항분포와 포아송분포는 모두 사건의 발생 횟수를 나타내는 이산확률변수의 분포. 단, 이항분포의 경우 베르누이시행 갯수가 이항확률변수의 최대값. 포아송분포의 경우 확률변수의 최대값이 제한이 없음. (단 셀 수 없을만큼 큰 수를 갖는 확률변수는 포아송분포하지 않는다.) 특징 사건들을 셀 수 있을 정도의 일정한 단위시간이나 단위길이 혹은 단위 면적 등에서 발생하는 서로 독립적인 사건 극히 작은 단위시간과 면적에 한번에 둘 이상의 사건이 동시에 발생할 확률은 적으므로 0으로 간주 일정한 단위시간이나 면적에서 발생하는 사건의 수는 크기에 비례한다. 확률질량함수 기대값(평균)과 분산 $\lambda$ 로 동일하다. $P(X=x) = \dfrac{e^{-\lambda} \lambda^x}{x!}$ X : 일정한 단위당 사건 발생횟수를 변수값으로 하는 확률변수를 의미 x : 특정한 확률변수값으로서 임의로 선정된 단위구간에서 발생한 사건의 수 e : 자연로그의 밑수 $\lambda$ : 확률변수 X의 기대값(E(X)). 일정한 단위당 평균 발생 횟수 이항분포의 포아송 근사 확률변수 X가 X ~ B(n,p) B = (binominal) 이고, n이 충분히 크고 p가 아주 작을때, X의 분포는 평균이 np = $\lambda$ 인 포아송 분포로 근사시킬 수 있다. 보통 n이 클때, np &lt; 5를 만족할 정도로 작다면 근사 정도가 좋다. 통계학에서 n이 크다는 것은 대게 30 이상을 의미 F. 기하 분포 정의 어떤 실험에서 처음 성공이 발생하기 까지 시도한 횟수 X의 분포. 각 시도는 독립적이며 베르누이 시행을 따른다. 확률질량함수 기대값과 분산 기대값 : $\dfrac{1}{p}$ 분산 : $\dfrac{1-p}{p^2}$ $P(X=x) = (1-p)^{x-1}p$ ⇒ $X~Geometric(p)$ ie., 축구선수가 필드골 성공 확률이 30%일때 5번째 슛팅에서 골을 넣을 확률 분포 $(1-0.3)^{5-1}0.3$ G. 음이항분포 (negative binomial distribution) 정의 어떤 실험에서 성공확률이 p일때 r번의 실패가 나올 때 까지 발생한 성공 횟수 X의 확률 분포 확률질량함수 기대값과 분산 기대값 : $r\dfrac{1-p}{p}$ 분산 : $r\dfrac{1-p}{p^2}$ $P(X=x) = {x + r-1 \choose x}p^x(1-p)^r$ ⇒ $X~NB(r,p)$ 예시 농구선수 자유투 성공률이 90%일때 3번째 실패가 나올때까지 성공시킨 자유투가 10번일 확률 H. 초기하분포 정의 시행이 독립적이지 않고 유한 모집단을 대상으로 비복원추출로 표본을 선정하는 경우. 표본을 추출하는 시행 결과가 독립적이라면 이항분포, 그렇지 않다면 초기하분포한다. 확률함수 $P(X=x) = \dfrac{kC_n \times _{{(N-k)}C_{(n-x)}}}{_NC_n}$ $=\dfrac{{모집단성공개수} C _{표본성공개수} \times _{(모집단 총 개수 - 모집단성공 개수)}C{(표본수 - 표본성공개수)}}{{모집단수}C{표본수}}$ 예시 흰-20, 빨-25, 녹-10, 노-30, 파-15개, 100개의 공이 있다. 비복원으로 10개를 뽑았을때, 흰-3,빨-2,파-1가 뽑힐 확률은? $\dfrac{ {20 \choose 3} {25 \choose 2} {15 \choose 1} {40 \choose 4} }{100 \choose 10}$" />
+<meta property="og:description" content="이산확률분포 A. 이산확률분포 정리 표 B. 이산형 균등분포 주사위를 한번 굴려서 나오는 숫자를 확률변수 X라 하면 확률 변수 X는 아래와 같다. x 1 2 3 4 5 6 f(x) 1/6 1/6 1/6 1/6 1/6 1/6 정의 확률 변수 X가 유한개이고 모든 확률 변수에 대해 균일한 확률을 갖는 분포 $fx(x) = p(X = x) = \dfrac{1}{n}$ 기대값 $=\dfrac{n+1}{2}$ 분산 = $=\dfrac{(N^{2}-1)}{12}$ 도출 기대값 $E[X]$ $E[X] = \sum\limits xf(x) = \frac{1}{n} \sum\limits x$ $=\dfrac{1}{n} \times \dfrac{n(n+1)}{2}$ $=\dfrac{n+1}{2}$ 분산 $var[x] = E(X^2)-[E(X)]^2$ $E(X^{2}) - \mu^{2} = \dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$ $=\dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$ $=\dfrac{(N+1)(N-1)}{12}$ $=\dfrac{(N^{2}-1)}{12}$ C. 베르누이 시행 정의 상호 배반적인 2가지 결과만을 기대할 수 있는 시행을 말한다. (ie., 동전던지기, 시험 합불) 기대값 = $p$ 분산 = $p(1-p) = pq$ 특징 베르누이 시행결과를 나타내는 확률변수는 1,0만을 갖는다 성공확률과 실패확률의 합은 항상 1이다. 성공확률 $p$, 실패확률 $1-p$ 각각의 시행은 서로 독립적이기에 여러번 걸친 시행간에 서로 영향을 미치지 않는다. D. 이항 분포 정의 한번 이상 반복 실시한 베르누이 시행 결과의 합을 변숙밧으로 하는 확률 변수의 분포. 성공확률이 0.5에 가깝고 시행 횟수가 많을수록 정규분포에 가까워진다. 반대의 경우 한쪽 극단으로 치우친 분포가 된다. 특징 이항확률변수의 값은 여러 개의 베르누이 시행 결과의 합 이항확률변수를 구성하는 베르누이 시행은 상호 독립 각각의 베르누이시행에서 성공할 확률은 모두 동일 이항분포의 확률질량함수 기대값과 분산 (n : 베르누이 시행횟수, p : 표본으로부터 추정한 $\pi$ 값, $ q : 1-p $ ) 기대값 = $np$ 분산 = $np(1-p) = npq$ 정의 여러개의 베르누이 확률변수값의 합으로 나타는 이항확률변수의 분포를 나타내는 확률질량함수 $P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}$ $=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}$ $X$ : 성공횟수를 나타내는 이항확률변수 $x$ : 임의의 변수값을 나타내는 성공변수 $n$ : 시행횟수 $p$ : 베르누이 시행의 성공 확률 (ie., 반도체 공장에서 불량이 발생할 확률이 10%라 할때, 10개의 제품을 제작했을때 불량이 2개 이하일 확률 $P(X \leq 2) = P(X=0) + P(X=1) + P(X=2)$ $P(X \leq 2) = {10 \choose 0}0.1^{0}(0.9)^{10-0} + {10 \choose 1}0.1^{1}(0.9)^{10-1} + {10 \choose 2}0.1^{2}(0.9)^{10-2}$ E. 포아송 분포 정의 어느 희귀한 사건이 일정한 시간대에 발생할 확률 분포. 야구장에서 파울볼을 잡을 횟수, 버스 정류장에서 특정 버스가 5분 이내에 도착한 횟수 등 이항분포와 포아송분포는 모두 사건의 발생 횟수를 나타내는 이산확률변수의 분포. 단, 이항분포의 경우 베르누이시행 갯수가 이항확률변수의 최대값. 포아송분포의 경우 확률변수의 최대값이 제한이 없음. (단 셀 수 없을만큼 큰 수를 갖는 확률변수는 포아송분포하지 않는다.) 특징 사건들을 셀 수 있을 정도의 일정한 단위시간이나 단위길이 혹은 단위 면적 등에서 발생하는 서로 독립적인 사건 극히 작은 단위시간과 면적에 한번에 둘 이상의 사건이 동시에 발생할 확률은 적으므로 0으로 간주 일정한 단위시간이나 면적에서 발생하는 사건의 수는 크기에 비례한다. 확률질량함수 기대값(평균)과 분산 $\lambda$ 로 동일하다. $P(X=x) = \dfrac{e^{-\lambda} \lambda^x}{x!}$ X : 일정한 단위당 사건 발생횟수를 변수값으로 하는 확률변수를 의미 x : 특정한 확률변수값으로서 임의로 선정된 단위구간에서 발생한 사건의 수 e : 자연로그의 밑수 $\lambda$ : 확률변수 X의 기대값(E(X)). 일정한 단위당 평균 발생 횟수 이항분포의 포아송 근사 확률변수 X가 X ~ B(n,p) B = (binominal) 이고, n이 충분히 크고 p가 아주 작을때, X의 분포는 평균이 np = $\lambda$ 인 포아송 분포로 근사시킬 수 있다. 보통 n이 클때, np &lt; 5를 만족할 정도로 작다면 근사 정도가 좋다. 통계학에서 n이 크다는 것은 대게 30 이상을 의미 F. 기하 분포 정의 어떤 실험에서 처음 성공이 발생하기 까지 시도한 횟수 X의 분포. 각 시도는 독립적이며 베르누이 시행을 따른다. 확률질량함수 기대값과 분산 기대값 : $\dfrac{1}{p}$ 분산 : $\dfrac{1-p}{p^2}$ $P(X=x) = (1-p)^{x-1}p$ ⇒ $X~Geometric(p)$ ie., 축구선수가 필드골 성공 확률이 30%일때 5번째 슛팅에서 골을 넣을 확률 분포 $(1-0.3)^{5-1}0.3$ G. 음이항분포 (negative binomial distribution) 정의 어떤 실험에서 성공확률이 p일때 r번의 실패가 나올 때 까지 발생한 성공 횟수 X의 확률 분포 확률질량함수 기대값과 분산 기대값 : $r\dfrac{1-p}{p}$ 분산 : $r\dfrac{1-p}{p^2}$ $P(X=x) = {x + r-1 \choose x}p^x(1-p)^r$ ⇒ $X~NB(r,p)$ 예시 농구선수 자유투 성공률이 90%일때 3번째 실패가 나올때까지 성공시킨 자유투가 10번일 확률 H. 초기하분포 정의 시행이 독립적이지 않고 유한 모집단을 대상으로 비복원추출로 표본을 선정하는 경우. 표본을 추출하는 시행 결과가 독립적이라면 이항분포, 그렇지 않다면 초기하분포한다. 확률함수 $P(X=x) = \dfrac{kC_n \times _{{(N-k)}C_{(n-x)}}}{_NC_n}$ $=\dfrac{{모집단성공개수} C _{표본성공개수} \times _{(모집단 총 개수 - 모집단성공 개수)}C{(표본수 - 표본성공개수)}}{{모집단수}C{표본수}}$ 예시 흰-20, 빨-25, 녹-10, 노-30, 파-15개, 100개의 공이 있다. 비복원으로 10개를 뽑았을때, 흰-3,빨-2,파-1가 뽑힐 확률은? $\dfrac{ {20 \choose 3} {25 \choose 2} {15 \choose 1} {40 \choose 4} }{100 \choose 10}$" />
+<link rel="canonical" href="http://localhost:4000/articles/2023/01/06/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC" />
+<meta property="og:url" content="http://localhost:4000/articles/2023/01/06/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-06T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="기초통계 - 이산확률분포" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2023-01-06T15:00:00+09:00","datePublished":"2023-01-06T15:00:00+09:00","description":"이산확률분포 A. 이산확률분포 정리 표 B. 이산형 균등분포 주사위를 한번 굴려서 나오는 숫자를 확률변수 X라 하면 확률 변수 X는 아래와 같다. x 1 2 3 4 5 6 f(x) 1/6 1/6 1/6 1/6 1/6 1/6 정의 확률 변수 X가 유한개이고 모든 확률 변수에 대해 균일한 확률을 갖는 분포 $fx(x) = p(X = x) = \\dfrac{1}{n}$ 기대값 $=\\dfrac{n+1}{2}$ 분산 = $=\\dfrac{(N^{2}-1)}{12}$ 도출 기대값 $E[X]$ $E[X] = \\sum\\limits xf(x) = \\frac{1}{n} \\sum\\limits x$ $=\\dfrac{1}{n} \\times \\dfrac{n(n+1)}{2}$ $=\\dfrac{n+1}{2}$ 분산 $var[x] = E(X^2)-[E(X)]^2$ $E(X^{2}) - \\mu^{2} = \\dfrac{(N+1)(2N+1)}{6} - (\\dfrac{N+1}{2})^2$ $=\\dfrac{(N+1)(2N+1)}{6} - (\\dfrac{N+1}{2})^2$ $=\\dfrac{(N+1)(N-1)}{12}$ $=\\dfrac{(N^{2}-1)}{12}$ C. 베르누이 시행 정의 상호 배반적인 2가지 결과만을 기대할 수 있는 시행을 말한다. (ie., 동전던지기, 시험 합불) 기대값 = $p$ 분산 = $p(1-p) = pq$ 특징 베르누이 시행결과를 나타내는 확률변수는 1,0만을 갖는다 성공확률과 실패확률의 합은 항상 1이다. 성공확률 $p$, 실패확률 $1-p$ 각각의 시행은 서로 독립적이기에 여러번 걸친 시행간에 서로 영향을 미치지 않는다. D. 이항 분포 정의 한번 이상 반복 실시한 베르누이 시행 결과의 합을 변숙밧으로 하는 확률 변수의 분포. 성공확률이 0.5에 가깝고 시행 횟수가 많을수록 정규분포에 가까워진다. 반대의 경우 한쪽 극단으로 치우친 분포가 된다. 특징 이항확률변수의 값은 여러 개의 베르누이 시행 결과의 합 이항확률변수를 구성하는 베르누이 시행은 상호 독립 각각의 베르누이시행에서 성공할 확률은 모두 동일 이항분포의 확률질량함수 기대값과 분산 (n : 베르누이 시행횟수, p : 표본으로부터 추정한 $\\pi$ 값, $ q : 1-p $ ) 기대값 = $np$ 분산 = $np(1-p) = npq$ 정의 여러개의 베르누이 확률변수값의 합으로 나타는 이항확률변수의 분포를 나타내는 확률질량함수 $P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}$ $=\\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}$ $X$ : 성공횟수를 나타내는 이항확률변수 $x$ : 임의의 변수값을 나타내는 성공변수 $n$ : 시행횟수 $p$ : 베르누이 시행의 성공 확률 (ie., 반도체 공장에서 불량이 발생할 확률이 10%라 할때, 10개의 제품을 제작했을때 불량이 2개 이하일 확률 $P(X \\leq 2) = P(X=0) + P(X=1) + P(X=2)$ $P(X \\leq 2) = {10 \\choose 0}0.1^{0}(0.9)^{10-0} + {10 \\choose 1}0.1^{1}(0.9)^{10-1} + {10 \\choose 2}0.1^{2}(0.9)^{10-2}$ E. 포아송 분포 정의 어느 희귀한 사건이 일정한 시간대에 발생할 확률 분포. 야구장에서 파울볼을 잡을 횟수, 버스 정류장에서 특정 버스가 5분 이내에 도착한 횟수 등 이항분포와 포아송분포는 모두 사건의 발생 횟수를 나타내는 이산확률변수의 분포. 단, 이항분포의 경우 베르누이시행 갯수가 이항확률변수의 최대값. 포아송분포의 경우 확률변수의 최대값이 제한이 없음. (단 셀 수 없을만큼 큰 수를 갖는 확률변수는 포아송분포하지 않는다.) 특징 사건들을 셀 수 있을 정도의 일정한 단위시간이나 단위길이 혹은 단위 면적 등에서 발생하는 서로 독립적인 사건 극히 작은 단위시간과 면적에 한번에 둘 이상의 사건이 동시에 발생할 확률은 적으므로 0으로 간주 일정한 단위시간이나 면적에서 발생하는 사건의 수는 크기에 비례한다. 확률질량함수 기대값(평균)과 분산 $\\lambda$ 로 동일하다. $P(X=x) = \\dfrac{e^{-\\lambda} \\lambda^x}{x!}$ X : 일정한 단위당 사건 발생횟수를 변수값으로 하는 확률변수를 의미 x : 특정한 확률변수값으로서 임의로 선정된 단위구간에서 발생한 사건의 수 e : 자연로그의 밑수 $\\lambda$ : 확률변수 X의 기대값(E(X)). 일정한 단위당 평균 발생 횟수 이항분포의 포아송 근사 확률변수 X가 X ~ B(n,p) B = (binominal) 이고, n이 충분히 크고 p가 아주 작을때, X의 분포는 평균이 np = $\\lambda$ 인 포아송 분포로 근사시킬 수 있다. 보통 n이 클때, np &lt; 5를 만족할 정도로 작다면 근사 정도가 좋다. 통계학에서 n이 크다는 것은 대게 30 이상을 의미 F. 기하 분포 정의 어떤 실험에서 처음 성공이 발생하기 까지 시도한 횟수 X의 분포. 각 시도는 독립적이며 베르누이 시행을 따른다. 확률질량함수 기대값과 분산 기대값 : $\\dfrac{1}{p}$ 분산 : $\\dfrac{1-p}{p^2}$ $P(X=x) = (1-p)^{x-1}p$ ⇒ $X~Geometric(p)$ ie., 축구선수가 필드골 성공 확률이 30%일때 5번째 슛팅에서 골을 넣을 확률 분포 $(1-0.3)^{5-1}0.3$ G. 음이항분포 (negative binomial distribution) 정의 어떤 실험에서 성공확률이 p일때 r번의 실패가 나올 때 까지 발생한 성공 횟수 X의 확률 분포 확률질량함수 기대값과 분산 기대값 : $r\\dfrac{1-p}{p}$ 분산 : $r\\dfrac{1-p}{p^2}$ $P(X=x) = {x + r-1 \\choose x}p^x(1-p)^r$ ⇒ $X~NB(r,p)$ 예시 농구선수 자유투 성공률이 90%일때 3번째 실패가 나올때까지 성공시킨 자유투가 10번일 확률 H. 초기하분포 정의 시행이 독립적이지 않고 유한 모집단을 대상으로 비복원추출로 표본을 선정하는 경우. 표본을 추출하는 시행 결과가 독립적이라면 이항분포, 그렇지 않다면 초기하분포한다. 확률함수 $P(X=x) = \\dfrac{kC_n \\times _{{(N-k)}C_{(n-x)}}}{_NC_n}$ $=\\dfrac{{모집단성공개수} C _{표본성공개수} \\times _{(모집단 총 개수 - 모집단성공 개수)}C{(표본수 - 표본성공개수)}}{{모집단수}C{표본수}}$ 예시 흰-20, 빨-25, 녹-10, 노-30, 파-15개, 100개의 공이 있다. 비복원으로 10개를 뽑았을때, 흰-3,빨-2,파-1가 뽑힐 확률은? $\\dfrac{ {20 \\choose 3} {25 \\choose 2} {15 \\choose 1} {40 \\choose 4} }{100 \\choose 10}$","headline":"기초통계 - 이산확률분포","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2023/01/06/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC"},"url":"http://localhost:4000/articles/2023/01/06/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2023/01/06/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        Doyle, DA
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                               
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">기초통계 - 이산확률분포</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2023-01-06T15:00:00+09:00" itemprop="datePublished">Jan 6, 2023</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h3 id="이산확률분포">이산확률분포</h3>
+<hr />
+<h4 id="a-이산확률분포-정리-표">A. 이산확률분포 정리 표</h4>
+<p><img src="https://i.imgur.com/dFzdOvj.png" alt="" /></p>
+<h4 id="b-이산형-균등분포">B. 이산형 균등분포</h4>
+
+<p>주사위를 한번 굴려서 나오는 숫자를 확률변수 X라 하면 확률 변수 X는 아래와 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>f(x)</td>
+      <td>1/6</td>
+      <td>1/6</td>
+      <td>1/6</td>
+      <td>1/6</td>
+      <td>1/6</td>
+      <td>1/6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<ul>
+  <li>정의
+    <ul>
+      <li>확률 변수 X가 유한개이고 모든 확률 변수에 대해 균일한 확률을 갖는 분포
+        <ul>
+          <li>$fx(x) = p(X = x) = \dfrac{1}{n}$</li>
+          <li>기대값 $=\dfrac{n+1}{2}$</li>
+          <li>분산 = $=\dfrac{(N^{2}-1)}{12}$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>도출
+    <ul>
+      <li>기대값 $E[X]$
+        <ul>
+          <li>$E[X] = \sum\limits xf(x) = \frac{1}{n} \sum\limits x$</li>
+          <li>$=\dfrac{1}{n} \times \dfrac{n(n+1)}{2}$</li>
+          <li>$=\dfrac{n+1}{2}$</li>
+        </ul>
+      </li>
+      <li>분산 $var[x] = E(X^2)-[E(X)]^2$
+        <ul>
+          <li>$E(X^{2}) - \mu^{2} = \dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$</li>
+          <li>$=\dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$</li>
+          <li>$=\dfrac{(N+1)(N-1)}{12}$</li>
+          <li>$=\dfrac{(N^{2}-1)}{12}$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="c-베르누이-시행">C. 베르누이 시행</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>상호 배반적인 2가지 결과만을 기대할 수 있는 시행을 말한다. (ie., 동전던지기, 시험 합불)</li>
+      <li>기대값 = $p$</li>
+      <li>분산 = $p(1-p) = pq$</li>
+    </ul>
+  </li>
+  <li>특징
+    <ul>
+      <li>베르누이 시행결과를 나타내는 확률변수는 1,0만을 갖는다</li>
+      <li>성공확률과 실패확률의 합은 항상 1이다.
+        <ul>
+          <li>성공확률 $p$, 실패확률 $1-p$</li>
+        </ul>
+      </li>
+      <li>각각의 시행은 서로 독립적이기에 여러번 걸친 시행간에 서로 영향을 미치지 않는다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="d-이항-분포">D. 이항 분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>한번 이상 반복 실시한 베르누이 시행 결과의 합을 변숙밧으로 하는 확률 변수의 분포.</li>
+      <li>성공확률이 0.5에 가깝고 시행 횟수가 많을수록 정규분포에 가까워진다.</li>
+      <li>반대의 경우 한쪽 극단으로 치우친 분포가 된다.</li>
+    </ul>
+  </li>
+  <li>특징
+    <ul>
+      <li>이항확률변수의 값은 여러 개의 베르누이 시행 결과의 합</li>
+      <li>이항확률변수를 구성하는 베르누이 시행은 상호 독립</li>
+      <li>각각의 베르누이시행에서 성공할 확률은 모두 동일</li>
+    </ul>
+  </li>
+  <li>이항분포의 확률질량함수
+    <ul>
+      <li>기대값과 분산 (n : 베르누이 시행횟수, p : 표본으로부터 추정한 $\pi$ 값, $ q : 1-p $ )
+        <ul>
+          <li>기대값 = $np$</li>
+          <li>분산 = $np(1-p) = npq$</li>
+        </ul>
+      </li>
+      <li>정의
+        <ul>
+          <li>여러개의 베르누이 확률변수값의 합으로 나타는 이항확률변수의 분포를 나타내는 확률질량함수</li>
+          <li>$P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}$</li>
+          <li>$=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}$
+            <ul>
+              <li>$X$ : 성공횟수를 나타내는 이항확률변수</li>
+              <li>$x$ : 임의의 변수값을 나타내는 성공변수</li>
+              <li>$n$ : 시행횟수</li>
+              <li>$p$ : 베르누이 시행의 성공 확률</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>(ie., 반도체 공장에서 불량이 발생할 확률이 10%라 할때, 10개의 제품을 제작했을때 불량이 2개 이하일 확률
+    <ul>
+      <li>$P(X \leq 2) = P(X=0) + P(X=1) + P(X=2)$</li>
+      <li>$P(X \leq 2) = {10 \choose 0}0.1^{0}(0.9)^{10-0} + {10 \choose 1}0.1^{1}(0.9)^{10-1} + {10 \choose 2}0.1^{2}(0.9)^{10-2}$</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="e-포아송-분포">E. 포아송 분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>어느 희귀한 사건이 일정한 시간대에 발생할 확률 분포. 야구장에서 파울볼을 잡을 횟수, 버스 정류장에서 특정 버스가 5분 이내에 도착한 횟수 등</li>
+      <li>이항분포와 포아송분포는 모두 사건의 발생 횟수를 나타내는 이산확률변수의 분포.</li>
+      <li>단, 이항분포의 경우 베르누이시행 갯수가 이항확률변수의 최대값.</li>
+      <li>포아송분포의 경우 확률변수의 최대값이 제한이 없음. (단 셀 수 없을만큼 큰 수를 갖는 확률변수는 포아송분포하지 않는다.)</li>
+    </ul>
+  </li>
+  <li>특징
+    <ul>
+      <li>사건들을 셀 수 있을 정도의 일정한 단위시간이나 단위길이 혹은 단위 면적 등에서 발생하는 서로 독립적인 사건</li>
+      <li>극히 작은 단위시간과 면적에 한번에 둘 이상의 사건이 동시에 발생할 확률은 적으므로 0으로 간주</li>
+      <li>일정한 단위시간이나 면적에서 발생하는 사건의 수는 크기에 비례한다.</li>
+    </ul>
+  </li>
+  <li>확률질량함수
+    <ul>
+      <li>기대값(평균)과 분산
+        <ul>
+          <li>$\lambda$ 로 동일하다.</li>
+        </ul>
+      </li>
+      <li>$P(X=x) = \dfrac{e^{-\lambda} \lambda^x}{x!}$
+        <ul>
+          <li>X : 일정한 단위당 사건 발생횟수를 변수값으로 하는 확률변수를 의미</li>
+          <li>x : 특정한 확률변수값으로서 임의로 선정된 단위구간에서 발생한 사건의 수</li>
+          <li>e : 자연로그의 밑수</li>
+          <li>$\lambda$ : 확률변수 X의 기대값(E(X)). 일정한 단위당 평균 발생 횟수</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>이항분포의 포아송 근사
+    <ul>
+      <li>확률변수 X가 X ~ B(n,p) <em>B = (binominal)</em> 이고, n이 충분히 크고 p가 아주 작을때, X의 분포는 평균이 np = $\lambda$ 인 포아송 분포로 근사시킬 수 있다.
+        <ul>
+          <li>보통 n이 클때, np &lt; 5를 만족할 정도로 작다면 근사 정도가 좋다.</li>
+          <li>통계학에서 n이 크다는 것은 대게 30 이상을 의미</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="f-기하-분포">F. 기하 분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>어떤 실험에서 처음 성공이 발생하기 까지 시도한 횟수 X의 분포.</li>
+      <li>각 시도는 독립적이며 베르누이 시행을 따른다.</li>
+    </ul>
+  </li>
+  <li>확률질량함수
+    <ul>
+      <li>기대값과 분산
+        <ul>
+          <li>기대값 : $\dfrac{1}{p}$</li>
+          <li>분산 : $\dfrac{1-p}{p^2}$</li>
+        </ul>
+      </li>
+      <li>$P(X=x) = (1-p)^{x-1}p$  ⇒ $X~Geometric(p)$
+        <ul>
+          <li>ie., 축구선수가 필드골 성공 확률이 30%일때 5번째 슛팅에서 골을 넣을 확률 분포
+            <ul>
+              <li>$(1-0.3)^{5-1}0.3$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="g-음이항분포-negative-binomial-distribution">G. 음이항분포 (negative binomial distribution)</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>어떤 실험에서 성공확률이 p일때 r번의 실패가 나올 때 까지 발생한 성공 횟수 X의 확률 분포</li>
+    </ul>
+  </li>
+  <li>확률질량함수
+    <ul>
+      <li>기대값과 분산
+        <ul>
+          <li>기대값 : $r\dfrac{1-p}{p}$</li>
+          <li>분산 : $r\dfrac{1-p}{p^2}$</li>
+        </ul>
+      </li>
+      <li>$P(X=x) = {x + r-1 \choose x}p^x(1-p)^r$   ⇒ $X~NB(r,p)$</li>
+    </ul>
+  </li>
+  <li>예시
+    <ul>
+      <li>농구선수 자유투 성공률이 90%일때 3번째 실패가 나올때까지 성공시킨 자유투가 10번일 확률</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="h-초기하분포">H. 초기하분포</h4>
+<ul>
+  <li>정의
+    <ul>
+      <li>시행이 독립적이지 않고 유한 모집단을 대상으로 비복원추출로 표본을 선정하는 경우.</li>
+      <li>표본을 추출하는 시행 결과가 독립적이라면 이항분포, 그렇지 않다면 초기하분포한다.</li>
+    </ul>
+  </li>
+  <li>확률함수
+    <ul>
+      <li>$P(X=x) = \dfrac{<em>kC_n \times _{</em>{(N-k)}C_{(n-x)}}}{_NC_n}$</li>
+      <li>$=\dfrac{<em>{모집단성공개수} C _{표본성공개수} \times _{(모집단 총 개수 - 모집단성공 개수)}C</em>{(표본수 - 표본성공개수)}}{<em>{모집단수}C</em>{표본수}}$</li>
+    </ul>
+  </li>
+  <li>예시
+    <ul>
+      <li>흰-20, 빨-25, 녹-10, 노-30, 파-15개, 100개의 공이 있다. 비복원으로 10개를 뽑았을때, 흰-3,빨-2,파-1가 뽑힐 확률은?
+        <ul>
+          <li>$\dfrac{ {20 \choose 3} {25 \choose 2} {15 \choose 1} {40 \choose 4} }{100 \choose 10}$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>

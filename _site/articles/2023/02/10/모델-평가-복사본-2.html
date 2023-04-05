@@ -14,15 +14,15 @@
 <meta property="og:locale" content="ko_KR" />
 <meta name="description" content="이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\beta$ 를 1로 둔다. $F_\beta = (1+\beta)(precision \times recall)$ $\therefore F_1 = (2)(precision \times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브" />
 <meta property="og:description" content="이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\beta$ 를 1로 둔다. $F_\beta = (1+\beta)(precision \times recall)$ $\therefore F_1 = (2)(precision \times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브" />
-<link rel="canonical" href="http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2" />
-<meta property="og:url" content="http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2" />
+<link rel="canonical" href="http://localhost:4000/articles/2023/02/10/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2" />
+<meta property="og:url" content="http://localhost:4000/articles/2023/02/10/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2" />
 <meta property="og:site_name" content="Data Archive Doyle" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-03-13T15:00:00+09:00" />
+<meta property="article:published_time" content="2023-02-10T15:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="모델 평가하는 방법" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2021-03-13T15:00:00+09:00","datePublished":"2021-03-13T15:00:00+09:00","description":"이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\\beta$ 를 1로 둔다. $F_\\beta = (1+\\beta)(precision \\times recall)$ $\\therefore F_1 = (2)(precision \\times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브","headline":"모델 평가하는 방법","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2"},"url":"http://localhost:4000/articles/2021/03/13/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2023-02-10T15:00:00+09:00","datePublished":"2023-02-10T15:00:00+09:00","description":"이진분류 정확도 Accuracy (전체 데이터 중 맞게 예측한 것의 비율) $\\dfrac{TP + TN}{TP + TN + FP + FN}$ 정밀도 Precision (양성이라 예측한 것 중에서 실제 양성의 비율) $\\dfrac{TP}{TP + FP}$ Recall (TPR)(참인 데이터들 중에서 참이라고 예측한것) $\\dfrac{TP}{TP+FN}$ Fall Out (FPR False Position Ratio) (실제 양성이 아닌데 양성이라 잘못 에측한 경우) $\\dfrac{FP}{FP + TN}$ F1 Score (Recall과 Precision을 결합한 지표) F-score에서 $\\beta$ 를 1로 둔다. $F_\\beta = (1+\\beta)(precision \\times recall)$ $\\therefore F_1 = (2)(precision \\times recall)$ ROC 곡선 FPR이 x축, TPR이 y축으로, FPR이 변할때 TPR의 변화를 그림 FPR : recall, FPR : fall-out 직선에 가까울수록 머신러닝 모델의 성능이 떨어지는것으로 판단한다. 완벽한 분류 시 적당히 잘 분류 시 분류 성능이 나쁠 시 AUC ROC 곡선 아래의 면적이다. 일반적으로 1에 가까울 수록 좋은 수치를 가진다. 기울기가 1인 직선 아래의 면적이 0.5 ⇒ AUC는 0.5보다 커야한다. wine 분류기 ROC 커브","headline":"모델 평가하는 방법","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2023/02/10/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2"},"url":"http://localhost:4000/articles/2023/02/10/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -45,7 +45,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/articles/2021/03/13/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2">
+  <link rel="canonical" href="http://localhost:4000/articles/2023/02/10/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2">
   <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
   <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 
@@ -109,7 +109,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           <a class="page-link" href="/about">About</a>
           
           <a class="page-link" href="/">Blog</a>
-                                             
+                                               
       </div>
     </nav>
   </div>
@@ -128,7 +128,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <h1 class="post-title" itemprop="name headline">모델 평가하는 방법</h1>
     <p class="post-meta">
       <span class="left">
-        <time datetime="2021-03-13T15:00:00+09:00" itemprop="datePublished">Mar 13, 2021</time>
+        <time datetime="2023-02-10T15:00:00+09:00" itemprop="datePublished">Feb 10, 2023</time>
        <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
       </span>
       <span class="right">

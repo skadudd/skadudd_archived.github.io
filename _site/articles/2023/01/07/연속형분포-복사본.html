@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="통계,분포">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>기초통계 - 표본분포와 중심극한정리 | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="기초통계 - 표본분포와 중심극한정리" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="표본분포와 중심극한정리 모집단과 표본 표본추출(sampling) 모집단으로 부터 표본을 추출하는 것을 sampling이라 함. 표본으로부터 그 특성을 찾아내고 모집단의 특성을 추론하고자 함. 복원추출 비복원추출 Random Sampling 불균형 데이터의 문제 데이터가 불균형 데이터일 경우 문제. ie., 예측모형을 만들때 예측 대상이 너무 작을 경우. Sampling 기법을 통해 해결 관심의 대상이 아주 낮은 비율일 경우 Over Sampling 많은 class의 비율만큼 관심 class를 증가시킴 (일정 비율로 복원추출하는 개념) 과도적합의 문제 발생 가능 Under Sampling 많은 class의 비율을 관심 class 만큼 감소시킴 임의로 뽑은 데이터가 편향될 수 있고 성능 감소 가능 모델을 통한 성능 개선 (Cost-sensitive learning) 표본분포 정의 통계량의 분포를 총칭하여 일컫는 말. (ie., 표본평균, 표본분산의 포본분포) 표본으로 추출되는 표본 크기가 증가함에 따라 정규분포에 접근하게 되는데, 이를 중심극한정리라 한다. A. 표본평균의 표본분포 정의 추출 가능한 표본들의 평균($\overline{x}$)를 변수값으로 하는 확률변수의 분포를 말한다. 정리하자면, 모집단의 분포가 $N(\mu,\sigma^2)$라고 할때, 확률표본 $X_{1} \sim X_{n} ⇒ iid N(\mu, \sigma^2)$ $\overline{X}\sim N(\mu,\frac{\sigma^2}{n})$ , $Z\sim N(0,1)$ (independent and identically distribution) 예시1) 10명으로 구성된 모집단으로부터 5명을 추출하여 표본을 구성하는 경우의 표본평균분포 모집단 확률변수 X 평균 : $E(X)=\mu$ 분산 : $var(X) = \sigma^2$ 추출 가능한 집단 ${20 \choose 5}= 252$ 표본 n의 표본평균 $\overline{X}{1}$, $\overline{X}{2}$ $\cdots \overline{X}_{252}$ 표본평균 $\dfrac{\sum_{i=1}^{n}x_{i}}{n}$ 확률변수 $\overline{x}$ 평균 : $E(\overline{x})=\mu$ 분산 : $var(\overline{x} = \dfrac{\sigma^2}{n})$ 표준편차 : $\sigma_{\overline{x}}$ = 표준오차(standard error) 예시2) $X_{1}, \cdots X_{50}$ 은 $iid N(10,5^2)$일때 $P(\overline{X} \leq 10)$은? $\overline{X} \sim N(10,\frac{5^{2}}{50})$ $P(\overline{X} \leq 10) = P\left[\dfrac{\overline{X} - 10}{\sqrt{\dfrac{5^2}{50}}} \leq \dfrac{10 - 10}{\sqrt{\dfrac{5^2}{50}}}\right]$ $=P(Z \leq 0)$ $\therefore 0.5$ B. 표본비율의 표본분포 정의 0과 1의 두 종류의 값을 갖는 개체들로 구성된 모집단에서 표본을 추출하였을 경우, 추출된 표본에서 1의 비율.   모집단($X$) 표본($x$) 표본비율($p$) 평균(기댓값) $\pi$ $p$ $E(p)=\pi$ 분산 $\pi(1-\pi)$ $p(1-p)$ $\frac{1-\pi}{n}\approx \frac{p(1-p)}{n}$ 중심극한정리 (central limit theorem) 정의 어떠한 분포를 하는 모집단으로부터 추출한 표본이든 간에, 표본의 평균($\overline{x}$)은 모집단평균$(\mu)$을 중심으로 종모양의 정규분포나 최소한 좌우대칭인 구릉모양의 분포를 한다. 중심극한정리는 이러한 표본평균$(\overline{x})$의 분포 특성을 설명한다. 평균이 $\mu$ 이고 분산이 $\sigma^2$인 임의의 모집단에서 랜덤표본 $X_{1} \cdots X_{n}$을 추출할때 표본의 크기 n이 충분히 크면$(n \geq 30)$ 표본 평균 $\overline{X}$은 근사적으로 정규분포 $N(\mu,\frac{\sigma^2}{n})$ 을 따른다. 예시1) 모집단의 분포가 $X\sim N(30,5^2)$일때, 모집단으로 부터 크기가 30인 확률 표본의 평균 $\overline{X}$가 32 이하일 확률은? $P(\overline{X}\leq 32)$ $\dfrac{\overline{X}-\mu}{\sqrt{\dfrac{5^2}{30}}} \leq \dfrac{32-30}{\sqrt{\dfrac{5^2}{30}}}$ $=p(Z \leq 2.19) = 0.9857$" />
+<meta property="og:description" content="표본분포와 중심극한정리 모집단과 표본 표본추출(sampling) 모집단으로 부터 표본을 추출하는 것을 sampling이라 함. 표본으로부터 그 특성을 찾아내고 모집단의 특성을 추론하고자 함. 복원추출 비복원추출 Random Sampling 불균형 데이터의 문제 데이터가 불균형 데이터일 경우 문제. ie., 예측모형을 만들때 예측 대상이 너무 작을 경우. Sampling 기법을 통해 해결 관심의 대상이 아주 낮은 비율일 경우 Over Sampling 많은 class의 비율만큼 관심 class를 증가시킴 (일정 비율로 복원추출하는 개념) 과도적합의 문제 발생 가능 Under Sampling 많은 class의 비율을 관심 class 만큼 감소시킴 임의로 뽑은 데이터가 편향될 수 있고 성능 감소 가능 모델을 통한 성능 개선 (Cost-sensitive learning) 표본분포 정의 통계량의 분포를 총칭하여 일컫는 말. (ie., 표본평균, 표본분산의 포본분포) 표본으로 추출되는 표본 크기가 증가함에 따라 정규분포에 접근하게 되는데, 이를 중심극한정리라 한다. A. 표본평균의 표본분포 정의 추출 가능한 표본들의 평균($\overline{x}$)를 변수값으로 하는 확률변수의 분포를 말한다. 정리하자면, 모집단의 분포가 $N(\mu,\sigma^2)$라고 할때, 확률표본 $X_{1} \sim X_{n} ⇒ iid N(\mu, \sigma^2)$ $\overline{X}\sim N(\mu,\frac{\sigma^2}{n})$ , $Z\sim N(0,1)$ (independent and identically distribution) 예시1) 10명으로 구성된 모집단으로부터 5명을 추출하여 표본을 구성하는 경우의 표본평균분포 모집단 확률변수 X 평균 : $E(X)=\mu$ 분산 : $var(X) = \sigma^2$ 추출 가능한 집단 ${20 \choose 5}= 252$ 표본 n의 표본평균 $\overline{X}{1}$, $\overline{X}{2}$ $\cdots \overline{X}_{252}$ 표본평균 $\dfrac{\sum_{i=1}^{n}x_{i}}{n}$ 확률변수 $\overline{x}$ 평균 : $E(\overline{x})=\mu$ 분산 : $var(\overline{x} = \dfrac{\sigma^2}{n})$ 표준편차 : $\sigma_{\overline{x}}$ = 표준오차(standard error) 예시2) $X_{1}, \cdots X_{50}$ 은 $iid N(10,5^2)$일때 $P(\overline{X} \leq 10)$은? $\overline{X} \sim N(10,\frac{5^{2}}{50})$ $P(\overline{X} \leq 10) = P\left[\dfrac{\overline{X} - 10}{\sqrt{\dfrac{5^2}{50}}} \leq \dfrac{10 - 10}{\sqrt{\dfrac{5^2}{50}}}\right]$ $=P(Z \leq 0)$ $\therefore 0.5$ B. 표본비율의 표본분포 정의 0과 1의 두 종류의 값을 갖는 개체들로 구성된 모집단에서 표본을 추출하였을 경우, 추출된 표본에서 1의 비율.   모집단($X$) 표본($x$) 표본비율($p$) 평균(기댓값) $\pi$ $p$ $E(p)=\pi$ 분산 $\pi(1-\pi)$ $p(1-p)$ $\frac{1-\pi}{n}\approx \frac{p(1-p)}{n}$ 중심극한정리 (central limit theorem) 정의 어떠한 분포를 하는 모집단으로부터 추출한 표본이든 간에, 표본의 평균($\overline{x}$)은 모집단평균$(\mu)$을 중심으로 종모양의 정규분포나 최소한 좌우대칭인 구릉모양의 분포를 한다. 중심극한정리는 이러한 표본평균$(\overline{x})$의 분포 특성을 설명한다. 평균이 $\mu$ 이고 분산이 $\sigma^2$인 임의의 모집단에서 랜덤표본 $X_{1} \cdots X_{n}$을 추출할때 표본의 크기 n이 충분히 크면$(n \geq 30)$ 표본 평균 $\overline{X}$은 근사적으로 정규분포 $N(\mu,\frac{\sigma^2}{n})$ 을 따른다. 예시1) 모집단의 분포가 $X\sim N(30,5^2)$일때, 모집단으로 부터 크기가 30인 확률 표본의 평균 $\overline{X}$가 32 이하일 확률은? $P(\overline{X}\leq 32)$ $\dfrac{\overline{X}-\mu}{\sqrt{\dfrac{5^2}{30}}} \leq \dfrac{32-30}{\sqrt{\dfrac{5^2}{30}}}$ $=p(Z \leq 2.19) = 0.9857$" />
+<link rel="canonical" href="http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC-%EB%B3%B5%EC%82%AC%EB%B3%B8" />
+<meta property="og:url" content="http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC-%EB%B3%B5%EC%82%AC%EB%B3%B8" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-07T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="기초통계 - 표본분포와 중심극한정리" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2023-01-07T15:00:00+09:00","datePublished":"2023-01-07T15:00:00+09:00","description":"표본분포와 중심극한정리 모집단과 표본 표본추출(sampling) 모집단으로 부터 표본을 추출하는 것을 sampling이라 함. 표본으로부터 그 특성을 찾아내고 모집단의 특성을 추론하고자 함. 복원추출 비복원추출 Random Sampling 불균형 데이터의 문제 데이터가 불균형 데이터일 경우 문제. ie., 예측모형을 만들때 예측 대상이 너무 작을 경우. Sampling 기법을 통해 해결 관심의 대상이 아주 낮은 비율일 경우 Over Sampling 많은 class의 비율만큼 관심 class를 증가시킴 (일정 비율로 복원추출하는 개념) 과도적합의 문제 발생 가능 Under Sampling 많은 class의 비율을 관심 class 만큼 감소시킴 임의로 뽑은 데이터가 편향될 수 있고 성능 감소 가능 모델을 통한 성능 개선 (Cost-sensitive learning) 표본분포 정의 통계량의 분포를 총칭하여 일컫는 말. (ie., 표본평균, 표본분산의 포본분포) 표본으로 추출되는 표본 크기가 증가함에 따라 정규분포에 접근하게 되는데, 이를 중심극한정리라 한다. A. 표본평균의 표본분포 정의 추출 가능한 표본들의 평균($\\overline{x}$)를 변수값으로 하는 확률변수의 분포를 말한다. 정리하자면, 모집단의 분포가 $N(\\mu,\\sigma^2)$라고 할때, 확률표본 $X_{1} \\sim X_{n} ⇒ iid N(\\mu, \\sigma^2)$ $\\overline{X}\\sim N(\\mu,\\frac{\\sigma^2}{n})$ , $Z\\sim N(0,1)$ (independent and identically distribution) 예시1) 10명으로 구성된 모집단으로부터 5명을 추출하여 표본을 구성하는 경우의 표본평균분포 모집단 확률변수 X 평균 : $E(X)=\\mu$ 분산 : $var(X) = \\sigma^2$ 추출 가능한 집단 ${20 \\choose 5}= 252$ 표본 n의 표본평균 $\\overline{X}{1}$, $\\overline{X}{2}$ $\\cdots \\overline{X}_{252}$ 표본평균 $\\dfrac{\\sum_{i=1}^{n}x_{i}}{n}$ 확률변수 $\\overline{x}$ 평균 : $E(\\overline{x})=\\mu$ 분산 : $var(\\overline{x} = \\dfrac{\\sigma^2}{n})$ 표준편차 : $\\sigma_{\\overline{x}}$ = 표준오차(standard error) 예시2) $X_{1}, \\cdots X_{50}$ 은 $iid N(10,5^2)$일때 $P(\\overline{X} \\leq 10)$은? $\\overline{X} \\sim N(10,\\frac{5^{2}}{50})$ $P(\\overline{X} \\leq 10) = P\\left[\\dfrac{\\overline{X} - 10}{\\sqrt{\\dfrac{5^2}{50}}} \\leq \\dfrac{10 - 10}{\\sqrt{\\dfrac{5^2}{50}}}\\right]$ $=P(Z \\leq 0)$ $\\therefore 0.5$ B. 표본비율의 표본분포 정의 0과 1의 두 종류의 값을 갖는 개체들로 구성된 모집단에서 표본을 추출하였을 경우, 추출된 표본에서 1의 비율.   모집단($X$) 표본($x$) 표본비율($p$) 평균(기댓값) $\\pi$ $p$ $E(p)=\\pi$ 분산 $\\pi(1-\\pi)$ $p(1-p)$ $\\frac{1-\\pi}{n}\\approx \\frac{p(1-p)}{n}$ 중심극한정리 (central limit theorem) 정의 어떠한 분포를 하는 모집단으로부터 추출한 표본이든 간에, 표본의 평균($\\overline{x}$)은 모집단평균$(\\mu)$을 중심으로 종모양의 정규분포나 최소한 좌우대칭인 구릉모양의 분포를 한다. 중심극한정리는 이러한 표본평균$(\\overline{x})$의 분포 특성을 설명한다. 평균이 $\\mu$ 이고 분산이 $\\sigma^2$인 임의의 모집단에서 랜덤표본 $X_{1} \\cdots X_{n}$을 추출할때 표본의 크기 n이 충분히 크면$(n \\geq 30)$ 표본 평균 $\\overline{X}$은 근사적으로 정규분포 $N(\\mu,\\frac{\\sigma^2}{n})$ 을 따른다. 예시1) 모집단의 분포가 $X\\sim N(30,5^2)$일때, 모집단으로 부터 크기가 30인 확률 표본의 평균 $\\overline{X}$가 32 이하일 확률은? $P(\\overline{X}\\leq 32)$ $\\dfrac{\\overline{X}-\\mu}{\\sqrt{\\dfrac{5^2}{30}}} \\leq \\dfrac{32-30}{\\sqrt{\\dfrac{5^2}{30}}}$ $=p(Z \\leq 2.19) = 0.9857$","headline":"기초통계 - 표본분포와 중심극한정리","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC-%EB%B3%B5%EC%82%AC%EB%B3%B8"},"url":"http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC-%EB%B3%B5%EC%82%AC%EB%B3%B8"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        Doyle, DA
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                               
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">기초통계 - 표본분포와 중심극한정리</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2023-01-07T15:00:00+09:00" itemprop="datePublished">Jan 7, 2023</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="표본분포와-중심극한정리">표본분포와 중심극한정리</h2>
+
+<h3 id="모집단과-표본">모집단과 표본</h3>
+
+<p><img src="https://i.imgur.com/wbEAmCi.png" alt="" /></p>
+
+<ul>
+  <li>표본추출(sampling)
+    <ul>
+      <li>모집단으로 부터 표본을 추출하는 것을 sampling이라 함. 표본으로부터 그 특성을 찾아내고 모집단의 특성을 추론하고자 함.</li>
+      <li>복원추출</li>
+      <li>비복원추출</li>
+      <li>Random Sampling</li>
+    </ul>
+  </li>
+  <li>불균형 데이터의 문제
+    <ul>
+      <li>데이터가 불균형 데이터일 경우 문제.</li>
+      <li>ie., 예측모형을 만들때 예측 대상이 너무 작을 경우.
+        <ul>
+          <li>Sampling 기법을 통해 해결
+            <ul>
+              <li>관심의 대상이 아주 낮은 비율일 경우
+                <ol>
+                  <li>Over Sampling
+                    <ol>
+                      <li>많은 class의 비율만큼 관심 class를 증가시킴 (일정 비율로 복원추출하는 개념)
+                        <ul>
+                          <li>과도적합의 문제 발생 가능</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>Under Sampling
+                    <ol>
+                      <li>많은 class의 비율을 관심 class 만큼 감소시킴
+                        <ul>
+                          <li>임의로 뽑은 데이터가 편향될 수 있고 성능 감소 가능</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ul>
+          </li>
+          <li>모델을 통한 성능 개선 (Cost-sensitive learning)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="표본분포">표본분포</h3>
+
+<ul>
+  <li>정의
+    <ul>
+      <li>통계량의 분포를 총칭하여 일컫는 말. (ie., 표본평균, 표본분산의 포본분포)</li>
+      <li>표본으로 추출되는 표본 크기가 증가함에 따라 정규분포에 접근하게 되는데, 이를 중심극한정리라 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="a-표본평균의-표본분포">A. 표본평균의 표본분포</h4>
+
+<ul>
+  <li>정의
+    <ul>
+      <li>추출 가능한 표본들의 평균($\overline{x}$)를 변수값으로 하는 확률변수의 분포를 말한다.</li>
+      <li>정리하자면,
+        <ul>
+          <li>모집단의 분포가 $N(\mu,\sigma^2)$라고 할때, 확률표본 $X_{1} \sim X_{n} ⇒  iid N(\mu, \sigma^2)$</li>
+          <li>$\overline{X}\sim N(\mu,\frac{\sigma^2}{n})$ , $Z\sim N(0,1)$</li>
+          <li><em>(independent and identically distribution)</em></li>
+        </ul>
+      </li>
+      <li>예시1)
+        <ul>
+          <li>10명으로 구성된 모집단으로부터 5명을 추출하여 표본을 구성하는 경우의 표본평균분포
+            <ul>
+              <li>모집단
+                <ul>
+                  <li>확률변수 X</li>
+                  <li>평균 : $E(X)=\mu$</li>
+                  <li>분산 : $var(X) = \sigma^2$</li>
+                </ul>
+              </li>
+              <li>추출 가능한 집단 ${20 \choose 5}= 252$
+                <ul>
+                  <li>표본 n의 표본평균 $\overline{X}<em>{1}$, $\overline{X}</em>{2}$ $\cdots \overline{X}_{252}$</li>
+                </ul>
+              </li>
+              <li>표본평균
+                <ul>
+                  <li>$\dfrac{\sum_{i=1}^{n}x_{i}}{n}$</li>
+                  <li>확률변수 $\overline{x}$</li>
+                  <li>평균 : $E(\overline{x})=\mu$</li>
+                  <li>분산 : $var(\overline{x} = \dfrac{\sigma^2}{n})$</li>
+                  <li>표준편차 : $\sigma_{\overline{x}}$ = 표준오차(standard error)</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>예시2)
+        <ul>
+          <li>$X_{1}, \cdots X_{50}$ 은 $iid N(10,5^2)$일때 $P(\overline{X} \leq 10)$은?
+            <ul>
+              <li>$\overline{X} \sim N(10,\frac{5^{2}}{50})$</li>
+              <li>$P(\overline{X} \leq 10) = P\left[\dfrac{\overline{X} - 10}{\sqrt{\dfrac{5^2}{50}}} \leq \dfrac{10 - 10}{\sqrt{\dfrac{5^2}{50}}}\right]$</li>
+              <li>$=P(Z \leq 0)$</li>
+              <li>$\therefore 0.5$</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="b-표본비율의-표본분포">B. 표본비율의 표본분포</h4>
+
+<ul>
+  <li>정의
+    <ul>
+      <li>0과 1의 두 종류의 값을 갖는 개체들로 구성된 모집단에서 표본을 추출하였을 경우, 추출된 표본에서 1의 비율.</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>모집단($X$)</th>
+      <th>표본($x$)</th>
+      <th>표본비율($p$)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>평균(기댓값)</td>
+      <td>$\pi$</td>
+      <td>$p$</td>
+      <td>$E(p)=\pi$</td>
+    </tr>
+    <tr>
+      <td>분산</td>
+      <td>$\pi(1-\pi)$</td>
+      <td>$p(1-p)$</td>
+      <td>$\frac{1-\pi}{n}\approx \frac{p(1-p)}{n}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="중심극한정리-central-limit-theorem">중심극한정리 (central limit theorem)</h3>
+
+<ul>
+  <li>정의
+    <ul>
+      <li>어떠한 분포를 하는 모집단으로부터 추출한 표본이든 간에, 표본의 평균($\overline{x}$)은 모집단평균$(\mu)$을 중심으로 종모양의 정규분포나 최소한 좌우대칭인 구릉모양의 분포를 한다. 중심극한정리는 이러한 표본평균$(\overline{x})$의 분포 특성을 설명한다.</li>
+      <li>평균이 $\mu$ 이고 분산이 $\sigma^2$인 임의의 모집단에서 랜덤표본 $X_{1} \cdots X_{n}$을 추출할때 표본의 크기 n이 충분히 크면$(n \geq 30)$ 표본 평균 $\overline{X}$은 근사적으로 정규분포 $N(\mu,\frac{\sigma^2}{n})$ 을 따른다.</li>
+    </ul>
+  </li>
+  <li>예시1)
+    <ul>
+      <li>모집단의 분포가 $X\sim N(30,5^2)$일때, 모집단으로 부터 크기가 30인 확률 표본의 평균 $\overline{X}$가 32 이하일 확률은?
+        <ul>
+          <li>$P(\overline{X}\leq 32)$</li>
+          <li>$\dfrac{\overline{X}-\mu}{\sqrt{\dfrac{5^2}{30}}} \leq \dfrac{32-30}{\sqrt{\dfrac{5^2}{30}}}$</li>
+          <li>$=p(Z \leq 2.19) = 0.9857$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 05 Apr 2023 23:40:46 +0900</pubDate>
-    <lastBuildDate>Wed, 05 Apr 2023 23:40:46 +0900</lastBuildDate>
+    <pubDate>Thu, 06 Apr 2023 01:50:05 +0900</pubDate>
+    <lastBuildDate>Thu, 06 Apr 2023 01:50:05 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -730,9 +730,9 @@ plt.ylabel('Survival function')
 &lt;/ol&gt;
 
 </description>
-        <pubDate>Mon, 29 Mar 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</guid>
+        <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</guid>
         
         <category>머신러닝</category>
         
@@ -890,9 +890,9 @@ plt.ylabel('Survival function')
 &lt;a href=&quot;https://boogling.tistory.com/entry/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-Survival-Function%EC%9D%98-%EC%B0%A8%EC%9D%B4-Log-Rank-Test&quot;&gt;생존분석 - Survival Function의 차이 Log-Rank Test&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&amp;amp;blogId=euleekwon&amp;amp;logNo=221441257643&quot;&gt;[통계 공부] Log-rank test(로그 순위법) : 네이버 블로그&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 29 Mar 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC</guid>
+        <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC</guid>
         
         <category>머신러닝</category>
         
@@ -1025,9 +1025,9 @@ h(t) = \lim_{\Delta t \to 0} P(t \leq T &lt; t + \Delta|T &gt; t) %]]&gt;&lt;/sc
   &lt;li&gt;&lt;a href=&quot;https://boxnwhis.kr/2015/03/15/drawing_survival_curves_of_users.html&quot;&gt;BOX AND WHISKER&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Sat, 27 Mar 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/03/27/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8E%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/27/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8E%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC</guid>
+        <pubDate>Mon, 27 Mar 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/03/27/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8E%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/27/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8E%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC</guid>
         
         <category>머신러닝</category>
         
@@ -1283,9 +1283,9 @@ h(t) = \lim_{\Delta t \to 0} P(t \leq T &lt; t + \Delta|T &gt; t) %]]&gt;&lt;/sc
 
 &lt;p&gt;다른 커피브랜드의 비교대상이 없기 때문에 섣부른 결론을 내릴 자료는 아니지만, 추가자료를 포함하여 검증해볼만한 여지가 있음이 확실해 보인다.&lt;/p&gt;
 </description>
-        <pubDate>Sat, 20 Mar 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</guid>
+        <pubDate>Mon, 20 Mar 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</guid>
         
         <category>태블로</category>
         
@@ -1361,9 +1361,9 @@ print(&quot;{:.3f}&quot;.format(at_least_3miss,file=sys.stdout))
 
 &lt;/code&gt;&lt;/pre&gt;
 </description>
-        <pubDate>Sun, 14 Mar 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/03/14/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/14/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5</guid>
+        <pubDate>Sat, 11 Feb 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/02/11/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/02/11/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5</guid>
         
         <category>이항분포</category>
         
@@ -1509,9 +1509,9 @@ plt.grid()
 plt.show()
 &lt;/code&gt;&lt;/pre&gt;
 </description>
-        <pubDate>Sat, 13 Mar 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/03/13/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/03/13/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</guid>
+        <pubDate>Fri, 10 Feb 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/02/10/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/02/10/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</guid>
         
         <category>모델평가</category>
         
@@ -1523,316 +1523,1094 @@ plt.show()
       </item>
     
       <item>
-        <title>고통받는 마케터를 위한 네이버 검색광고 API 활용법 1 | GA 비용데이터 쉽게 추가하기</title>
-        <description>&lt;p&gt;네이버 검색광고 API를 활용하여 손쉽게 리포팅을 받을 수 있다. !&lt;/p&gt;
+        <title>기초통계 - 연속형확률분포</title>
+        <description>&lt;h2 id=&quot;연속형-확률분포&quot;&gt;연속형 확률분포&lt;/h2&gt;
 
-&lt;!--more--&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import os
-import time
-import shutil
-import random
-import json
-import glob
-import requests
-import signaturehelper
-import pandas as pd
-from pandas import DataFrame
-from pathlib import Path
-import csv
-from dateutil import rrule
-from datetime import datetime, timedelta
-from dateutil.parser import *
+&lt;h3 id=&quot;분포간-관계도&quot;&gt;분포간 관계도&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/S851Wmd.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-BASE_URL = 'https://api.naver.com'
-API_KEY = 'API Key'
-SECRET_KEY = 'Secret key'
-CUSTOMER_ID = 'Customer ID'
-input_file = '../DB_for_GA_naver/'
-output_file = '../DB_of_naver_combined/'
-campaignList = ['cmp-a001-01-000000003407889',
-                'cmp-a001-01-000000003407888',
-                'cmp-a001-01-000000003645640',
-                'cmp-a001-01-000000003605317',
-                'cmp-a001-01-000000003711127',
-                'cmp-a001-01-000000003711121',
-                'cmp-a001-01-000000003707633',
-                'cmp-a001-01-000000003707625'
-                ]
+&lt;h3 id=&quot;함수&quot;&gt;함수&lt;/h3&gt;
+&lt;h4 id=&quot;a-확률-밀도-함수pdf&quot;&gt;A. 확률 밀도 함수(pdf)&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;확률밀도함수 : 연속형 확률 변수 x에 대해 함수 f(x) 가 아래의 조건을 만족하면 확률밀도함수라고 함.
+    &lt;ol&gt;
+      &lt;li&gt;모든 X에 대해서 $f(x) \geq 0$&lt;/li&gt;
+      &lt;li&gt;$P(x \in (-\infty, \infty)) = \int_{-\infty}^{\infty}f(x)dx = 1$&lt;/li&gt;
+      &lt;li&gt;$P(a \leq X \leq b) = \int_{a}^{b}f(x)dx$&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률 밀도 함수의 성질 (선은 면적이 없기 때문에 0. )
+    &lt;ol&gt;
+      &lt;li&gt;$P(X = a) = P(a \leq X \leq a) = \int_{a}^{a}dx = 0$&lt;/li&gt;
+      &lt;li&gt;$P(a \leq X \leq b) = P(a \leq X &amp;lt; b) = P(a &amp;lt; X \leq b) = P(a &amp;lt; X &amp;lt; b)$&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률 밀도함수의 평균과 분산
+    &lt;ol&gt;
+      &lt;li&gt;$E(X) = \int_{-\infty}^{\infty}xf(x)dx$&lt;/li&gt;
+      &lt;li&gt;$Var(x) = E(X - \mu)^2$
+        &lt;ol&gt;
+          &lt;li&gt;$= \int_{-\infty}^{\infty}(x - \mu)^2f(x)dx$&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-#1. GET Summary Report per multiple entities 
-input_start_date = input('보고 시작 날짜 : ')
-input_end_date = input('보고 종료 날짜 : ')
+&lt;h4 id=&quot;b-누적분포함수cdf&quot;&gt;B. 누적분포함수(cdf)&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;누적분포함수 : 확류밀도함수를 적분하면 누적분포함수가 된다.
+    &lt;ol&gt;
+      &lt;li&gt;$F(x) = P[X \leq x] = \int_{-\infty}^{x}f(x)dx$&lt;/li&gt;
+      &lt;li&gt;$\dfrac{d}{dx}F(x) = f(x)$ 누적분포함수를 미분하면 pdf가 됨&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;누적분포함수의 성질
+    &lt;ol&gt;
+      &lt;li&gt;$0 \leq F(x) \leq 1$&lt;/li&gt;
+      &lt;li&gt;만약 $b \geq a, F(b) \geq F(a)$&lt;/li&gt;
+      &lt;li&gt;$F(b) - F(a) = P[a \leq X \leq b]$ 
+&lt;img src=&quot;https://i.imgur.com/0MkToik.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-start_date = parse(input_start_date)
-end_date = parse(input_end_date)
+&lt;h3 id=&quot;분포&quot;&gt;분포&lt;/h3&gt;
+&lt;h4 id=&quot;a-균일-분포&quot;&gt;A. 균일 분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;uniform distribution : 확률 변수 X가 a와 b사이에서 아래와 같은 확률 밀도 함수 (pdf)를 가짐&lt;img src=&quot;https://i.imgur.com/RNRolpx.png&quot; alt=&quot;250&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;pdf : $f(x) = \begin{cases}\dfrac{1}{b-a}, a \leq x \leq b \ 0, otherwise  \end{cases}$&lt;/li&gt;
+      &lt;li&gt;cdf : $f(x) = \begin{cases} 0,  x \leq a \ \dfrac{1}{b-a}, a \leq x \leq b \ 1, x\geq b \end{cases}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;평균과 분산
+    &lt;ul&gt;
+      &lt;li&gt;평균 (기댓값)$E[X] = \dfrac{b+a}{2} ⇒ E[X] = \int_{a}^{b}xf(x)dx = \int_{a}^{b}x\dfrac{1}{b-a}dx = \left[\dfrac{1}{b-a}\dfrac{1}{2} x^2\right]_{a}^{b} = \dfrac{b^2 - a^2}{2(b-a)}= \dfrac{b+a}{2}$
+        &lt;ul&gt;
+          &lt;li&gt;$\therefore \dfrac{b+a}{2}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;$E[X^2] = \int_{a}^{b}x^2\dfrac{1}{b-a} = \left[\dfrac{1}{b-a}\dfrac{1}{3}x^3\right]_{a}^{b} = \dfrac{b^3-a^3}{3(b-a)} = \dfrac{(b-a)(b^2+ab+a^2)}{3(b-a)}=\dfrac{(b^2+ab+a^2)}{3}$
+        &lt;ul&gt;
+          &lt;li&gt;$\therefore\dfrac{(b^2+ab+a^2)}{3}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;분산 $var[X] = E[X^2] - (E[X])^2 = \dfrac{b^2+ab+a^2}{3} - (\dfrac{b+a}{2})^2 = \dfrac{(b^2+ab+a^2)}{3}-\dfrac{(b^2+2ab+a^2)}{4} = \dfrac{4b^2+4ab+4a^2-3b^2-6ab-3a^2}{12} = \dfrac{b^2-2ab+a^2}{12}$
+        &lt;ul&gt;
+          &lt;li&gt;$\therefore \dfrac{(b-a)^2}{12}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-#import key
-def get_header(method, uri, api_key, secret_key, customer_id):
-    timestamp = str(round(time.time() * 1000))
-    signature = signaturehelper.Signature.generate(timestamp, method, uri, SECRET_KEY)
-    return {'Content-Type': 'application/json; charset=UTF-8', 'X-Timestamp': timestamp, 'X-API-KEY': API_KEY, 'X-Customer': str(CUSTOMER_ID), 'X-Signature': signature}
+&lt;h4 id=&quot;b-정규분포&quot;&gt;B. 정규분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;가우스 분포라고도 불림.&lt;/li&gt;
+      &lt;li&gt;$X \sim N(\mu,\sigma^2)$&lt;img src=&quot;https://i.imgur.com/zC7XmD0.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;2개의 표준편차 $(\mu \pm 2\sigma)$ 안에는 95/44%의 확률변수값들이 있어야 함.&lt;/li&gt;
+      &lt;li&gt;좌유 3개의 표준편차 $(\mu \pm 3\sigma)$ 안에는 99.74%에 이르는 대부분의 값들이 반드시 있어야 함.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률 밀도 함수
+    &lt;ul&gt;
+      &lt;li&gt;확률 밀도 함수&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}\right]^2}, -\infty &lt; x &lt; \infty, -\infty &lt; \mu &lt; \infty, \sigma^2 &gt; 0 %]]&gt;&lt;/script&gt;&lt;/li&gt;
+      &lt;li&gt;평균 &lt;script type=&quot;math/tex&quot;&gt;E[x] = \mu&lt;/script&gt;&lt;/li&gt;
+      &lt;li&gt;분산
+        &lt;ul&gt;
+          &lt;li&gt;$var[X] = \sigma^2$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;평균과 분산 유도 reference
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://angeloyeo.github.io/2020/09/14/normal_distribution_derivation.html&quot;&gt;정규분포의 공식 유도 - 공돌이의 수학정리노트&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-def iterate_request():
-    for dt in rrule.rrule(rrule.DAILY, dtstart=start_date, until=end_date):
-        date = str(dt.date())
-        try : 
-            data_to_csv(date)
-        except : 
-            print(f'no data in {date}')
+&lt;h4 id=&quot;c-표준-정규분포&quot;&gt;C. 표준 정규분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;확률변수 X를 표준화한 확률변수 Z의 분포&lt;/li&gt;
+      &lt;li&gt;정규분포를 따르는 확률변수 $X \sim N(\mu,\sigma^2)$ . 확률변수 $X$를 $Z(=\dfrac{X-\mu}{\sigma})$ 로 치환하면 확률변수 Z의 분포는 표준정규분포가 됨.&lt;/li&gt;
+      &lt;li&gt;평균이 0, 분산은 1의 값을 가짐.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률밀도함수
+    &lt;ul&gt;
+      &lt;li&gt;$f(z) = \dfrac{1}{\sqrt{2\pi}}e^{-\dfrac{1}{2}(z)^2}, (-\infty &amp;lt; z &amp;lt; +\infty)$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;정규 분포의 성질
+    &lt;ul&gt;
+      &lt;li&gt;$X \sim N(\mu, \sigma^2)$ 일때, 임의의 상수 a,b에 대해 $aX+b \sim N(a\mu + b, a^2\sigma^2)$&lt;/li&gt;
+      &lt;li&gt;$X \sim N(\mu, \sigma^2)$ 일때, $z = \dfrac{X-\mu}{\sigma}, z\sim N(0,1)$&lt;/li&gt;
+      &lt;li&gt;$X \sim N(\mu, \sigma_{1}^{2)},Y \sim N(\mu, \sigma_{2}^{2)}$ 이고 X,Y가 독립일때 $aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2} + 2\sigma_{1,2})$
+        &lt;ul&gt;
+          &lt;li&gt;X,Y가 독립일시, 공분산은 0&lt;/li&gt;
+          &lt;li&gt;$\therefore aX + bY \sim N(a\mu_{1} + b\mu_{2}, a^{2}\sigma_{1}^{2} + b^{2} \sigma_{2}^{2})$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;신뢰구간 z값
+        &lt;ul&gt;
+          &lt;li&gt;$0.95 : 1.96$&lt;/li&gt;
+          &lt;li&gt;$0.99 : 2.58$&lt;/li&gt;
+          &lt;li&gt;$0.999 : 3.29$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이항분포의 정규 근사
+    &lt;ul&gt;
+      &lt;li&gt;$X\sim B(n,p)$ 일때, 확률 변수 X는 n이 충분히 크면 근사적으로 정규 분포 $X \sim N(np,np(1-p))$를 따른다.&lt;/li&gt;
+      &lt;li&gt;$Z = \dfrac{X-np}{\sqrt{(np(1-p))}} \sim N(0,1)$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;예시
+    &lt;ol&gt;
+      &lt;li&gt;평균키 $175cm$ 분산이 $25cm^2$ 인 정규분포에서 170cm ~ 180cm 의 구간확률은?
+        &lt;ol&gt;
+          &lt;li&gt;평균 = 0, 표준편차 = 1&lt;/li&gt;
+          &lt;li&gt;$-1 \leq Z \leq 1$&lt;/li&gt;
+          &lt;li&gt;0.6826&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;아침식사로 먹는 빵의 열량 $X\sim N(200,12^2)$ 우유의 열량 $Y\sim N(85,9^2)$ 이며 서로 독립이다. 아침에 300cal 이상 섭취할 확률은?
+        &lt;ol&gt;
+          &lt;li&gt;$aX + bY \sim N(a \mu_{1} + b \mu_{2}, a^{2}\sigma_{1}^{2}+ b^2\sigma_{2}^2)$  ⇒ $(285,15^2)$&lt;/li&gt;
+          &lt;li&gt;$Z = \dfrac{X - \mu}{\sigma} = \dfrac{300-285}{15} = 1$ ⇒ 표준정규분포표 0.8413&lt;/li&gt;
+          &lt;li&gt;$P(Z \leq 1) = 0.1587$&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-#requested data to csv
-def data_to_csv(date):
-    for v in campaignList :
-        uri = '/stats'
-        method = 'GET'
-        rangeOftime = {&quot;since&quot; : date, &quot;until&quot; : date}
-        json_range_of_time = json.dumps(rangeOftime, indent=2)
-        stat_ids = [v]
-        params={
-            'ids': stat_ids,
-            'fields': '[&quot;clkCnt&quot;,&quot;impCnt&quot;,&quot;salesAmt&quot;]', 
-            'timeRange': json_range_of_time }
-        r = requests.get(BASE_URL + uri, params, headers=get_header(method, uri, API_KEY, SECRET_KEY, CUSTOMER_ID))
-        # print(&quot;response status_code = {}&quot;.format(r.status_code))
-        # print(&quot;response body = {}&quot;.format(r.json()))
-        json_data = json.loads(r.text)
+&lt;h4 id=&quot;d-지수분포&quot;&gt;D. 지수분포&lt;/h4&gt;
 
-        if(len(json_data['data']) == 0) :
-            print(f'no data in {v} on {date}')
-            continue
-        
-        data = json_data['data'][0]
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;포아송 분포&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;지수분포&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;일정한 시간이나 구간에서 발생하는 특정한 사건의 수를 변수값으로 하는 확률변수의 분포&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;한 사건이 발생한 후 다음 사건이 발생할 때 까지의 시간이나 면적을 변수값으로 하는 확률변수의 분포&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;새로 구입한 자동차에서 발견되는 흠집 수&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;새로 구입한 자동차에서 1개의 흠집이 발견되고 또 다른 흠집이 발견되기까지의 면적&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1달동안 아파트 엘레베이터의 고장 건수&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;엘레베이터가 고장난 후 다시 고장날때까지 걸리는 시간&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-        print(v)
-        print('campaign : ',data)
-        striped_date = date.replace('-','')
-        medium = 'cpc'
-        source = 'search.naver.com'
-        clkCnt = data['clkCnt']
-        impCnt = data['impCnt']
-        salesAmt = data['salesAmt']
-        campaign = 0
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-        if(v == 'cmp-a001-01-000000003407889') :
-            campaign = 'NSA_cnc_contents'
-        elif(v == 'cmp-a001-01-000000003407888') :
-            campaign = 'NSA_cnc'
-        elif(v == 'cmp-a001-01-000000003707625') :
-            campaign = 'NSA_cnc_Mobile'
-        elif(v == 'cmp-a001-01-000000003645640') :
-            campaign = 'NSA_3dp'
-        elif(v == 'cmp-a001-01-000000003707633') :
-            campaign = 'NSA_3dp_Mobile'
-        elif(v == 'cmp-a001-01-000000003711121') :
-            campaign = 'NSA_INJ'
-        elif(v == 'cmp-a001-01-000000003711127') : 
-            campaign = 'NSA_INJ_Mobile'
-        elif(v == 'cmp-a001-01-000000003605317') :
-            campaign = 'NSA_Brand'
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;단위 시간, 면적, 거리에서 발생하는 사건의 횟수가 포아송 분포에 따른다면, 사건과 사건 사이의 시간을 변수값으로 하는 확률변수는 연속확률변수가 됨. 이 확률변수는 지수분포한다,&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;특징
+    &lt;ol&gt;
+      &lt;li&gt;확률변수 X의 값이 증가함에 따라 오른쪽꼬리가 감소하는 경사진 모양의 분포를 한다.&lt;/li&gt;
+      &lt;li&gt;람다 값에 따라 모양이 달라진다&lt;/li&gt;
+      &lt;li&gt;람다 값이 클수록 수직축의 절편값이 커진다.&lt;/li&gt;
+      &lt;li&gt;지수분포를 하는 확률변수의 평균과 표준편차는 같다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률밀도함수
+    &lt;ul&gt;
+      &lt;li&gt;pdf
+        &lt;ul&gt;
+          &lt;li&gt;$f(x) = \lambda e^{-\lambda x}, (0 &amp;lt; x &amp;lt; \infty, 0&amp;lt;\lambda)$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;cdf
+        &lt;ul&gt;
+          &lt;li&gt;$F(x) = 1 - e^{\lambda x}, x\geq 0$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;용어
+        &lt;ul&gt;
+          &lt;li&gt;x : 한 사건이 발생한 후 다음 사건까지의 시간(길이,면적)을 변수값으로 하는 확률 변수&lt;/li&gt;
+          &lt;li&gt;e : 자연 로그의 밑수&lt;/li&gt;
+          &lt;li&gt;$\lambda$ : 일정한 단위 내 평균적으로 발생하는 사건의 수, 포아송분포하는 확률변수의 평균&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;평균과 분산
+    &lt;ul&gt;
+      &lt;li&gt;평균 : $\mu = E(X) = \dfrac{1}{\lambda}$&lt;/li&gt;
+      &lt;li&gt;분산 : $\dfrac{1}{\lambda^2}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률 계산
+    &lt;ul&gt;
+      &lt;li&gt;확률변수값이 a시간보다 작을 확률 $P(X\leq a)$
+        &lt;ul&gt;
+          &lt;li&gt;$P(X\leq a) = P(0 \leq X \leq a)$
+            &lt;ul&gt;
+              &lt;li&gt;$= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$&lt;/li&gt;
+              &lt;li&gt;$=\left[-e^{\lambda x}\right]_{0}^{a} = (-e^{-\lambda a})-(-e^{-\lambda \cdot 0})$&lt;/li&gt;
+              &lt;li&gt;$\therefore 1-e^{-\lambda a}$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;확률변수값이 a시간보다 클 확률 $P(X\geq a)$
+        &lt;ul&gt;
+          &lt;li&gt;$P(X\geq a)$
+            &lt;ul&gt;
+              &lt;li&gt;$= \int_{0}^{a}f(x)dx = \int_{0}^{a}\lambda e^{-\lambda x}dx$&lt;/li&gt;
+              &lt;li&gt;$=\left[-e^{\lambda x}\right]_{a}^{\infty} = (-e^{-\lambda \infty})-(-e^{-\lambda \cdot a})$&lt;/li&gt;
+              &lt;li&gt;$\therefore e^{-\lambda a}$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;확률변수값이 a에서 b 사이일 확률 $P(a \leq X \leq b)$
+        &lt;ul&gt;
+          &lt;li&gt;$P(a \leq X \leq b)$
+            &lt;ul&gt;
+              &lt;li&gt;$=\int_{a}^{b}f(x)dx = \int_{a}^{b}\lambda e^{-\lambda x}dx$&lt;/li&gt;
+              &lt;li&gt;$\therefore(-e^{-\lambda b})-(-e^{- \lambda a})$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;예시
+    &lt;ul&gt;
+      &lt;li&gt;A은행에서 시간당 2명의 손님이 계좌를 개설한다. 30분 이내로 새로운 계좌가 개설될 확률은?
+        &lt;ul&gt;
+          &lt;li&gt;$1-e^{-\frac{1}{30}\times 30} \approx 0.63$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;버스 정류장에 시간당 평균 6대가 정차한다. 10분에서 20분 대기할 확률은?
+        &lt;ul&gt;
+          &lt;li&gt;$P(10\leq X\leq 20)$&lt;/li&gt;
+          &lt;li&gt;$(1-e^{-\frac{1}{10}\times 20})-\left(1-e^{-\frac{1}{10}\times 10}\right) \approx 0.233$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;계산 참고
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://ko.wikihow.com/%EC%A7%80%EC%88%98%EA%B0%80-%EC%86%8C%EC%88%98%EC%9D%BC-%EB%95%8C-%EA%B3%84%EC%82%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95&quot;&gt;지수가 소수일 때 계산하는 방법 - wikiHow&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://math100.tistory.com/36&quot;&gt;지수분포 문제풀이&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;한계
+    &lt;ul&gt;
+      &lt;li&gt;지수분포의 무기억성
+        &lt;ul&gt;
+          &lt;li&gt;어떤 시점으로 부터 소요되는 시간은 과거 시간에 영향을 받지 않음.&lt;/li&gt;
+          &lt;li&gt;예로, 한달동안 사용한 전구와 새 전구의 남은 수명은 같다고 생각함.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;때문에 생존분석에서는 Weibull 분포, log-normal 분포를 사용해 예측한다&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-        newRow = [striped_date, medium, source, clkCnt, salesAmt, impCnt, campaign]
-        ad_data = {'ga:date':[striped_date], 'ga:medium':[medium], 'ga:source':[source], 'ga:adClicks':[clkCnt], 'ga:adCost':[salesAmt], 'ga:impressions':[impCnt], 'ga:campaign':[campaign] }
-        df = pd.DataFrame(data=ad_data)
-        
-        df.to_csv(Path(input_file, f'{striped_date} {source} {campaign}.csv'), index=False)
+&lt;h4 id=&quot;e-카이제곱분포&quot;&gt;E. 카이제곱분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;카이제곱분포
+    &lt;ul&gt;
+      &lt;li&gt;정의
+        &lt;ol&gt;
+          &lt;li&gt;$x_{i}(i=1,2\cdots,n)$를 정규분포하는 모집단 $N(\mu,\sigma^2)$에서 추출한 서로 독립적인 표본 관측치일 경우&lt;/li&gt;
+          &lt;li&gt;이들은 각각 독립적이며 정규분포하는 확률변수가 됨.&lt;/li&gt;
+          &lt;li&gt;이를 표준화한 값 $(Z_{i})$들 역시 서로 독립이며 표준정규분포하는 확률변수값들이 됨.&lt;/li&gt;
+          &lt;li&gt;n개의 확률변수 $(Z_{i})$를 제곱하여 더한 변수는 카이제곱분포하는 확률변수가 됨.
+            &lt;ol&gt;
+              &lt;li&gt;$Z = Z_{1}^{2}+ Z = Z_{2}^{2}+ \cdots + Z = Z_{n}^2$&lt;/li&gt;
+            &lt;/ol&gt;
+          &lt;/li&gt;
+          &lt;li&gt;n의 갯수에 따라 카이제곱분포의 자유도가 결정됨.&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;특징
+        &lt;ul&gt;
+          &lt;li&gt;확률변수는 연속확률변수로, 항상 양의 값만 가짐&lt;/li&gt;
+          &lt;li&gt;오른쪽 꼬리를 가진 비대칭 분포&lt;/li&gt;
+          &lt;li&gt;자유도$(df)$에 따라 모양이 변함&lt;/li&gt;
+          &lt;li&gt;자유도$(df)$가 커질수록 정규분포에 가까워짐&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;용도
+        &lt;ul&gt;
+          &lt;li&gt;단일 모집단의 분산에 대한 추정과 검정을 할 경우 사용됨.
+            &lt;ul&gt;
+              &lt;li&gt;표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$을 추정할때&lt;/li&gt;
+              &lt;li&gt;표본 분산 $S^2$을 이용해 모집단 분산$\sigma^2$에 대한 가설을 검정할때&lt;/li&gt;
+              &lt;li&gt;변수간 독립인지&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;모집단의 분산 $\sigma^2$과 표본분산 $S^2$의 비를 나타내는 확률 변수는 자유도가 (n-1)인 카이제곱분포한다.
+            &lt;ul&gt;
+              &lt;li&gt;$\dfrac{(n-1)S^{2}}{\sigma^{2}}\sim x^2_{n-1}$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;레퍼런스
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://angeloyeo.github.io/2021/12/13/chi_square.html&quot;&gt;카이제곱 분포와 검정 - 공돌이의 수학정리노트&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-def merge_csv(): 
-    allFile_list = glob.glob(os.path.join(input_file, '*.csv'))
-    all_data = []
+&lt;h4 id=&quot;f-f분포&quot;&gt;F. F분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;F분포
+    &lt;ul&gt;
+      &lt;li&gt;정의
+        &lt;ul&gt;
+          &lt;li&gt;서로 독립인 두 정규모집단의 분산 또는 표준편차들의 비율에 대한 통계적 추론. 혹은 분산분석에 활용된다.&lt;/li&gt;
+          &lt;li&gt;나눗셈을 통해 분산이 1(같은지)인지 아닌지 확인&lt;/li&gt;
+          &lt;li&gt;$Y_{1} \sim x^2(v_1),Y_{2} \sim x^2(v_2)$ 이면 $F\sim \dfrac{y1/v1}{y2/v2},F&amp;gt;0$
+            &lt;ul&gt;
+              &lt;li&gt;2개의 카이제곱분포하는 확률변수 값을 각각의 자유도로 나눈, 평균 카이제곱값의 비를 변수값으로 하는 확률변수의 분포.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;확률변수
+        &lt;ul&gt;
+          &lt;li&gt;각 카이제곱분포의 평균의 비이므로
+            &lt;ul&gt;
+              &lt;li&gt;$F = \dfrac{\dfrac{x^2&lt;em&gt;{(n&lt;/em&gt;{1}-1)}}{(n_{1}-1)}}{\dfrac{x^2&lt;em&gt;{(n&lt;/em&gt;{2}-1)}}{(n_{2}-1)}}$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;정리하면 (모집단의 분산이 서로 차이가 없음을 전제로 하므로 1이됨)
+            &lt;ul&gt;
+              &lt;li&gt;$ \dfrac{\dfrac{S^2&lt;em&gt;1}{\sigma^2_1}}{\dfrac{S^2_2}{\sigma^2_2}} = \dfrac{\dfrac{S^2_1}{S^2_2}}{\dfrac{\sigma^2_1}{\sigma^2&lt;/em&gt;{2}}}=\dfrac{S^2_1}{S^2_2} $ //에러 체크&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;특징
+        &lt;ul&gt;
+          &lt;li&gt;2개의 자유도에 따라 F분포의 모양이 결정됨.&lt;/li&gt;
+          &lt;li&gt;오른쪽꼬리를 갖는 비대칭 모양이나, 자유도가 증가함에 따라 정규분포 모양을 띈다.&lt;/li&gt;
+          &lt;li&gt;항상 양의 값을 가진다.&lt;/li&gt;
+          &lt;li&gt;카이제곱 분포와 다르게 두집단의 분산을 다룬다.&lt;/li&gt;
+          &lt;li&gt;F분포의 역수를 취할 수 있다.
+            &lt;ul&gt;
+              &lt;li&gt;$F_{1-a}(k,m) = \dfrac{1}{F_a(m,k)}$&lt;/li&gt;
+              &lt;li&gt;즉 $F_{0.95,10,20} = \dfrac{1}{F_{0.05,20,10}}$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;예제
+        &lt;ul&gt;
+          &lt;li&gt;모집단 1에서 20개, 모집단 2에서 10개 추출했다.
+            &lt;ul&gt;
+              &lt;li&gt;$Y_{1}\sim N(\mu_{1}= 4, \sigma_1^{2}=4^2),Y_2\sim N(\mu_{2}= 12, \sigma_2^{2}=8^2)$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;이 F분포에서 표본분산비율이 c값보다 적을 확률이 0.05. 여기서 c를 찾아라.
+            &lt;ul&gt;
+              &lt;li&gt;$P \left[\dfrac{S_{1}^{2}}{S_{2}^{2}}\leq c \right] = 0.05$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;풀이
+            &lt;ul&gt;
+              &lt;li&gt;$F=\dfrac{S_{1}^2/\sigma_{1}^2}{S_{2}^2/\sigma_{2}^2}\sim F(19,9)$&lt;/li&gt;
+              &lt;li&gt;$\dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{a_2^2}{a_1^2}c = \dfrac{S_{1}^2\sigma_{2}^2}{S_{2}^2/\sigma_{1}^2}\leq \dfrac{8^2}{4^2}c=P[F \leq 4c] = 0.05$&lt;/li&gt;
+              &lt;li&gt;$P[F&amp;gt;f_{0.95}]=0.05$&lt;/li&gt;
+              &lt;li&gt;$4c=f_{0.95}(19,9)=\dfrac{1}{f_{0.05}(9,19)}=\dfrac{1}{2.42}$&lt;/li&gt;
+              &lt;li&gt;c=0.103&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-    for file in allFile_list:
-        df = pd.read_csv(file)
-        all_data.append(df)
-
-    data_combine = pd.concat(all_data, axis=0, ignore_index=True)
-    data_combine.to_csv(Path(output_file, f'{start_date.date()}_{end_date.date()}_combined.csv'), index=False )
-
-def removeAllFile():
-    if os.path.exists(input_file):
-        for file in os.scandir(input_file):
-            os.remove(file.path)
-        return 'input 폴더 삭제 완료'
-    else :
-        return 'input 폴더 에러'
-
-def init():
-    iterate_request()
-    merge_csv()
-    removeAllFile()
-
-init()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;.python&lt;/code&gt; 백틱&lt;/p&gt;
+&lt;h4 id=&quot;g-t분포&quot;&gt;G. t분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;t분포
+    &lt;ul&gt;
+      &lt;li&gt;정의
+        &lt;ul&gt;
+          &lt;li&gt;정규분포와 거의 유사하나 꼬리가 더 두꺼운 분포를 띈다.&lt;/li&gt;
+          &lt;li&gt;자유도가 30개 이상이면 표준정규분포(Z분포)와 거의 일치한다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;특징
+        &lt;ul&gt;
+          &lt;li&gt;표준정규분포(Z분포)와 같이 평균이 0&lt;/li&gt;
+          &lt;li&gt;자유도에 따라 분포 모양이 변함&lt;/li&gt;
+          &lt;li&gt;자유도가 증가함에 따라 분산은 1에 접근함&lt;/li&gt;
+          &lt;li&gt;표본의 크기가 커질수록 자유도는 증가. 30개 이상일시 Z분포와 거의 동일한 분포&lt;/li&gt;
+          &lt;li&gt;$\overline{x}$의 표준화한 Z값과 거의 같다. $Z=\dfrac{\overline{x}-\mu}{\dfrac{\sigma}{\sqrt{n}}}$
+            &lt;ul&gt;
+              &lt;li&gt;모집단의 표준편차 대신, 표본의 표준편차를 사용한것.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;확률변수
+        &lt;ul&gt;
+          &lt;li&gt;$t_{(n-1)} = \dfrac{\overline{x}-\mu}{\dfrac{S}{\sqrt{n}}}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;예시
+        &lt;ul&gt;
+          &lt;li&gt;$x_{1} \cdots x_{25}$ 은 $\sim iid N(100,10^2)$일때 $P[T&amp;lt;c] \leq 0.05$ 를 구하라.
+            &lt;ul&gt;
+              &lt;li&gt;$T\sim t(v=24) ⇒ P[T \leq -t_{a,24}] ⇒ P[T \geq t_{a,24}]$&lt;/li&gt;
+              &lt;li&gt;$a = 1.711$&lt;/li&gt;
+              &lt;li&gt;$\therefore -1.711$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </description>
-        <pubDate>Wed, 13 Jan 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/01/13/%E1%84%87%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%AE%E1%86%AB-11656-%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%86%E1%85%B5%E1%84%89%E1%85%A1-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF-java-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-3</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/01/13/%E1%84%87%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%AE%E1%86%AB-11656-%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%86%E1%85%B5%E1%84%89%E1%85%A1-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF-java-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-3</guid>
+        <pubDate>Sat, 07 Jan 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</guid>
         
-        <category>검색광고</category>
+        <category>통계</category>
         
-        <category>네이버검색광고API</category>
-        
-        <category>퍼포먼스마케팅</category>
+        <category>분포</category>
         
         
-        <category>programming</category>
+        <category>통계</category>
         
       </item>
     
       <item>
-        <title>고통받는 마케터를 위한 네이버 검색광고 API 활용법 1 | GA 비용데이터 쉽게 추가하기</title>
-        <description>&lt;p&gt;네이버 검색광고 API를 활용하여 손쉽게 리포팅을 받을 수 있다. !&lt;/p&gt;
+        <title>기초통계 - 표본분포와 중심극한정리</title>
+        <description>&lt;h2 id=&quot;표본분포와-중심극한정리&quot;&gt;표본분포와 중심극한정리&lt;/h2&gt;
 
-&lt;!--more--&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import os
-import time
-import shutil
-import random
-import json
-import glob
-import requests
-import signaturehelper
-import pandas as pd
-from pandas import DataFrame
-from pathlib import Path
-import csv
-from dateutil import rrule
-from datetime import datetime, timedelta
-from dateutil.parser import *
+&lt;h3 id=&quot;모집단과-표본&quot;&gt;모집단과 표본&lt;/h3&gt;
 
-BASE_URL = 'https://api.naver.com'
-API_KEY = 'API Key'
-SECRET_KEY = 'Secret key'
-CUSTOMER_ID = 'Customer ID'
-input_file = '../DB_for_GA_naver/'
-output_file = '../DB_of_naver_combined/'
-campaignList = ['cmp-a001-01-000000003407889',
-                'cmp-a001-01-000000003407888',
-                'cmp-a001-01-000000003645640',
-                'cmp-a001-01-000000003605317',
-                'cmp-a001-01-000000003711127',
-                'cmp-a001-01-000000003711121',
-                'cmp-a001-01-000000003707633',
-                'cmp-a001-01-000000003707625'
-                ]
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/wbEAmCi.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-#1. GET Summary Report per multiple entities 
-input_start_date = input('보고 시작 날짜 : ')
-input_end_date = input('보고 종료 날짜 : ')
+&lt;ul&gt;
+  &lt;li&gt;표본추출(sampling)
+    &lt;ul&gt;
+      &lt;li&gt;모집단으로 부터 표본을 추출하는 것을 sampling이라 함. 표본으로부터 그 특성을 찾아내고 모집단의 특성을 추론하고자 함.&lt;/li&gt;
+      &lt;li&gt;복원추출&lt;/li&gt;
+      &lt;li&gt;비복원추출&lt;/li&gt;
+      &lt;li&gt;Random Sampling&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;불균형 데이터의 문제
+    &lt;ul&gt;
+      &lt;li&gt;데이터가 불균형 데이터일 경우 문제.&lt;/li&gt;
+      &lt;li&gt;ie., 예측모형을 만들때 예측 대상이 너무 작을 경우.
+        &lt;ul&gt;
+          &lt;li&gt;Sampling 기법을 통해 해결
+            &lt;ul&gt;
+              &lt;li&gt;관심의 대상이 아주 낮은 비율일 경우
+                &lt;ol&gt;
+                  &lt;li&gt;Over Sampling
+                    &lt;ol&gt;
+                      &lt;li&gt;많은 class의 비율만큼 관심 class를 증가시킴 (일정 비율로 복원추출하는 개념)
+                        &lt;ul&gt;
+                          &lt;li&gt;과도적합의 문제 발생 가능&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                    &lt;/ol&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;Under Sampling
+                    &lt;ol&gt;
+                      &lt;li&gt;많은 class의 비율을 관심 class 만큼 감소시킴
+                        &lt;ul&gt;
+                          &lt;li&gt;임의로 뽑은 데이터가 편향될 수 있고 성능 감소 가능&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                    &lt;/ol&gt;
+                  &lt;/li&gt;
+                &lt;/ol&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;모델을 통한 성능 개선 (Cost-sensitive learning)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-start_date = parse(input_start_date)
-end_date = parse(input_end_date)
+&lt;h3 id=&quot;표본분포&quot;&gt;표본분포&lt;/h3&gt;
 
-#import key
-def get_header(method, uri, api_key, secret_key, customer_id):
-    timestamp = str(round(time.time() * 1000))
-    signature = signaturehelper.Signature.generate(timestamp, method, uri, SECRET_KEY)
-    return {'Content-Type': 'application/json; charset=UTF-8', 'X-Timestamp': timestamp, 'X-API-KEY': API_KEY, 'X-Customer': str(CUSTOMER_ID), 'X-Signature': signature}
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;통계량의 분포를 총칭하여 일컫는 말. (ie., 표본평균, 표본분산의 포본분포)&lt;/li&gt;
+      &lt;li&gt;표본으로 추출되는 표본 크기가 증가함에 따라 정규분포에 접근하게 되는데, 이를 중심극한정리라 한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-def iterate_request():
-    for dt in rrule.rrule(rrule.DAILY, dtstart=start_date, until=end_date):
-        date = str(dt.date())
-        try : 
-            data_to_csv(date)
-        except : 
-            print(f'no data in {date}')
+&lt;h4 id=&quot;a-표본평균의-표본분포&quot;&gt;A. 표본평균의 표본분포&lt;/h4&gt;
 
-#requested data to csv
-def data_to_csv(date):
-    for v in campaignList :
-        uri = '/stats'
-        method = 'GET'
-        rangeOftime = {&quot;since&quot; : date, &quot;until&quot; : date}
-        json_range_of_time = json.dumps(rangeOftime, indent=2)
-        stat_ids = [v]
-        params={
-            'ids': stat_ids,
-            'fields': '[&quot;clkCnt&quot;,&quot;impCnt&quot;,&quot;salesAmt&quot;]', 
-            'timeRange': json_range_of_time }
-        r = requests.get(BASE_URL + uri, params, headers=get_header(method, uri, API_KEY, SECRET_KEY, CUSTOMER_ID))
-        # print(&quot;response status_code = {}&quot;.format(r.status_code))
-        # print(&quot;response body = {}&quot;.format(r.json()))
-        json_data = json.loads(r.text)
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;추출 가능한 표본들의 평균($\overline{x}$)를 변수값으로 하는 확률변수의 분포를 말한다.&lt;/li&gt;
+      &lt;li&gt;정리하자면,
+        &lt;ul&gt;
+          &lt;li&gt;모집단의 분포가 $N(\mu,\sigma^2)$라고 할때, 확률표본 $X_{1} \sim X_{n} ⇒  iid N(\mu, \sigma^2)$&lt;/li&gt;
+          &lt;li&gt;$\overline{X}\sim N(\mu,\frac{\sigma^2}{n})$ , $Z\sim N(0,1)$&lt;/li&gt;
+          &lt;li&gt;&lt;em&gt;(independent and identically distribution)&lt;/em&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;예시1)
+        &lt;ul&gt;
+          &lt;li&gt;10명으로 구성된 모집단으로부터 5명을 추출하여 표본을 구성하는 경우의 표본평균분포
+            &lt;ul&gt;
+              &lt;li&gt;모집단
+                &lt;ul&gt;
+                  &lt;li&gt;확률변수 X&lt;/li&gt;
+                  &lt;li&gt;평균 : $E(X)=\mu$&lt;/li&gt;
+                  &lt;li&gt;분산 : $var(X) = \sigma^2$&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;추출 가능한 집단 ${20 \choose 5}= 252$
+                &lt;ul&gt;
+                  &lt;li&gt;표본 n의 표본평균 $\overline{X}&lt;em&gt;{1}$, $\overline{X}&lt;/em&gt;{2}$ $\cdots \overline{X}_{252}$&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;표본평균
+                &lt;ul&gt;
+                  &lt;li&gt;$\dfrac{\sum_{i=1}^{n}x_{i}}{n}$&lt;/li&gt;
+                  &lt;li&gt;확률변수 $\overline{x}$&lt;/li&gt;
+                  &lt;li&gt;평균 : $E(\overline{x})=\mu$&lt;/li&gt;
+                  &lt;li&gt;분산 : $var(\overline{x} = \dfrac{\sigma^2}{n})$&lt;/li&gt;
+                  &lt;li&gt;표준편차 : $\sigma_{\overline{x}}$ = 표준오차(standard error)&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;예시2)
+        &lt;ul&gt;
+          &lt;li&gt;$X_{1}, \cdots X_{50}$ 은 $iid N(10,5^2)$일때 $P(\overline{X} \leq 10)$은?
+            &lt;ul&gt;
+              &lt;li&gt;$\overline{X} \sim N(10,\frac{5^{2}}{50})$&lt;/li&gt;
+              &lt;li&gt;$P(\overline{X} \leq 10) = P\left[\dfrac{\overline{X} - 10}{\sqrt{\dfrac{5^2}{50}}} \leq \dfrac{10 - 10}{\sqrt{\dfrac{5^2}{50}}}\right]$&lt;/li&gt;
+              &lt;li&gt;$=P(Z \leq 0)$&lt;/li&gt;
+              &lt;li&gt;$\therefore 0.5$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-        if(len(json_data['data']) == 0) :
-            print(f'no data in {v} on {date}')
-            continue
-        
-        data = json_data['data'][0]
+&lt;h4 id=&quot;b-표본비율의-표본분포&quot;&gt;B. 표본비율의 표본분포&lt;/h4&gt;
 
-        print(v)
-        print('campaign : ',data)
-        striped_date = date.replace('-','')
-        medium = 'cpc'
-        source = 'search.naver.com'
-        clkCnt = data['clkCnt']
-        impCnt = data['impCnt']
-        salesAmt = data['salesAmt']
-        campaign = 0
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;0과 1의 두 종류의 값을 갖는 개체들로 구성된 모집단에서 표본을 추출하였을 경우, 추출된 표본에서 1의 비율.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-        if(v == 'cmp-a001-01-000000003407889') :
-            campaign = 'NSA_cnc_contents'
-        elif(v == 'cmp-a001-01-000000003407888') :
-            campaign = 'NSA_cnc'
-        elif(v == 'cmp-a001-01-000000003707625') :
-            campaign = 'NSA_cnc_Mobile'
-        elif(v == 'cmp-a001-01-000000003645640') :
-            campaign = 'NSA_3dp'
-        elif(v == 'cmp-a001-01-000000003707633') :
-            campaign = 'NSA_3dp_Mobile'
-        elif(v == 'cmp-a001-01-000000003711121') :
-            campaign = 'NSA_INJ'
-        elif(v == 'cmp-a001-01-000000003711127') : 
-            campaign = 'NSA_INJ_Mobile'
-        elif(v == 'cmp-a001-01-000000003605317') :
-            campaign = 'NSA_Brand'
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;모집단($X$)&lt;/th&gt;
+      &lt;th&gt;표본($x$)&lt;/th&gt;
+      &lt;th&gt;표본비율($p$)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;평균(기댓값)&lt;/td&gt;
+      &lt;td&gt;$\pi$&lt;/td&gt;
+      &lt;td&gt;$p$&lt;/td&gt;
+      &lt;td&gt;$E(p)=\pi$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;분산&lt;/td&gt;
+      &lt;td&gt;$\pi(1-\pi)$&lt;/td&gt;
+      &lt;td&gt;$p(1-p)$&lt;/td&gt;
+      &lt;td&gt;$\frac{1-\pi}{n}\approx \frac{p(1-p)}{n}$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-        newRow = [striped_date, medium, source, clkCnt, salesAmt, impCnt, campaign]
-        ad_data = {'ga:date':[striped_date], 'ga:medium':[medium], 'ga:source':[source], 'ga:adClicks':[clkCnt], 'ga:adCost':[salesAmt], 'ga:impressions':[impCnt], 'ga:campaign':[campaign] }
-        df = pd.DataFrame(data=ad_data)
-        
-        df.to_csv(Path(input_file, f'{striped_date} {source} {campaign}.csv'), index=False)
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-def merge_csv(): 
-    allFile_list = glob.glob(os.path.join(input_file, '*.csv'))
-    all_data = []
+&lt;h3 id=&quot;중심극한정리-central-limit-theorem&quot;&gt;중심극한정리 (central limit theorem)&lt;/h3&gt;
 
-    for file in allFile_list:
-        df = pd.read_csv(file)
-        all_data.append(df)
-
-    data_combine = pd.concat(all_data, axis=0, ignore_index=True)
-    data_combine.to_csv(Path(output_file, f'{start_date.date()}_{end_date.date()}_combined.csv'), index=False )
-
-def removeAllFile():
-    if os.path.exists(input_file):
-        for file in os.scandir(input_file):
-            os.remove(file.path)
-        return 'input 폴더 삭제 완료'
-    else :
-        return 'input 폴더 에러'
-
-def init():
-    iterate_request()
-    merge_csv()
-    removeAllFile()
-
-init()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;.python&lt;/code&gt; 백틱&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;어떠한 분포를 하는 모집단으로부터 추출한 표본이든 간에, 표본의 평균($\overline{x}$)은 모집단평균$(\mu)$을 중심으로 종모양의 정규분포나 최소한 좌우대칭인 구릉모양의 분포를 한다. 중심극한정리는 이러한 표본평균$(\overline{x})$의 분포 특성을 설명한다.&lt;/li&gt;
+      &lt;li&gt;평균이 $\mu$ 이고 분산이 $\sigma^2$인 임의의 모집단에서 랜덤표본 $X_{1} \cdots X_{n}$을 추출할때 표본의 크기 n이 충분히 크면$(n \geq 30)$ 표본 평균 $\overline{X}$은 근사적으로 정규분포 $N(\mu,\frac{\sigma^2}{n})$ 을 따른다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;예시1)
+    &lt;ul&gt;
+      &lt;li&gt;모집단의 분포가 $X\sim N(30,5^2)$일때, 모집단으로 부터 크기가 30인 확률 표본의 평균 $\overline{X}$가 32 이하일 확률은?
+        &lt;ul&gt;
+          &lt;li&gt;$P(\overline{X}\leq 32)$&lt;/li&gt;
+          &lt;li&gt;$\dfrac{\overline{X}-\mu}{\sqrt{\dfrac{5^2}{30}}} \leq \dfrac{32-30}{\sqrt{\dfrac{5^2}{30}}}$&lt;/li&gt;
+          &lt;li&gt;$=p(Z \leq 2.19) = 0.9857$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </description>
-        <pubDate>Wed, 13 Jan 2021 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2021/01/13/%E1%84%87%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%AE%E1%86%AB-11656-%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%86%E1%85%B5%E1%84%89%E1%85%A1-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF-java-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2021/01/13/%E1%84%87%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%AE%E1%86%AB-11656-%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%86%E1%85%B5%E1%84%89%E1%85%A1-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF-java-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</guid>
+        <pubDate>Sat, 07 Jan 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB</guid>
         
-        <category>검색광고</category>
+        <category>통계</category>
         
-        <category>네이버검색광고API</category>
-        
-        <category>퍼포먼스마케팅</category>
+        <category>분포</category>
         
         
-        <category>programming</category>
+        <category>통계</category>
+        
+      </item>
+    
+      <item>
+        <title>기초통계 - 이산확률분포</title>
+        <description>&lt;h3 id=&quot;이산확률분포&quot;&gt;이산확률분포&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;h4 id=&quot;a-이산확률분포-정리-표&quot;&gt;A. 이산확률분포 정리 표&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/dFzdOvj.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;b-이산형-균등분포&quot;&gt;B. 이산형 균등분포&lt;/h4&gt;
+
+&lt;p&gt;주사위를 한번 굴려서 나오는 숫자를 확률변수 X라 하면 확률 변수 X는 아래와 같다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;x&lt;/th&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;th&gt;6&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;f(x)&lt;/td&gt;
+      &lt;td&gt;1/6&lt;/td&gt;
+      &lt;td&gt;1/6&lt;/td&gt;
+      &lt;td&gt;1/6&lt;/td&gt;
+      &lt;td&gt;1/6&lt;/td&gt;
+      &lt;td&gt;1/6&lt;/td&gt;
+      &lt;td&gt;1/6&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;확률 변수 X가 유한개이고 모든 확률 변수에 대해 균일한 확률을 갖는 분포
+        &lt;ul&gt;
+          &lt;li&gt;$fx(x) = p(X = x) = \dfrac{1}{n}$&lt;/li&gt;
+          &lt;li&gt;기대값 $=\dfrac{n+1}{2}$&lt;/li&gt;
+          &lt;li&gt;분산 = $=\dfrac{(N^{2}-1)}{12}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;도출
+    &lt;ul&gt;
+      &lt;li&gt;기대값 $E[X]$
+        &lt;ul&gt;
+          &lt;li&gt;$E[X] = \sum\limits xf(x) = \frac{1}{n} \sum\limits x$&lt;/li&gt;
+          &lt;li&gt;$=\dfrac{1}{n} \times \dfrac{n(n+1)}{2}$&lt;/li&gt;
+          &lt;li&gt;$=\dfrac{n+1}{2}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;분산 $var[x] = E(X^2)-[E(X)]^2$
+        &lt;ul&gt;
+          &lt;li&gt;$E(X^{2}) - \mu^{2} = \dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$&lt;/li&gt;
+          &lt;li&gt;$=\dfrac{(N+1)(2N+1)}{6} - (\dfrac{N+1}{2})^2$&lt;/li&gt;
+          &lt;li&gt;$=\dfrac{(N+1)(N-1)}{12}$&lt;/li&gt;
+          &lt;li&gt;$=\dfrac{(N^{2}-1)}{12}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;c-베르누이-시행&quot;&gt;C. 베르누이 시행&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;상호 배반적인 2가지 결과만을 기대할 수 있는 시행을 말한다. (ie., 동전던지기, 시험 합불)&lt;/li&gt;
+      &lt;li&gt;기대값 = $p$&lt;/li&gt;
+      &lt;li&gt;분산 = $p(1-p) = pq$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;특징
+    &lt;ul&gt;
+      &lt;li&gt;베르누이 시행결과를 나타내는 확률변수는 1,0만을 갖는다&lt;/li&gt;
+      &lt;li&gt;성공확률과 실패확률의 합은 항상 1이다.
+        &lt;ul&gt;
+          &lt;li&gt;성공확률 $p$, 실패확률 $1-p$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;각각의 시행은 서로 독립적이기에 여러번 걸친 시행간에 서로 영향을 미치지 않는다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;d-이항-분포&quot;&gt;D. 이항 분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;한번 이상 반복 실시한 베르누이 시행 결과의 합을 변숙밧으로 하는 확률 변수의 분포.&lt;/li&gt;
+      &lt;li&gt;성공확률이 0.5에 가깝고 시행 횟수가 많을수록 정규분포에 가까워진다.&lt;/li&gt;
+      &lt;li&gt;반대의 경우 한쪽 극단으로 치우친 분포가 된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;특징
+    &lt;ul&gt;
+      &lt;li&gt;이항확률변수의 값은 여러 개의 베르누이 시행 결과의 합&lt;/li&gt;
+      &lt;li&gt;이항확률변수를 구성하는 베르누이 시행은 상호 독립&lt;/li&gt;
+      &lt;li&gt;각각의 베르누이시행에서 성공할 확률은 모두 동일&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이항분포의 확률질량함수
+    &lt;ul&gt;
+      &lt;li&gt;기대값과 분산 (n : 베르누이 시행횟수, p : 표본으로부터 추정한 $\pi$ 값, $ q : 1-p $ )
+        &lt;ul&gt;
+          &lt;li&gt;기대값 = $np$&lt;/li&gt;
+          &lt;li&gt;분산 = $np(1-p) = npq$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;정의
+        &lt;ul&gt;
+          &lt;li&gt;여러개의 베르누이 확률변수값의 합으로 나타는 이항확률변수의 분포를 나타내는 확률질량함수&lt;/li&gt;
+          &lt;li&gt;$P(X=x) = {_n}C{_x}p^{x}(1-p)^{n-x}$&lt;/li&gt;
+          &lt;li&gt;$=\dfrac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x}$
+            &lt;ul&gt;
+              &lt;li&gt;$X$ : 성공횟수를 나타내는 이항확률변수&lt;/li&gt;
+              &lt;li&gt;$x$ : 임의의 변수값을 나타내는 성공변수&lt;/li&gt;
+              &lt;li&gt;$n$ : 시행횟수&lt;/li&gt;
+              &lt;li&gt;$p$ : 베르누이 시행의 성공 확률&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(ie., 반도체 공장에서 불량이 발생할 확률이 10%라 할때, 10개의 제품을 제작했을때 불량이 2개 이하일 확률
+    &lt;ul&gt;
+      &lt;li&gt;$P(X \leq 2) = P(X=0) + P(X=1) + P(X=2)$&lt;/li&gt;
+      &lt;li&gt;$P(X \leq 2) = {10 \choose 0}0.1^{0}(0.9)^{10-0} + {10 \choose 1}0.1^{1}(0.9)^{10-1} + {10 \choose 2}0.1^{2}(0.9)^{10-2}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;e-포아송-분포&quot;&gt;E. 포아송 분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;어느 희귀한 사건이 일정한 시간대에 발생할 확률 분포. 야구장에서 파울볼을 잡을 횟수, 버스 정류장에서 특정 버스가 5분 이내에 도착한 횟수 등&lt;/li&gt;
+      &lt;li&gt;이항분포와 포아송분포는 모두 사건의 발생 횟수를 나타내는 이산확률변수의 분포.&lt;/li&gt;
+      &lt;li&gt;단, 이항분포의 경우 베르누이시행 갯수가 이항확률변수의 최대값.&lt;/li&gt;
+      &lt;li&gt;포아송분포의 경우 확률변수의 최대값이 제한이 없음. (단 셀 수 없을만큼 큰 수를 갖는 확률변수는 포아송분포하지 않는다.)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;특징
+    &lt;ul&gt;
+      &lt;li&gt;사건들을 셀 수 있을 정도의 일정한 단위시간이나 단위길이 혹은 단위 면적 등에서 발생하는 서로 독립적인 사건&lt;/li&gt;
+      &lt;li&gt;극히 작은 단위시간과 면적에 한번에 둘 이상의 사건이 동시에 발생할 확률은 적으므로 0으로 간주&lt;/li&gt;
+      &lt;li&gt;일정한 단위시간이나 면적에서 발생하는 사건의 수는 크기에 비례한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률질량함수
+    &lt;ul&gt;
+      &lt;li&gt;기대값(평균)과 분산
+        &lt;ul&gt;
+          &lt;li&gt;$\lambda$ 로 동일하다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;$P(X=x) = \dfrac{e^{-\lambda} \lambda^x}{x!}$
+        &lt;ul&gt;
+          &lt;li&gt;X : 일정한 단위당 사건 발생횟수를 변수값으로 하는 확률변수를 의미&lt;/li&gt;
+          &lt;li&gt;x : 특정한 확률변수값으로서 임의로 선정된 단위구간에서 발생한 사건의 수&lt;/li&gt;
+          &lt;li&gt;e : 자연로그의 밑수&lt;/li&gt;
+          &lt;li&gt;$\lambda$ : 확률변수 X의 기대값(E(X)). 일정한 단위당 평균 발생 횟수&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이항분포의 포아송 근사
+    &lt;ul&gt;
+      &lt;li&gt;확률변수 X가 X ~ B(n,p) &lt;em&gt;B = (binominal)&lt;/em&gt; 이고, n이 충분히 크고 p가 아주 작을때, X의 분포는 평균이 np = $\lambda$ 인 포아송 분포로 근사시킬 수 있다.
+        &lt;ul&gt;
+          &lt;li&gt;보통 n이 클때, np &amp;lt; 5를 만족할 정도로 작다면 근사 정도가 좋다.&lt;/li&gt;
+          &lt;li&gt;통계학에서 n이 크다는 것은 대게 30 이상을 의미&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;f-기하-분포&quot;&gt;F. 기하 분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;어떤 실험에서 처음 성공이 발생하기 까지 시도한 횟수 X의 분포.&lt;/li&gt;
+      &lt;li&gt;각 시도는 독립적이며 베르누이 시행을 따른다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률질량함수
+    &lt;ul&gt;
+      &lt;li&gt;기대값과 분산
+        &lt;ul&gt;
+          &lt;li&gt;기대값 : $\dfrac{1}{p}$&lt;/li&gt;
+          &lt;li&gt;분산 : $\dfrac{1-p}{p^2}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;$P(X=x) = (1-p)^{x-1}p$  ⇒ $X~Geometric(p)$
+        &lt;ul&gt;
+          &lt;li&gt;ie., 축구선수가 필드골 성공 확률이 30%일때 5번째 슛팅에서 골을 넣을 확률 분포
+            &lt;ul&gt;
+              &lt;li&gt;$(1-0.3)^{5-1}0.3$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;g-음이항분포-negative-binomial-distribution&quot;&gt;G. 음이항분포 (negative binomial distribution)&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;어떤 실험에서 성공확률이 p일때 r번의 실패가 나올 때 까지 발생한 성공 횟수 X의 확률 분포&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률질량함수
+    &lt;ul&gt;
+      &lt;li&gt;기대값과 분산
+        &lt;ul&gt;
+          &lt;li&gt;기대값 : $r\dfrac{1-p}{p}$&lt;/li&gt;
+          &lt;li&gt;분산 : $r\dfrac{1-p}{p^2}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;$P(X=x) = {x + r-1 \choose x}p^x(1-p)^r$   ⇒ $X~NB(r,p)$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;예시
+    &lt;ul&gt;
+      &lt;li&gt;농구선수 자유투 성공률이 90%일때 3번째 실패가 나올때까지 성공시킨 자유투가 10번일 확률&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;h-초기하분포&quot;&gt;H. 초기하분포&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;정의
+    &lt;ul&gt;
+      &lt;li&gt;시행이 독립적이지 않고 유한 모집단을 대상으로 비복원추출로 표본을 선정하는 경우.&lt;/li&gt;
+      &lt;li&gt;표본을 추출하는 시행 결과가 독립적이라면 이항분포, 그렇지 않다면 초기하분포한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;확률함수
+    &lt;ul&gt;
+      &lt;li&gt;$P(X=x) = \dfrac{&lt;em&gt;kC_n \times _{&lt;/em&gt;{(N-k)}C_{(n-x)}}}{_NC_n}$&lt;/li&gt;
+      &lt;li&gt;$=\dfrac{&lt;em&gt;{모집단성공개수} C _{표본성공개수} \times _{(모집단 총 개수 - 모집단성공 개수)}C&lt;/em&gt;{(표본수 - 표본성공개수)}}{&lt;em&gt;{모집단수}C&lt;/em&gt;{표본수}}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;예시
+    &lt;ul&gt;
+      &lt;li&gt;흰-20, 빨-25, 녹-10, 노-30, 파-15개, 100개의 공이 있다. 비복원으로 10개를 뽑았을때, 흰-3,빨-2,파-1가 뽑힐 확률은?
+        &lt;ul&gt;
+          &lt;li&gt;$\dfrac{ {20 \choose 3} {25 \choose 2} {15 \choose 1} {40 \choose 4} }{100 \choose 10}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 06 Jan 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/01/06/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/06/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</guid>
+        
+        <category>통계</category>
+        
+        <category>분포</category>
+        
+        
+        <category>통계</category>
+        
+      </item>
+    
+      <item>
+        <title>기초통계량 정리</title>
+        <description>&lt;p&gt;기술통계량이라고 불리며, 데이터의 특성을 이해할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;모멘트-1--위치&quot;&gt;모멘트 1 : 위치&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;h4 id=&quot;a-중심-경향치&quot;&gt;A. 중심 경향치&lt;/h4&gt;
+&lt;p&gt;표본의 중심을 설명하는 값. 평균, 중앙값, 최빈값, 절사 평균 등&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;평균
+    &lt;ul&gt;
+      &lt;li&gt;평균은 표본으로 추출된 표본평균 $\overline{x}$이라고 하며, 모집단의 평균은 모평균 µ이라 불린다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;중앙값
+    &lt;ul&gt;
+      &lt;li&gt;관측치를 크기순으로 나열했을 때, 가운데 위치하는 값
+        &lt;ul&gt;
+          &lt;li&gt;홀수일 시, 중앙값, 짝수일 시 중앙 값 2개의 산술 평균&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;최빈값
+    &lt;ul&gt;
+      &lt;li&gt;관측치 중 가장 많이 관측되는 값&lt;/li&gt;
+      &lt;li&gt;명목형 데이터의 경우 많이 사용&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;모멘트-2--변이&quot;&gt;모멘트 2 : 변이&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;h4 id=&quot;a-산포도&quot;&gt;A. 산포도&lt;/h4&gt;
+&lt;p&gt;데이터가 어떻게 흩어져 있는지를 확인하기 위해 중심경향치와 함께 산포에 대한 측도를 같이 고려.
+범위, 사분위수, 분산, 표준편차, 변동 계수 등이 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;범위
+    &lt;ul&gt;
+      &lt;li&gt;최대값과 최소값이 차이&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;사분위수
+    &lt;ul&gt;
+      &lt;li&gt;전체 데이터를 오름차순 정리하여 4등분한 범위&lt;/li&gt;
+      &lt;li&gt;사분위범위 (IQR) 25번째 백분위수와 75번째 백분위수의 차이를 본다.
+        &lt;ul&gt;
+          &lt;li&gt;${1,2,3,3,5,6,7,9} -&amp;gt; 6.5 - 2.5 = 4$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;백분위수
+    &lt;ul&gt;
+      &lt;li&gt;정렬시 비율에 의해 등분한 값을 말함. 분위수와 근본적으로 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;분산 : 로버스트하지 않음
+    &lt;ul&gt;
+      &lt;li&gt;데이터의 분포가 얼마나 흩어져 있는지 알 수 있는 측도
+        &lt;ul&gt;
+          &lt;li&gt;$S^{2}=\dfrac{1}{n-1}\sum ^{n}&lt;em&gt;{i=1}\left( x&lt;/em&gt;{i}-\overline{x}\right)^2$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;표준편차 : 로버스트하지 않음
+    &lt;ul&gt;
+      &lt;li&gt;분산의 제곱근
+        &lt;ul&gt;
+          &lt;li&gt;$\sqrt{s^{2}}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;변동 계수 (Coefficient of Variation : CV)
+    &lt;ul&gt;
+      &lt;li&gt;평균이 다른 두개 이상의 그룹의 표준편차를 비교할때 사용함.&lt;/li&gt;
+      &lt;li&gt;다른 그룹의 산포를 비교하며 실제 분석에서 많이 사용됨.
+        &lt;ul&gt;
+          &lt;li&gt;$\dfrac{\sqrt{s^{2}}}{\overline{x}}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;모멘트-3--4-왜도--첨도&quot;&gt;모멘트 3 &amp;amp; 4 왜도 &amp;amp; 첨도&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;ul&gt;
+  &lt;li&gt;왜도(skew)
+    &lt;ul&gt;
+      &lt;li&gt;자료의 분포가 얼마나 기울었는지(비대칭적인지) 표현하는 지표&lt;/li&gt;
+      &lt;li&gt;왜도가 0이면 좌우가 대칭이며 0에서 클수록 우측꼬리가 길고 0에서 작을수록 좌측 꼬리가 길다.&lt;/li&gt;
+      &lt;li&gt;피어슨 왜도계수
+        &lt;ul&gt;
+          &lt;li&gt;$\dfrac{3(평균값 - 중앙값)}{표본의 표준편차}$&lt;/li&gt;
+          &lt;li&gt;$\dfrac{3(평균값 - 최빈값)}{표본의 표준편차}$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;첨도(kurtosis)
+    &lt;ul&gt;
+      &lt;li&gt;변수의 분포 모양이 얼마나 뾰족한지&lt;/li&gt;
+      &lt;li&gt;확률 분포의 꼬리가 두꺼운 정도를 나타내는 척도
+        &lt;ul&gt;
+          &lt;li&gt;첨도값 (k)이 3에 가까우면 정규분포에 가깝다&lt;/li&gt;
+          &lt;li&gt;K&amp;lt;3 산포는 정규분포보다 꼬리가 얇은 분포이다.&lt;/li&gt;
+          &lt;li&gt;K&amp;gt;3 산포는 정규분포보다 꼬리가 두꺼운 분포다.&lt;/li&gt;
+          &lt;li&gt;첨도
+            &lt;ul&gt;
+              &lt;li&gt;$\dfrac{\dfrac{\sum ^{n}_{i=1}(관측치 - 표본평균)^{4}}{n}}{\left( S^{2}\right) ^{2}}-3$&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 04 Jan 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/01/04/%E1%84%80%E1%85%B5%E1%84%8E%E1%85%A9-%E1%84%90%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A8%E1%84%85%E1%85%A3%E1%86%BC</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/04/%E1%84%80%E1%85%B5%E1%84%8E%E1%85%A9-%E1%84%90%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A8%E1%84%85%E1%85%A3%E1%86%BC</guid>
+        
+        <category>통계</category>
+        
+        
+        <category>머신러닝</category>
         
       </item>
     
