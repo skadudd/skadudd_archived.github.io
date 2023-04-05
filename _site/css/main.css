@@ -89,6 +89,20 @@ blockquote {
 /**
  * Code formatting
  */
+code {
+  padding: 1px 5px; }
+
+pre {
+  padding: 8px 12px;
+  overflow-x: auto; }
+  pre > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0; }
+
+pre.highlight {
+  white-space: pre-wrap; }
+
 /**
  * Table
  */
