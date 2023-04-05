@@ -400,37 +400,6 @@ th {
   .page-content .post-content p {
     word-break: break-word; }
 
-#pagination {
-  margin: 0;
-  padding: 25px 0;
-  /* 25=50/2 */
-  text-align: center; }
-  #pagination > li {
-    list-style: none;
-    display: inline-block;
-    color: #1e1e1e;
-    font-size: 14px;
-    vertical-align: middle;
-    width: 30px;
-    height: 30px;
-    line-height: 28px;
-    /* 28px = 30(height) - 2(border) */ }
-    #pagination > li + li {
-      margin-left: 10px; }
-    #pagination > li.active, #pagination > li:hover {
-      background-color: #e6e6e6;
-      border-radius: 4px; }
-    #pagination > li a {
-      color: #1e1e1e;
-      width: 100%;
-      height: 100%;
-      display: block;
-      text-decoration: none; }
-
-.shadow-light-blue {
-  text-shadow: 1px 1px 0 #affff5, 2px 2px 0 #affff5, 3px 3px 0 #affff5, 4px 4px 0 #affff5, 5px 5px 0 #affff5;
-  font-weight: bolder; }
-
 .highlight table td {
   padding: 5px; }
 
@@ -515,3 +484,34 @@ th {
 
 .highlight .ss {
   color: #a6e22e; }
+
+#pagination {
+  margin: 0;
+  padding: 25px 0;
+  /* 25=50/2 */
+  text-align: center; }
+  #pagination > li {
+    list-style: none;
+    display: inline-block;
+    color: #1e1e1e;
+    font-size: 14px;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    /* 28px = 30(height) - 2(border) */ }
+    #pagination > li + li {
+      margin-left: 10px; }
+    #pagination > li.active, #pagination > li:hover {
+      background-color: #e6e6e6;
+      border-radius: 4px; }
+    #pagination > li a {
+      color: #1e1e1e;
+      width: 100%;
+      height: 100%;
+      display: block;
+      text-decoration: none; }
+
+.shadow-light-blue {
+  text-shadow: 1px 1px 0 #affff5, 2px 2px 0 #affff5, 3px 3px 0 #affff5, 4px 4px 0 #affff5, 5px 5px 0 #affff5;
+  font-weight: bolder; }
