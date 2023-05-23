@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 06 Apr 2023 01:50:05 +0900</pubDate>
-    <lastBuildDate>Thu, 06 Apr 2023 01:50:05 +0900</lastBuildDate>
+    <pubDate>Wed, 24 May 2023 01:26:57 +0900</pubDate>
+    <lastBuildDate>Wed, 24 May 2023 01:26:57 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -731,8 +731,8 @@ plt.ylabel('Survival function')
 
 </description>
         <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</guid>
+        <link>http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C</guid>
         
         <category>머신러닝</category>
         
@@ -891,8 +891,8 @@ plt.ylabel('Survival function')
 &lt;a href=&quot;https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&amp;amp;blogId=euleekwon&amp;amp;logNo=221441257643&quot;&gt;[통계 공부] Log-rank test(로그 순위법) : 네이버 블로그&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3-%E1%84%89%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B1-%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC</guid>
+        <link>http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95</guid>
         
         <category>머신러닝</category>
         
@@ -1026,8 +1026,8 @@ h(t) = \lim_{\Delta t \to 0} P(t \leq T &lt; t + \Delta|T &gt; t) %]]&gt;&lt;/sc
 &lt;/ul&gt;
 </description>
         <pubDate>Mon, 27 Mar 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/03/27/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8E%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/27/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8E%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC</guid>
+        <link>http://localhost:4000/articles/2023/03/27/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%B6%94%EC%A0%95</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/27/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%B6%94%EC%A0%95</guid>
         
         <category>머신러닝</category>
         
@@ -1284,8 +1284,8 @@ h(t) = \lim_{\Delta t \to 0} P(t \leq T &lt; t + \Delta|T &gt; t) %]]&gt;&lt;/sc
 &lt;p&gt;다른 커피브랜드의 비교대상이 없기 때문에 섣부른 결론을 내릴 자료는 아니지만, 추가자료를 포함하여 검증해볼만한 여지가 있음이 확실해 보인다.&lt;/p&gt;
 </description>
         <pubDate>Mon, 20 Mar 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/20/Tableau-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A1%E1%84%87%E1%85%A5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A3-%E1%84%80%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A8</guid>
+        <link>http://localhost:4000/articles/2023/03/20/Tableau-%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4%EC%99%80-%EC%9D%B4%EB%94%94%EC%95%BC-%EA%B0%84-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/20/Tableau-%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4%EC%99%80-%EC%9D%B4%EB%94%94%EC%95%BC-%EA%B0%84-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84</guid>
         
         <category>태블로</category>
         
@@ -1362,8 +1362,8 @@ print(&quot;{:.3f}&quot;.format(at_least_3miss,file=sys.stdout))
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Sat, 11 Feb 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/02/11/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/02/11/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5</guid>
+        <link>http://localhost:4000/articles/2023/02/11/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/02/11/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4</guid>
         
         <category>이항분포</category>
         
@@ -1510,8 +1510,8 @@ plt.show()
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Fri, 10 Feb 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/02/10/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/02/10/%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%91%E1%85%A7%E1%86%BC%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB-2</guid>
+        <link>http://localhost:4000/articles/2023/02/10/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/02/10/%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80-%EB%B3%B5%EC%82%AC%EB%B3%B8-2</guid>
         
         <category>모델평가</category>
         
@@ -1996,8 +1996,8 @@ f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}
 &lt;/ul&gt;
 </description>
         <pubDate>Sat, 07 Jan 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</guid>
+        <link>http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC</guid>
         
         <category>통계</category>
         
@@ -2192,8 +2192,8 @@ f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}
 &lt;/ul&gt;
 </description>
         <pubDate>Sat, 07 Jan 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/07/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB</guid>
+        <link>http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC-%EB%B3%B5%EC%82%AC%EB%B3%B8</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/07/%EC%97%B0%EC%86%8D%ED%98%95%EB%B6%84%ED%8F%AC-%EB%B3%B5%EC%82%AC%EB%B3%B8</guid>
         
         <category>통계</category>
         
@@ -2470,8 +2470,8 @@ f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}
 &lt;/ul&gt;
 </description>
         <pubDate>Fri, 06 Jan 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/01/06/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/06/%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A1%E1%86%BC%E1%84%87%E1%85%AE%E1%86%AB%E1%84%91%E1%85%A9</guid>
+        <link>http://localhost:4000/articles/2023/01/06/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/06/%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC</guid>
         
         <category>통계</category>
         
@@ -2604,8 +2604,8 @@ f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 04 Jan 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/01/04/%E1%84%80%E1%85%B5%E1%84%8E%E1%85%A9-%E1%84%90%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A8%E1%84%85%E1%85%A3%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/04/%E1%84%80%E1%85%B5%E1%84%8E%E1%85%A9-%E1%84%90%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A8%E1%84%85%E1%85%A3%E1%86%BC</guid>
+        <link>http://localhost:4000/articles/2023/01/04/%EA%B8%B0%EC%B4%88-%ED%86%B5%EA%B3%84%EB%9F%89</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/04/%EA%B8%B0%EC%B4%88-%ED%86%B5%EA%B3%84%EB%9F%89</guid>
         
         <category>통계</category>
         

@@ -1,30 +1,29 @@
-# - name: 언니의파우치
-#   belong-to: (주)라이클
-#   url: https://www.unpa.me
-#   period: 2014.9 ~ 2016.7
-#   level-of-contribution: 100%
-#   description: Play Framework 를 사용하고 Java 기반으로 개발된 프로젝트입니다. 반응형 웹으로 구현하였고 나이스페이 전자 결제 모듈이 연동되어 있습니다. 처음에는 뷰티리뷰 읽기, 쓰기 기능만으로 웹 서비스를 런칭하였고 꾸준한 업데이트가 되면서 지금은 뷰티팁, 포토, Q&A, 커뮤니티 기능이 지원되고 화장품을 직접 구매할 수도 있습니다. 게시글 작성 및 읽기, 댓글, 좋아요, 팔로우, 알림등의 SNS 기능은 물론 배송조회, 반품, 교환, 장바구니, 포인트, 쿠폰 등의 커머스 기능도 구현되어 있습니다.
-#   skills:
-#     - Play Framework
-#     - Bootstrap
-#     - DynamoDB
-#     - SimpleDB
-#     - Redis
-#     - NicePay
-#   images:
-#     - /assets/images/portfolio/pouch-web/1.png
-#     - /assets/images/portfolio/pouch-web/2.png
-#     - /assets/images/portfolio/pouch-web/3.png
-#     - /assets/images/portfolio/pouch-web/4.png
-#     - /assets/images/portfolio/pouch-web/5.png
-#     - /assets/images/portfolio/pouch-web/6.png
-#     - /assets/images/portfolio/pouch-web/7.png
-#     - /assets/images/portfolio/pouch-web/8.png
-#     - /assets/images/portfolio/pouch-web/9.png
-#     - /assets/images/portfolio/pouch-web/10.png
-#     - /assets/images/portfolio/pouch-web/11.png
-#     - /assets/images/portfolio/pouch-web/12.png
-#     - /assets/images/portfolio/pouch-web/13.png
+- name: 로그데이터를 활용한 VIP 고객 세그먼트 예측
+  belong-to: zerobase
+  url: https://drive.google.com/file/d/1lSFeUWyrIV9VeYH-AckUFrC4Baqo0RbD/view
+  period: 2023.4 ~ 2023.5
+  level-of-contribution: 80%
+  description: 본 프로젝트는 캐글 컴피티션 'Google Analytics Customer Revenue Prediction' 데이터셋을 활용하였습니다. 해당 컴피티션의 최종 목표는 각 고객의 로그변환된 매출을 예측하는 것입니다. 이커머스 데이터는 매출의 편차로 인한 데이터셋의 불균형이 존재합니다. 이는 정확한 매출 예측을 방해하므로, 주최 측에서 로그 변환된 매출을 요구하였습니다. 하지만, 저희는 부정확한 매출값 예측보다 매출 기여도가 높은 고객 세그먼트를 정확히 예측하는 것이 비즈니스에 더 큰 가치를 준다고 판단했습니다. 따라서, 해당 컴피티션의 데이터셋을 활용하되, 비즈니스적으로 더 활용도가 높은 새로운 목표를 설정하였습니다.
+  skills:
+    - LightGBMregressor
+    - RandomForestregressor
+    - RFM analysis
+    - Selenium, BS4
+    - Python
+  images:
+    - /assets/images/portfolio/pouch-web/1.png
+    - /assets/images/portfolio/pouch-web/2.png
+    - /assets/images/portfolio/pouch-web/3.png
+    - /assets/images/portfolio/pouch-web/4.png
+    - /assets/images/portfolio/pouch-web/5.png
+    - /assets/images/portfolio/pouch-web/6.png
+    - /assets/images/portfolio/pouch-web/7.png
+    - /assets/images/portfolio/pouch-web/8.png
+    - /assets/images/portfolio/pouch-web/9.png
+    - /assets/images/portfolio/pouch-web/10.png
+    - /assets/images/portfolio/pouch-web/11.png
+    - /assets/images/portfolio/pouch-web/12.png
+    - /assets/images/portfolio/pouch-web/13.png
 
 # - name: 달토니 (terminated)
 #   belong-to: (주)라이클, (주)파라벨라
