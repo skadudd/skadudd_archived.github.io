@@ -11,19 +11,20 @@
     - Selenium, BS4
     - Python
   images:
-    - /assets/images/portfolio/pouch-web/1.png
-    - /assets/images/portfolio/pouch-web/2.png
-    - /assets/images/portfolio/pouch-web/3.png
-    - /assets/images/portfolio/pouch-web/4.png
-    - /assets/images/portfolio/pouch-web/5.png
-    - /assets/images/portfolio/pouch-web/6.png
-    - /assets/images/portfolio/pouch-web/7.png
-    - /assets/images/portfolio/pouch-web/8.png
-    - /assets/images/portfolio/pouch-web/9.png
-    - /assets/images/portfolio/pouch-web/10.png
-    - /assets/images/portfolio/pouch-web/11.png
-    - /assets/images/portfolio/pouch-web/12.png
-    - /assets/images/portfolio/pouch-web/13.png
+    - /assets/images/portfolio/ga/ga-01.png
+    - /assets/images/portfolio/ga/ga-02.png
+    # - /assets/images/portfolio/pouch-web/ga-01.png
+    # - /assets/images/portfolio/pouch-web/3.png
+    # - /assets/images/portfolio/pouch-web/4.png
+    # - /assets/images/portfolio/pouch-web/5.png
+    # - /assets/images/portfolio/pouch-web/6.png
+    # - /assets/images/portfolio/pouch-web/7.png
+    # - /assets/images/portfolio/pouch-web/8.png
+    # - /assets/images/portfolio/pouch-web/9.png
+    # - /assets/images/portfolio/pouch-web/10.png
+    # - /assets/images/portfolio/pouch-web/11.png
+    # - /assets/images/portfolio/pouch-web/12.png
+    # - /assets/images/portfolio/pouch-web/13.png
 
 # - name: 달토니 (terminated)
 #   belong-to: (주)라이클, (주)파라벨라
