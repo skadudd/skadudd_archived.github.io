@@ -285,7 +285,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 <h3 id="a-차이-계산하기">A. 차이 계산하기</h3>
 <h4 id="a1-남여-매출-차이-subquery-ver">A.1. 남여 매출 차이 Subquery ver</h4>
 <p>subquery를 활용한 계산</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	year(sales_month) AS years,
 	a.womens_sales,
 	a.mens_sales,
@@ -314,7 +314,7 @@ FROM
 
 <h3 id="b-전체-대비-비율을-계산하기">B. 전체 대비 비율을 계산하기</h3>
 <h4 id="b1-subquery--self-join을-활용한-비율-계산">B.1. subquery &amp; self join을 활용한 비율 계산</h4>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	kind_of_business,
 	sales,
@@ -361,7 +361,7 @@ ORDER BY
 
 <h3 id="c-업종별-연매출-대비-월간-매출">C. 업종별, 연매출 대비 월간 매출</h3>
 <h4 id="c1-서브쿼리-활용">C.1. 서브쿼리 활용</h4>
-<pre><code class="language-mySQL">SELECT
+<pre><code class="language-SQL">SELECT
 	rs.sales_month,
 	rs.kind_of_business,
 	SUM(rs.sales) AS sales_m,
@@ -392,7 +392,7 @@ ORDER BY
 	1
 </code></pre>
 <h4 id="c2-윈도우-함수-활용">C.2. 윈도우 함수 활용</h4>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	kind_of_business,
 	sales,
@@ -414,7 +414,7 @@ ORDER BY
 <p>데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법.
 집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다.</p>
 
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_year,
 	sales,
 	first_value(sales) OVER (ORDER BY sales_year) AS index_sales
@@ -432,7 +432,7 @@ FROM (
 <p><img src="https://i.imgur.com/KhhUWJk.png" alt="" /></p>
 
 <h4 id="d1-윈도우-함수를-활용한-인덱싱">D.1. 윈도우 함수를 활용한 인덱싱</h4>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_year,
 	sales,
 	(sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales
@@ -454,7 +454,7 @@ FROM (
 셀프조인과 윈도우 함수를 활용</p>
 
 <h3 id="a-시간-윈도우-롤링-누적-합">A. 시간 윈도우 롤링 누적 합</h3>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	a.sales_month,
 	a.sales,
 	b.sales_month AS rolling_sales_month,
@@ -474,7 +474,7 @@ WHERE
 
 <h3 id="b-이동평균선">B. 이동평균선</h3>
 <h4 id="b1-self-join">B.1. self join</h4>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	a.sales_month,
 	a.sales,
 	avg(b.sales) AS ma_1y,
@@ -504,14 +504,14 @@ ORDER BY
       <li>CURRENT ROW - 현재 행</li>
       <li>offset FOLLOWING - 현재 행 이후의 n개 행</li>
       <li>UNBOUNDED FOLOWING - 현재 행 이후의 모든 행
-        <pre><code class="language-mysql">{범위 | 행 | 그룹} BETWEEN frame_start AND frame_end
+        <pre><code class="language-sql">{범위 | 행 | 그룹} BETWEEN frame_start AND frame_end
 </code></pre>
       </li>
     </ul>
   </li>
 </ul>
 
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg,
 	COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records
@@ -524,7 +524,7 @@ WHERE
 <h3 id="c-희소-데이터의-시간-윈도우-롤링">C. 희소 데이터의 시간 윈도우 롤링</h3>
 <p>날짜 룩업 테이블 참조하여 쿼리</p>
 
-<pre><code class="language-mysql">SELECT d.date,
+<pre><code class="language-sql">SELECT d.date,
 avg(s.sales) AS moving_average,
 count(s.sales) AS records,
 max(
@@ -557,7 +557,7 @@ ORDER BY
 
 <h3 id="d-누적값값-계산">D. 누적값값 계산</h3>
 <h4 id="d1-ytd-윈도우-롤링">D.1. YTD 윈도우 롤링</h4>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	sales,
 	sum(sales) OVER (PARTITION BY year(sales_month)
@@ -571,7 +571,7 @@ ORDER BY
 		1
 </code></pre>
 <h4 id="d2-ytd-서브쿼리">D.2. YTD 서브쿼리</h4>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	a.sales_month,
 	a.sales,
 	sum(b.sales) AS YTD_sales
@@ -603,7 +603,7 @@ ORDER BY
 </ul>
 
 <p>구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음.</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	kind_of_business,
 	sales_month,
 	sales,
@@ -620,7 +620,7 @@ WHERE
 
 <h4 id="e2-구간-비교--작년-동월과의-비교">E.2. 구간 비교 : 작년 동월과의 비교</h4>
 <p>전년대비 성장세를 비교.</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	sales,
 	lag(sales_month) OVER (PARTITION BY month(sales_month)
@@ -641,7 +641,7 @@ WHERE
 
 <h4 id="e3-구간-비교--동월-비교-연도별-컬럼-피벗">E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗</h4>
 <p>각 연도별 시각적 비교에 용이한 피벗</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	month(sales_month) as month_num, 
 	monthname(sales_month) as month_char,
 	max(case when year(sales_month) = 1992 then sales end) as '1992 sales',
@@ -658,7 +658,7 @@ group by 1,2
 
 <h4 id="e4-다중구간-비교-서브쿼리">E.4. 다중구간 비교 서브쿼리</h4>
 <p>계산에 하나의 행이라도 null 이면 null로 처리됨을 유의.</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,sales,
 	sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct
 FROM
@@ -686,7 +686,7 @@ FROM
 
 <h4 id="e5-다중구간-비교-프레임절">E.5. 다중구간 비교 프레임절</h4>
 <p>서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	sales,
 	sales / avg(sales) OVER (PARTITION BY month(sales_month)

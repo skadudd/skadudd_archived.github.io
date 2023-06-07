@@ -107,7 +107,8 @@ pre.highlight {
  * Table
  */
 table {
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  overflow-x: scroll; }
 
 tr {
   border-top: 1px solid black;
@@ -139,7 +140,8 @@ th {
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
-  padding-left: 30px; }
+  padding-left: 30px;
+  overflow-x: auto; }
   @media screen and (max-width: 800px) {
     .wrapper {
       max-width: -webkit-calc(800px - (30px));

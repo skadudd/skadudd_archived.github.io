@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 07 Jun 2023 15:33:43 +0900</pubDate>
-    <lastBuildDate>Wed, 07 Jun 2023 15:33:43 +0900</lastBuildDate>
+    <pubDate>Wed, 07 Jun 2023 15:51:37 +0900</pubDate>
+    <lastBuildDate>Wed, 07 Jun 2023 15:51:37 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -160,7 +160,7 @@
 &lt;h3 id=&quot;a-차이-계산하기&quot;&gt;A. 차이 계산하기&lt;/h3&gt;
 &lt;h4 id=&quot;a1-남여-매출-차이-subquery-ver&quot;&gt;A.1. 남여 매출 차이 Subquery ver&lt;/h4&gt;
 &lt;p&gt;subquery를 활용한 계산&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	year(sales_month) AS years,
 	a.womens_sales,
 	a.mens_sales,
@@ -189,7 +189,7 @@ FROM
 
 &lt;h3 id=&quot;b-전체-대비-비율을-계산하기&quot;&gt;B. 전체 대비 비율을 계산하기&lt;/h3&gt;
 &lt;h4 id=&quot;b1-subquery--self-join을-활용한-비율-계산&quot;&gt;B.1. subquery &amp;amp; self join을 활용한 비율 계산&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	kind_of_business,
 	sales,
@@ -236,7 +236,7 @@ ORDER BY
 
 &lt;h3 id=&quot;c-업종별-연매출-대비-월간-매출&quot;&gt;C. 업종별, 연매출 대비 월간 매출&lt;/h3&gt;
 &lt;h4 id=&quot;c1-서브쿼리-활용&quot;&gt;C.1. 서브쿼리 활용&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mySQL&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-SQL&quot;&gt;SELECT
 	rs.sales_month,
 	rs.kind_of_business,
 	SUM(rs.sales) AS sales_m,
@@ -267,7 +267,7 @@ ORDER BY
 	1
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&quot;c2-윈도우-함수-활용&quot;&gt;C.2. 윈도우 함수 활용&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	kind_of_business,
 	sales,
@@ -289,7 +289,7 @@ ORDER BY
 &lt;p&gt;데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법.
 집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_year,
 	sales,
 	first_value(sales) OVER (ORDER BY sales_year) AS index_sales
@@ -307,7 +307,7 @@ FROM (
 &lt;p&gt;&lt;img src=&quot;https://i.imgur.com/KhhUWJk.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;d1-윈도우-함수를-활용한-인덱싱&quot;&gt;D.1. 윈도우 함수를 활용한 인덱싱&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_year,
 	sales,
 	(sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales
@@ -329,7 +329,7 @@ FROM (
 셀프조인과 윈도우 함수를 활용&lt;/p&gt;
 
 &lt;h3 id=&quot;a-시간-윈도우-롤링-누적-합&quot;&gt;A. 시간 윈도우 롤링 누적 합&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	a.sales_month,
 	a.sales,
 	b.sales_month AS rolling_sales_month,
@@ -349,7 +349,7 @@ WHERE
 
 &lt;h3 id=&quot;b-이동평균선&quot;&gt;B. 이동평균선&lt;/h3&gt;
 &lt;h4 id=&quot;b1-self-join&quot;&gt;B.1. self join&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	a.sales_month,
 	a.sales,
 	avg(b.sales) AS ma_1y,
@@ -379,14 +379,14 @@ ORDER BY
       &lt;li&gt;CURRENT ROW - 현재 행&lt;/li&gt;
       &lt;li&gt;offset FOLLOWING - 현재 행 이후의 n개 행&lt;/li&gt;
       &lt;li&gt;UNBOUNDED FOLOWING - 현재 행 이후의 모든 행
-        &lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;{범위 | 행 | 그룹} BETWEEN frame_start AND frame_end
+        &lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;{범위 | 행 | 그룹} BETWEEN frame_start AND frame_end
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg,
 	COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records
@@ -399,7 +399,7 @@ WHERE
 &lt;h3 id=&quot;c-희소-데이터의-시간-윈도우-롤링&quot;&gt;C. 희소 데이터의 시간 윈도우 롤링&lt;/h3&gt;
 &lt;p&gt;날짜 룩업 테이블 참조하여 쿼리&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT d.date,
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT d.date,
 avg(s.sales) AS moving_average,
 count(s.sales) AS records,
 max(
@@ -432,7 +432,7 @@ ORDER BY
 
 &lt;h3 id=&quot;d-누적값값-계산&quot;&gt;D. 누적값값 계산&lt;/h3&gt;
 &lt;h4 id=&quot;d1-ytd-윈도우-롤링&quot;&gt;D.1. YTD 윈도우 롤링&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	sales,
 	sum(sales) OVER (PARTITION BY year(sales_month)
@@ -446,7 +446,7 @@ ORDER BY
 		1
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&quot;d2-ytd-서브쿼리&quot;&gt;D.2. YTD 서브쿼리&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	a.sales_month,
 	a.sales,
 	sum(b.sales) AS YTD_sales
@@ -478,7 +478,7 @@ ORDER BY
 &lt;/ul&gt;
 
 &lt;p&gt;구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	kind_of_business,
 	sales_month,
 	sales,
@@ -495,7 +495,7 @@ WHERE
 
 &lt;h4 id=&quot;e2-구간-비교--작년-동월과의-비교&quot;&gt;E.2. 구간 비교 : 작년 동월과의 비교&lt;/h4&gt;
 &lt;p&gt;전년대비 성장세를 비교.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	sales,
 	lag(sales_month) OVER (PARTITION BY month(sales_month)
@@ -516,7 +516,7 @@ WHERE
 
 &lt;h4 id=&quot;e3-구간-비교--동월-비교-연도별-컬럼-피벗&quot;&gt;E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗&lt;/h4&gt;
 &lt;p&gt;각 연도별 시각적 비교에 용이한 피벗&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	month(sales_month) as month_num, 
 	monthname(sales_month) as month_char,
 	max(case when year(sales_month) = 1992 then sales end) as '1992 sales',
@@ -533,7 +533,7 @@ group by 1,2
 
 &lt;h4 id=&quot;e4-다중구간-비교-서브쿼리&quot;&gt;E.4. 다중구간 비교 서브쿼리&lt;/h4&gt;
 &lt;p&gt;계산에 하나의 행이라도 null 이면 null로 처리됨을 유의.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,sales,
 	sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct
 FROM
@@ -561,7 +561,7 @@ FROM
 
 &lt;h4 id=&quot;e5-다중구간-비교-프레임절&quot;&gt;E.5. 다중구간 비교 프레임절&lt;/h4&gt;
 &lt;p&gt;서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	sales,
 	sales / avg(sales) OVER (PARTITION BY month(sales_month)
