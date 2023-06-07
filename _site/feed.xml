@@ -6,9 +6,745 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 24 May 2023 14:39:56 +0900</pubDate>
-    <lastBuildDate>Wed, 24 May 2023 14:39:56 +0900</lastBuildDate>
+    <pubDate>Wed, 07 Jun 2023 15:33:43 +0900</pubDate>
+    <lastBuildDate>Wed, 07 Jun 2023 15:33:43 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>시계열 분석 - SQL로 시작하는 데이터 분석 MySQL</title>
+        <description>&lt;p&gt;PostgreSQL로 작성된 서적인 OREILLY의 ‘SQL로 시작하는 데이터 분석’을 MySQL로 변환하며 스터디한 내용.&lt;/p&gt;
+
+&lt;h2 id=&quot;시계열-분석-파트의-데이터-테이블-정리&quot;&gt;시계열 분석 파트의 데이터 테이블 정리&lt;/h2&gt;
+&lt;p&gt;쿼리가 실행될 테이블 형태는 아래와 같다.&lt;/p&gt;
+&lt;h3 id=&quot;a-table-scheme&quot;&gt;A. Table Scheme&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;sales_month&lt;/th&gt;
+      &lt;th&gt;naics_code&lt;/th&gt;
+      &lt;th&gt;kind_f_business&lt;/th&gt;
+      &lt;th&gt;reason_for_null&lt;/th&gt;
+      &lt;th&gt;sales&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1992-01-01&lt;/td&gt;
+      &lt;td&gt;441&lt;/td&gt;
+      &lt;td&gt;Motor vehicle and parts dealers&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;29811.00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1992-01-01&lt;/td&gt;
+      &lt;td&gt;4411&lt;/td&gt;
+      &lt;td&gt;Automobile dealers&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;25800.00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1992-01-01&lt;/td&gt;
+      &lt;td&gt;4411, 4412&lt;/td&gt;
+      &lt;td&gt;Automobile and other motor vehicle dealers&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;26788.00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1992-01-01&lt;/td&gt;
+      &lt;td&gt;44111&lt;/td&gt;
+      &lt;td&gt;New car dealers&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;24056.00&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;retail_sales 테이블&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;판매 일자, 소매 업종, 판매액이 적재 되어있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;date&lt;/th&gt;
+      &lt;th&gt;date_key&lt;/th&gt;
+      &lt;th&gt;day_of_month&lt;/th&gt;
+      &lt;th&gt;day_of_year&lt;/th&gt;
+      &lt;th&gt;day_of_week&lt;/th&gt;
+      &lt;th&gt;day_name&lt;/th&gt;
+      &lt;th&gt;day_short_name&lt;/th&gt;
+      &lt;th&gt;week_number&lt;/th&gt;
+      &lt;th&gt;week_of_month&lt;/th&gt;
+      &lt;th&gt;week&lt;/th&gt;
+      &lt;th&gt;month_number&lt;/th&gt;
+      &lt;th&gt;month_name&lt;/th&gt;
+      &lt;th&gt;month+short_name&lt;/th&gt;
+      &lt;th&gt;first_day_of_month&lt;/th&gt;
+      &lt;th&gt;last_day_of_month&lt;/th&gt;
+      &lt;th&gt;quarter_number&lt;/th&gt;
+      &lt;th&gt;quarter_name&lt;/th&gt;
+      &lt;th&gt;first_day_of_quarter&lt;/th&gt;
+      &lt;th&gt;last_day_of_quarter&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;decade&lt;/th&gt;
+      &lt;th&gt;centurays&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;17700101&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Monday&lt;/td&gt;
+      &lt;td&gt;Mon&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;January&lt;/td&gt;
+      &lt;td&gt;Jan&lt;/td&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;1770-01-31&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Q1&lt;/td&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;1770-03-31&lt;/td&gt;
+      &lt;td&gt;1770&lt;/td&gt;
+      &lt;td&gt;1770&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1770-01-02&lt;/td&gt;
+      &lt;td&gt;17700102&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;Tuesday&lt;/td&gt;
+      &lt;td&gt;Tue&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;January&lt;/td&gt;
+      &lt;td&gt;Jan&lt;/td&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;1770-01-31&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Q1&lt;/td&gt;
+      &lt;td&gt;1770-01-01&lt;/td&gt;
+      &lt;td&gt;1770-03-31&lt;/td&gt;
+      &lt;td&gt;1770&lt;/td&gt;
+      &lt;td&gt;1770&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;date_dim 테이블&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;분석에 활용하고자 하는 테이블에 특정 일자의 레코드가 삭제되어 있다면 집계 시 혼란이 발생할 수 있다.&lt;/li&gt;
+  &lt;li&gt;이러한 사고를 미연에 방지하고자 날짜 룩업 테이블을 정의하고, 필요 시 join하여 결측으로 발생할 수 있는 집계 오류를 방지한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;b-날짜간-계산과-인터벌-계산을-헷갈리지-말자&quot;&gt;B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자.&lt;/h3&gt;
+&lt;p&gt;날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;select date_add(date('2020-01-01'), interval 1 week)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;시계열-분석---비율과-차이&quot;&gt;시계열 분석 - 비율과 차이&lt;/h2&gt;
+
+&lt;h3 id=&quot;a-차이-계산하기&quot;&gt;A. 차이 계산하기&lt;/h3&gt;
+&lt;h4 id=&quot;a1-남여-매출-차이-subquery-ver&quot;&gt;A.1. 남여 매출 차이 Subquery ver&lt;/h4&gt;
+&lt;p&gt;subquery를 활용한 계산&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	year(sales_month) AS years,
+	a.womens_sales,
+	a.mens_sales,
+	a.womens_sales - a.mens_sales AS diff_sales
+FROM
+	retail_sales,
+	(
+		SELECT
+			year(sales_month) AS years,
+			sum(
+				CASE WHEN kind_of_business = 'Women''s clothing stores' THEN
+					sales
+				END) AS womens_sales,
+			sum(
+				CASE WHEN kind_of_business = 'Men''s clothing stores' THEN
+					sales
+				END) AS mens_sales
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business in('Women''s clothing stores', 'Men''s clothing stores')
+		GROUP BY
+			1) a
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/GcRJNEQ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;b-전체-대비-비율을-계산하기&quot;&gt;B. 전체 대비 비율을 계산하기&lt;/h3&gt;
+&lt;h4 id=&quot;b1-subquery--self-join을-활용한-비율-계산&quot;&gt;B.1. subquery &amp;amp; self join을 활용한 비율 계산&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	kind_of_business,
+	sales,
+	sales / aa.total_sales * 100 AS pct_total_sales
+FROM (
+	SELECT
+		a.sales_month,
+		a.kind_of_business,
+		a.sales,
+		sum(b.sales) AS total_sales
+	FROM
+		retail_sales a
+		JOIN retail_sales b ON a.sales_month = b.sales_month
+			AND b.kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+	WHERE
+		a.kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+	GROUP BY
+		1,
+		2,
+		3) aa
+ORDER BY
+	1,
+	2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;b2-partition-by-sum-윈도우함수-활용한-비율-계산&quot;&gt;B.2. Partition by, sum 윈도우함수 활용한 비율 계산&lt;/h4&gt;
+&lt;p&gt;partition by 절로 함수가 계산하는 테이블의 섹션을 구분&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	kind_of_business,
+	sales,
+	sum(sales) OVER (PARTITION BY sales_month) AS total_sales,
+	round(sales * 100 / sum(sales) OVER (PARTITION BY sales_month), 2) AS pct
+FROM
+	retail_sales
+WHERE
+	kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY
+	1,
+	2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/hMxp250.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;c-업종별-연매출-대비-월간-매출&quot;&gt;C. 업종별, 연매출 대비 월간 매출&lt;/h3&gt;
+&lt;h4 id=&quot;c1-서브쿼리-활용&quot;&gt;C.1. 서브쿼리 활용&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mySQL&quot;&gt;SELECT
+	rs.sales_month,
+	rs.kind_of_business,
+	SUM(rs.sales) AS sales_m,
+	aa.sales_y,
+	round(SUM(rs.sales) / aa.sales_y, 2) AS ratio_m_y
+FROM
+	retail_sales rs
+	JOIN (
+		SELECT
+			YEAR(sales_month) AS sales_year,
+			SUM(sales) AS sales_y,
+			kind_of_business
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business IN('Men''s clothing stores', 'Women''s clothing stores')
+		GROUP BY
+			sales_year,
+			kind_of_business) aa ON YEAR(rs.sales_month) = aa.sales_year
+	AND rs.kind_of_business = aa.kind_of_business
+WHERE
+	rs.kind_of_business IN('Men''s clothing stores', 'Women''s clothing stores')
+GROUP BY
+	rs.sales_month,
+	rs.kind_of_business,
+	aa.sales_y
+ORDER BY
+	1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&quot;c2-윈도우-함수-활용&quot;&gt;C.2. 윈도우 함수 활용&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	kind_of_business,
+	sales,
+	sum(sales) OVER (PARTITION BY year(sales_month),
+		kind_of_business) AS yearly_sales,
+	sales * 100 / sum(sales) OVER (PARTITION BY year(sales_month),
+		kind_of_business) AS pct_yearly
+FROM
+	retail_sales
+WHERE
+	kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY
+	1,
+	2;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/toTSazY.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;d-인덱싱으로-시계열-데이터-변화-이해하기&quot;&gt;D. 인덱싱으로 시계열 데이터 변화 이해하기&lt;/h3&gt;
+&lt;p&gt;데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법.
+집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_year,
+	sales,
+	first_value(sales) OVER (ORDER BY sales_year) AS index_sales
+FROM (
+	SELECT
+		year(sales_month) AS sales_year,
+		sum(sales) AS sales
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business in('Women''s clothing stores')
+	GROUP BY
+		1) a
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/KhhUWJk.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;d1-윈도우-함수를-활용한-인덱싱&quot;&gt;D.1. 윈도우 함수를 활용한 인덱싱&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_year,
+	sales,
+	(sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales
+FROM (
+	SELECT
+		year(sales_month) AS sales_year,
+		sum(sales) AS sales
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business in('Women''s clothing stores')
+	GROUP BY
+		1) a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;시계열-분석---시간-윈도우-롤링&quot;&gt;시계열 분석 - 시간 윈도우 롤링&lt;/h2&gt;
+&lt;p&gt;집계와는 또 다른 노이즈 제거 방법. 여러 구간을 설정해 트렌드를 분석하는 시간 윈도우 롤링 (=이동 계산)
+시계열 롤링 계산의 요소는 3가지. 1) 윈도우 사이즈, 2) 집계 함수, 3) 윈도우 내 데이터의 분할 혹은 그룹화
+셀프조인과 윈도우 함수를 활용&lt;/p&gt;
+
+&lt;h3 id=&quot;a-시간-윈도우-롤링-누적-합&quot;&gt;A. 시간 윈도우 롤링 누적 합&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	a.sales_month,
+	a.sales,
+	b.sales_month AS rolling_sales_month,
+	b.sales AS rolling_sales
+FROM
+	retail_sales a
+	JOIN retail_sales b ON a.kind_of_business = b.kind_of_business
+		AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 MONTH)
+		AND a.sales_month
+		AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+	a.kind_of_business = 'Women''s clothing stores'
+	AND a.sales_month = date('2019-12-01')
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/bhW2Rzo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;b-이동평균선&quot;&gt;B. 이동평균선&lt;/h3&gt;
+&lt;h4 id=&quot;b1-self-join&quot;&gt;B.1. self join&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	a.sales_month,
+	a.sales,
+	avg(b.sales) AS ma_1y,
+	count(b.sales) AS records
+FROM
+	retail_sales a
+	JOIN retail_sales b ON a.kind_of_business = b.kind_of_business
+		AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 month)
+		AND a.sales_month
+		AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+	a.kind_of_business = 'Women''s clothing stores'
+	AND a.sales_month &amp;gt;= '1993-01-01'
+GROUP BY
+	1,
+	2
+ORDER BY
+	1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&quot;b2-frame-문법&quot;&gt;B.2. Frame 문법&lt;/h4&gt;
+&lt;p&gt;frame절은 윈도우 함수 옵션을 활용해, 각 윈도우에서 어떤 레코드를 포함할지 지정하는 문법&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;frame_end는 아래 중 하나
+    &lt;ul&gt;
+      &lt;li&gt;UNBOUNDED PRECEDING - 현재 행 이전의 모든 행&lt;/li&gt;
+      &lt;li&gt;offset PRECEDING - 현재 행 이전의 n개 행&lt;/li&gt;
+      &lt;li&gt;CURRENT ROW - 현재 행&lt;/li&gt;
+      &lt;li&gt;offset FOLLOWING - 현재 행 이후의 n개 행&lt;/li&gt;
+      &lt;li&gt;UNBOUNDED FOLOWING - 현재 행 이후의 모든 행
+        &lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;{범위 | 행 | 그룹} BETWEEN frame_start AND frame_end
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg,
+	COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records
+FROM
+	retail_sales
+WHERE
+	kind_of_business = 'Women''s clothing stores'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;c-희소-데이터의-시간-윈도우-롤링&quot;&gt;C. 희소 데이터의 시간 윈도우 롤링&lt;/h3&gt;
+&lt;p&gt;날짜 룩업 테이블 참조하여 쿼리&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT d.date,
+avg(s.sales) AS moving_average,
+count(s.sales) AS records,
+max(
+	CASE WHEN d.date = s.sales_month THEN
+		s.sales
+	END) AS sales_in_month
+FROM
+	date_dim d
+	JOIN (
+		SELECT
+			sales_month,
+			sales
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business = 'Women''s clothing stores'
+			AND month(sales_month)
+			IN(1, 7)) s ON s.sales_month BETWEEN DATE_SUB(d.date, INTERVAL 11 MONTH)
+	AND d.date
+WHERE
+	d.date = d.first_day_of_month
+	AND d.date BETWEEN '1993-01-01'
+	AND '2020-12-01'
+GROUP BY
+	1
+ORDER BY
+	1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/1o0SgBj.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;d-누적값값-계산&quot;&gt;D. 누적값값 계산&lt;/h3&gt;
+&lt;h4 id=&quot;d1-ytd-윈도우-롤링&quot;&gt;D.1. YTD 윈도우 롤링&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	sales,
+	sum(sales) OVER (PARTITION BY year(sales_month)
+		ORDER BY
+			sales_month) AS sales_ytd
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business = 'Women''s clothing stores'
+	ORDER BY
+		1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&quot;d2-ytd-서브쿼리&quot;&gt;D.2. YTD 서브쿼리&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	a.sales_month,
+	a.sales,
+	sum(b.sales) AS YTD_sales
+FROM
+	retail_sales a
+	JOIN retail_sales b ON year(a.sales_month) = year(b.sales_month)
+		AND b.sales_month &amp;lt;= a.sales_month
+		AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+	a.kind_of_business = 'Women''s clothing stores'
+GROUP BY
+	1,
+	2
+ORDER BY
+	1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/Ezthip4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;e-계절성-분석&quot;&gt;E. 계절성 분석&lt;/h3&gt;
+&lt;p&gt;일정한 간격을 두고 규칙적으로 반복되는 패턴을 의미. 연단위, 혹은 분단위로 나타나기도 함.&lt;/p&gt;
+
+&lt;h4 id=&quot;e1-lag-함수를-사용한-이전값-대비-비율-변화&quot;&gt;E.1. lag 함수를 사용한 이전값 대비 비율 변화&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;lag 함수는 이전행의 값을 반환한다. (lead = lag와 반대. 다음 행을 반환)&lt;/li&gt;
+  &lt;li&gt;offset 옵션 : 몇 행 이전의 값을 반환할 것인가?&lt;/li&gt;
+  &lt;li&gt;default 옵션 : 이전 행이 없는 경우에 반환할 값&lt;/li&gt;
+  &lt;li&gt;PARTITION BY 옵션 : 생략 시, 전체 데이터셋에 대한 계산 수행&lt;/li&gt;
+  &lt;li&gt;ORDER BY 옵션 : 생략 시, 현재 db 정렬 순서로 계산 수행&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	kind_of_business,
+	sales_month,
+	sales,
+	lag(sales) OVER (
+				PARTITION BY kind_of_business ORDER BY sales_month
+				) AS t,
+	(sales / (lag(sales) OVER (PARTITION BY kind_of_business ORDER BY sales_month)) - 1) * 100 AS pct_growth_then_prev
+FROM
+	retail_sales
+WHERE
+	kind_of_business LIKE 'Book%'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/IXn0FVY.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;e2-구간-비교--작년-동월과의-비교&quot;&gt;E.2. 구간 비교 : 작년 동월과의 비교&lt;/h4&gt;
+&lt;p&gt;전년대비 성장세를 비교.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	sales,
+	lag(sales_month) OVER (PARTITION BY month(sales_month)
+		ORDER BY
+			sales_month) AS prev_month,
+		lag(sales) OVER (PARTITION BY month(sales_month)
+			ORDER BY
+				sales_month) AS prev_sales,
+			100 * (sales / (lag(sales) OVER (PARTITION BY month(sales_month)
+						ORDER BY
+							sales_month)) - 1) AS prev_pct
+			FROM
+				retail_sales
+			WHERE
+				kind_of_business LIKE 'Book%'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/yudq1BO.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;e3-구간-비교--동월-비교-연도별-컬럼-피벗&quot;&gt;E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗&lt;/h4&gt;
+&lt;p&gt;각 연도별 시각적 비교에 용이한 피벗&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	month(sales_month) as month_num, 
+	monthname(sales_month) as month_char,
+	max(case when year(sales_month) = 1992 then sales end) as '1992 sales',
+	max(case when year(sales_month) = 1993 then sales end) as '1993 sales',
+	max(case when year(sales_month) = 1994 then sales end) as '1994 sales'
+FROM
+	retail_sales
+WHERE
+	kind_of_business like 'book%'
+	and sales_month between date('1992-01-01') and date('1994-12-01')
+group by 1,2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/wWgAwJu.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;e4-다중구간-비교-서브쿼리&quot;&gt;E.4. 다중구간 비교 서브쿼리&lt;/h4&gt;
+&lt;p&gt;계산에 하나의 행이라도 null 이면 null로 처리됨을 유의.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,sales,
+	sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct
+FROM
+	(
+		SELECT
+			sales_month,
+			sales,
+			lag(sales,1) over (partition by month(sales_month) 
+							   order by sales_month
+							  ) as prev_sales_1,
+			lag(sales,2) over (partition by month(sales_month) 
+							   order by sales_month
+							  ) as prev_sales_2,
+			lag(sales,3) over (partition by month(sales_month) 
+							   order by sales_month
+							  ) as prev_sales_3
+
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business like 'Book%'
+	) as a
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/pnA9PKv.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;e5-다중구간-비교-프레임절&quot;&gt;E.5. 다중구간 비교 프레임절&lt;/h4&gt;
+&lt;p&gt;서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+	sales_month,
+	sales,
+	sales / avg(sales) OVER (PARTITION BY month(sales_month)
+		ORDER BY
+			sales_month ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) AS pct_pre
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business LIKE 'Book%'
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/TWZIIIl.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Jun 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/06/01/%E1%84%89%E1%85%B5%E1%84%80%E1%85%A8%E1%84%8B%E1%85%A7%E1%86%AF-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-SQL%E1%84%85%E1%85%A9-%E1%84%89%E1%85%B5%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-MySQL</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/06/01/%E1%84%89%E1%85%B5%E1%84%80%E1%85%A8%E1%84%8B%E1%85%A7%E1%86%AF-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-SQL%E1%84%85%E1%85%A9-%E1%84%89%E1%85%B5%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-MySQL</guid>
+        
+        <category>SQL</category>
+        
+        
+        <category>SQL</category>
+        
+      </item>
+    
+      <item>
+        <title>엑셀로 풀어보는 생존 분석 로그 순위 검정</title>
+        <description>&lt;h2 id=&quot;로그순위-검정-log-rank-test&quot;&gt;로그순위 검정 (Log-Rank test)&lt;/h2&gt;
+
+&lt;h3 id=&quot;개념&quot;&gt;개념&lt;/h3&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;두개 이상의 그룹간의 생존율의 차이가 유의미한지 알기 위한 방법이다.
+두 그룹간의 총괄적인 비교를 위해 아래와 같은 가설을 설정한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$H_0 : S_1(t) = S_2(t) \text{ for all t}$&lt;/li&gt;
+  &lt;li&gt;$H_1 : S_1(t) \neq S_2(t) \text{ for all t}$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이후, 관측 자료를 $t_1 &amp;lt; t_2 &amp;lt; \cdots &amp;lt; t_k$ 로 정리한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;사망&lt;/th&gt;
+      &lt;th&gt;생존&lt;/th&gt;
+      &lt;th&gt;계&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;그룹1&lt;/td&gt;
+      &lt;td&gt;$D_{1i}$&lt;/td&gt;
+      &lt;td&gt;$N_{1i}-D_{1i}$&lt;/td&gt;
+      &lt;td&gt;$N_{1i}$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;그룹2&lt;/td&gt;
+      &lt;td&gt;$D_{2i}$&lt;/td&gt;
+      &lt;td&gt;$N_{2i}-D_{2i}$&lt;/td&gt;
+      &lt;td&gt;$N_{2i}$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;계&lt;/td&gt;
+      &lt;td&gt;$D_{i}$&lt;/td&gt;
+      &lt;td&gt;$N_{2i}-D_{2i}$&lt;/td&gt;
+      &lt;td&gt;$N_{i}$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;$t_i$에서 $N_{1i},N_{2i},D_{i}$ 가 고정되어 있다면, $D_{1i}$가 초기하분포를 따르며, 그 평균과 분산은 아래와 같다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;E(D_{1i}) = N_{1i}D_{i}/N{i} = E_{1i}&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;V(D_{1i}) = V_{1i}&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;초기하 분포를 따른다면 각 테이블마다 평균과 분산을 구하고, 이를 활용하여 카이 제곱 검정 통계량을 구할 수 있다. 이 경우, 검정통계량 T는 자유도 1인 카이제곱분포를 따른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;T = \dfrac{(\sum_{i=1}^{k} D_{1i}-E_{1i})^2}{\sum_{i=1}^{k} V_{1i}}&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 T의 값이 임계치보다 크다면 두 그룹의 생존함수가 같다는 귀무가설을 기각하고 유의미한 차이가 있다고 볼 수 있다. 또한, 각 시점에서의 가중치를 주어 아래와 같은 검정통계량 식을 도출할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;T = \dfrac{(\sum_{i=1}^{k} w_{i}D_{1i}-E_{1i})^2}{\sum_{i=1}^{k} w_{i}^{2}V_{1i}}&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;로그 랭크 테스트와 윌콕슨 검정 모두 생존곡선이 crossover될 경우, 그 차이를 테스트할 수 없다.
+로그랭크 테스트는 두 그룹에서 한 그룹의 생존확률이 비례적인 증감을 테스트하는데 적합하다. (proportional hazards model)
+윌콕슨 테스트는 사건시간이 log-normal distribution(두 그룹간에 분산이 동일하고 평균은 다를 때) 적합하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;예시&quot;&gt;예시&lt;/h3&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;각기 다른 치료법을 적용한 Trial A 그룹과 Trial B 그룹이 아래와 같이 존재한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;각 컬럼 1은 Duration Time으로 t이다.&lt;/li&gt;
+  &lt;li&gt;각 컬럼 2는 사망이 발생했거나 (1), 절단(0)을 나타낸다.
+&lt;img src=&quot;https://i.imgur.com/eSbdZ1G.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위 자료를 아래와 같이 정리한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;t : duration time&lt;/li&gt;
+  &lt;li&gt;d : 사망 발생&lt;/li&gt;
+  &lt;li&gt;n : 관측 수&lt;/li&gt;
+  &lt;li&gt;S(t) : 생존 함수 ($1-\frac{d}{n}$의 누적 곱)
+&lt;img src=&quot;https://i.imgur.com/PH7yb8x.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;생존 곡선은 아래와 같이 그려진다. 시각적으로 볼때 두 그룹간 큰 차이가 없을것으로 예상된다. 보다 더 정밀한 비교를 위해 로그 순위 검정을 실시한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/6joIQbd.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;로그 순위 검정은 앞서 말했듯, 카이 제곱 검정과 유사하다. 로그 순위를 계산하기 위해 각 t별 d의 기댓값을 계산하여 자료를 생성한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;기댓값
+    &lt;ul&gt;
+      &lt;li&gt;$e_{j}^{A} = n_{j}^{A} \cdot \dfrac{d_j}{n_j}$&lt;/li&gt;
+      &lt;li&gt;$e_{j}^{B} = n_{j}^{B} \cdot \dfrac{d_j}{n_j}$
+        &lt;ul&gt;
+          &lt;li&gt;$d_j = d_j^A+d_j^B, n_j = n_j^A+n_j^B$&lt;/li&gt;
+          &lt;li&gt;$e_j^A + e_j^B = d_j^A + d_j^B$&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;LogRank = \dfrac{(Obs_{A} - Exp_{A})^2}{Exp_A} + \dfrac{(Obs_{B} - Exp_{B})^2}{Exp_B}&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;=\dfrac{(12-9.82)^2}{9.82} + \dfrac{(8-10.17)^2}{10.17}&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/xFaXp0m.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;$H0$이 참이라면, 로그랭크테스트는 자유도가 1인 카이제곱분포를 따른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;LR \sim \chi^2(1)&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 두 그룹의 로그랭크통계값은 0.94이고, 이 P-value는 0.33으로 0.05 유의수준보다 크다.
+따라서 해당 그룹의 생존율에는 큰 차이가 없다.&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://real-statistics.com/survival-analysis/kaplan-meier-procedure/log-rank-test/&quot;&gt;Log-Rank Test | Real Statistics Using Excel&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://boogling.tistory.com/entry/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-Survival-Function%EC%9D%98-%EC%B0%A8%EC%9D%B4-Log-Rank-Test&quot;&gt;생존분석 - Survival Function의 차이 Log-Rank Test&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&amp;amp;blogId=euleekwon&amp;amp;logNo=221441257643&quot;&gt;[통계 공부] Log-rank test(로그 순위법) : 네이버 블로그&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
+        <link>http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95</guid>
+        
+        <category>머신러닝</category>
+        
+        <category>생존분석</category>
+        
+        
+        <category>머신러닝</category>
+        
+      </item>
     
       <item>
         <title>생존 분석 - 카플란 마이어 추정 [파이썬 예제]</title>
@@ -731,168 +1467,8 @@ plt.ylabel('Survival function')
 
 </description>
         <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-%EC%B9%B4%ED%94%8C%EB%9E%80-%EB%A7%88%EC%9D%B4%EC%96%B4-%EC%98%88%EC%A0%9C</guid>
-        
-        <category>머신러닝</category>
-        
-        <category>생존분석</category>
-        
-        
-        <category>머신러닝</category>
-        
-      </item>
-    
-      <item>
-        <title>엑셀로 풀어보는 생존 분석 로그 순위 검정</title>
-        <description>&lt;h2 id=&quot;로그순위-검정-log-rank-test&quot;&gt;로그순위 검정 (Log-Rank test)&lt;/h2&gt;
-
-&lt;h3 id=&quot;개념&quot;&gt;개념&lt;/h3&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;두개 이상의 그룹간의 생존율의 차이가 유의미한지 알기 위한 방법이다.
-두 그룹간의 총괄적인 비교를 위해 아래와 같은 가설을 설정한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$H_0 : S_1(t) = S_2(t) \text{ for all t}$&lt;/li&gt;
-  &lt;li&gt;$H_1 : S_1(t) \neq S_2(t) \text{ for all t}$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이후, 관측 자료를 $t_1 &amp;lt; t_2 &amp;lt; \cdots &amp;lt; t_k$ 로 정리한다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;사망&lt;/th&gt;
-      &lt;th&gt;생존&lt;/th&gt;
-      &lt;th&gt;계&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;그룹1&lt;/td&gt;
-      &lt;td&gt;$D_{1i}$&lt;/td&gt;
-      &lt;td&gt;$N_{1i}-D_{1i}$&lt;/td&gt;
-      &lt;td&gt;$N_{1i}$&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;그룹2&lt;/td&gt;
-      &lt;td&gt;$D_{2i}$&lt;/td&gt;
-      &lt;td&gt;$N_{2i}-D_{2i}$&lt;/td&gt;
-      &lt;td&gt;$N_{2i}$&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;계&lt;/td&gt;
-      &lt;td&gt;$D_{i}$&lt;/td&gt;
-      &lt;td&gt;$N_{2i}-D_{2i}$&lt;/td&gt;
-      &lt;td&gt;$N_{i}$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;$t_i$에서 $N_{1i},N_{2i},D_{i}$ 가 고정되어 있다면, $D_{1i}$가 초기하분포를 따르며, 그 평균과 분산은 아래와 같다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;E(D_{1i}) = N_{1i}D_{i}/N{i} = E_{1i}&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;V(D_{1i}) = V_{1i}&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;초기하 분포를 따른다면 각 테이블마다 평균과 분산을 구하고, 이를 활용하여 카이 제곱 검정 통계량을 구할 수 있다. 이 경우, 검정통계량 T는 자유도 1인 카이제곱분포를 따른다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;T = \dfrac{(\sum_{i=1}^{k} D_{1i}-E_{1i})^2}{\sum_{i=1}^{k} V_{1i}}&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;만약 T의 값이 임계치보다 크다면 두 그룹의 생존함수가 같다는 귀무가설을 기각하고 유의미한 차이가 있다고 볼 수 있다. 또한, 각 시점에서의 가중치를 주어 아래와 같은 검정통계량 식을 도출할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;T = \dfrac{(\sum_{i=1}^{k} w_{i}D_{1i}-E_{1i})^2}{\sum_{i=1}^{k} w_{i}^{2}V_{1i}}&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;로그 랭크 테스트와 윌콕슨 검정 모두 생존곡선이 crossover될 경우, 그 차이를 테스트할 수 없다.
-로그랭크 테스트는 두 그룹에서 한 그룹의 생존확률이 비례적인 증감을 테스트하는데 적합하다. (proportional hazards model)
-윌콕슨 테스트는 사건시간이 log-normal distribution(두 그룹간에 분산이 동일하고 평균은 다를 때) 적합하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;예시&quot;&gt;예시&lt;/h3&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;각기 다른 치료법을 적용한 Trial A 그룹과 Trial B 그룹이 아래와 같이 존재한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;각 컬럼 1은 Duration Time으로 t이다.&lt;/li&gt;
-  &lt;li&gt;각 컬럼 2는 사망이 발생했거나 (1), 절단(0)을 나타낸다.
-&lt;img src=&quot;https://i.imgur.com/eSbdZ1G.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위 자료를 아래와 같이 정리한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;t : duration time&lt;/li&gt;
-  &lt;li&gt;d : 사망 발생&lt;/li&gt;
-  &lt;li&gt;n : 관측 수&lt;/li&gt;
-  &lt;li&gt;S(t) : 생존 함수 ($1-\frac{d}{n}$의 누적 곱)
-&lt;img src=&quot;https://i.imgur.com/PH7yb8x.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;생존 곡선은 아래와 같이 그려진다. 시각적으로 볼때 두 그룹간 큰 차이가 없을것으로 예상된다. 보다 더 정밀한 비교를 위해 로그 순위 검정을 실시한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/6joIQbd.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;로그 순위 검정은 앞서 말했듯, 카이 제곱 검정과 유사하다. 로그 순위를 계산하기 위해 각 t별 d의 기댓값을 계산하여 자료를 생성한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;기댓값
-    &lt;ul&gt;
-      &lt;li&gt;$e_{j}^{A} = n_{j}^{A} \cdot \dfrac{d_j}{n_j}$&lt;/li&gt;
-      &lt;li&gt;$e_{j}^{B} = n_{j}^{B} \cdot \dfrac{d_j}{n_j}$
-        &lt;ul&gt;
-          &lt;li&gt;$d_j = d_j^A+d_j^B, n_j = n_j^A+n_j^B$&lt;/li&gt;
-          &lt;li&gt;$e_j^A + e_j^B = d_j^A + d_j^B$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;LogRank = \dfrac{(Obs_{A} - Exp_{A})^2}{Exp_A} + \dfrac{(Obs_{B} - Exp_{B})^2}{Exp_B}&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;=\dfrac{(12-9.82)^2}{9.82} + \dfrac{(8-10.17)^2}{10.17}&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/xFaXp0m.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;$H0$이 참이라면, 로그랭크테스트는 자유도가 1인 카이제곱분포를 따른다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;LR \sim \chi^2(1)&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 두 그룹의 로그랭크통계값은 0.94이고, 이 P-value는 0.33으로 0.05 유의수준보다 크다.
-따라서 해당 그룹의 생존율에는 큰 차이가 없다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://real-statistics.com/survival-analysis/kaplan-meier-procedure/log-rank-test/&quot;&gt;Log-Rank Test | Real Statistics Using Excel&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://boogling.tistory.com/entry/%EC%83%9D%EC%A1%B4%EB%B6%84%EC%84%9D-Survival-Function%EC%9D%98-%EC%B0%A8%EC%9D%B4-Log-Rank-Test&quot;&gt;생존분석 - Survival Function의 차이 Log-Rank Test&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&amp;amp;blogId=euleekwon&amp;amp;logNo=221441257643&quot;&gt;[통계 공부] Log-rank test(로그 순위법) : 네이버 블로그&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 29 Mar 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%EC%83%9D%EC%A1%B4-%EB%B6%84%EC%84%9D-%EB%A1%9C%EA%B7%B8-%EC%88%9C%EC%9C%84-%EA%B2%80%EC%A0%95</guid>
+        <link>http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023/03/29/%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A9%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-%E1%84%8F%E1%85%A1%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%86%AB-%E1%84%86%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6</guid>
         
         <category>머신러닝</category>
         
@@ -2479,138 +3055,6 @@ f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\dfrac{1}{2}\left[\dfrac{x-\mu}{\sigma}
         
         
         <category>통계</category>
-        
-      </item>
-    
-      <item>
-        <title>기초통계량 정리</title>
-        <description>&lt;p&gt;기술통계량이라고 불리며, 데이터의 특성을 이해할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;모멘트-1--위치&quot;&gt;모멘트 1 : 위치&lt;/h3&gt;
-&lt;hr /&gt;
-&lt;h4 id=&quot;a-중심-경향치&quot;&gt;A. 중심 경향치&lt;/h4&gt;
-&lt;p&gt;표본의 중심을 설명하는 값. 평균, 중앙값, 최빈값, 절사 평균 등&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;평균
-    &lt;ul&gt;
-      &lt;li&gt;평균은 표본으로 추출된 표본평균 $\overline{x}$이라고 하며, 모집단의 평균은 모평균 µ이라 불린다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;중앙값
-    &lt;ul&gt;
-      &lt;li&gt;관측치를 크기순으로 나열했을 때, 가운데 위치하는 값
-        &lt;ul&gt;
-          &lt;li&gt;홀수일 시, 중앙값, 짝수일 시 중앙 값 2개의 산술 평균&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;최빈값
-    &lt;ul&gt;
-      &lt;li&gt;관측치 중 가장 많이 관측되는 값&lt;/li&gt;
-      &lt;li&gt;명목형 데이터의 경우 많이 사용&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;모멘트-2--변이&quot;&gt;모멘트 2 : 변이&lt;/h3&gt;
-&lt;hr /&gt;
-&lt;h4 id=&quot;a-산포도&quot;&gt;A. 산포도&lt;/h4&gt;
-&lt;p&gt;데이터가 어떻게 흩어져 있는지를 확인하기 위해 중심경향치와 함께 산포에 대한 측도를 같이 고려.
-범위, 사분위수, 분산, 표준편차, 변동 계수 등이 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;범위
-    &lt;ul&gt;
-      &lt;li&gt;최대값과 최소값이 차이&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;사분위수
-    &lt;ul&gt;
-      &lt;li&gt;전체 데이터를 오름차순 정리하여 4등분한 범위&lt;/li&gt;
-      &lt;li&gt;사분위범위 (IQR) 25번째 백분위수와 75번째 백분위수의 차이를 본다.
-        &lt;ul&gt;
-          &lt;li&gt;${1,2,3,3,5,6,7,9} -&amp;gt; 6.5 - 2.5 = 4$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;백분위수
-    &lt;ul&gt;
-      &lt;li&gt;정렬시 비율에 의해 등분한 값을 말함. 분위수와 근본적으로 같다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;분산 : 로버스트하지 않음
-    &lt;ul&gt;
-      &lt;li&gt;데이터의 분포가 얼마나 흩어져 있는지 알 수 있는 측도
-        &lt;ul&gt;
-          &lt;li&gt;$S^{2}=\dfrac{1}{n-1}\sum ^{n}&lt;em&gt;{i=1}\left( x&lt;/em&gt;{i}-\overline{x}\right)^2$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;표준편차 : 로버스트하지 않음
-    &lt;ul&gt;
-      &lt;li&gt;분산의 제곱근
-        &lt;ul&gt;
-          &lt;li&gt;$\sqrt{s^{2}}$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;변동 계수 (Coefficient of Variation : CV)
-    &lt;ul&gt;
-      &lt;li&gt;평균이 다른 두개 이상의 그룹의 표준편차를 비교할때 사용함.&lt;/li&gt;
-      &lt;li&gt;다른 그룹의 산포를 비교하며 실제 분석에서 많이 사용됨.
-        &lt;ul&gt;
-          &lt;li&gt;$\dfrac{\sqrt{s^{2}}}{\overline{x}}$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;모멘트-3--4-왜도--첨도&quot;&gt;모멘트 3 &amp;amp; 4 왜도 &amp;amp; 첨도&lt;/h3&gt;
-&lt;hr /&gt;
-&lt;ul&gt;
-  &lt;li&gt;왜도(skew)
-    &lt;ul&gt;
-      &lt;li&gt;자료의 분포가 얼마나 기울었는지(비대칭적인지) 표현하는 지표&lt;/li&gt;
-      &lt;li&gt;왜도가 0이면 좌우가 대칭이며 0에서 클수록 우측꼬리가 길고 0에서 작을수록 좌측 꼬리가 길다.&lt;/li&gt;
-      &lt;li&gt;피어슨 왜도계수
-        &lt;ul&gt;
-          &lt;li&gt;$\dfrac{3(평균값 - 중앙값)}{표본의 표준편차}$&lt;/li&gt;
-          &lt;li&gt;$\dfrac{3(평균값 - 최빈값)}{표본의 표준편차}$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;첨도(kurtosis)
-    &lt;ul&gt;
-      &lt;li&gt;변수의 분포 모양이 얼마나 뾰족한지&lt;/li&gt;
-      &lt;li&gt;확률 분포의 꼬리가 두꺼운 정도를 나타내는 척도
-        &lt;ul&gt;
-          &lt;li&gt;첨도값 (k)이 3에 가까우면 정규분포에 가깝다&lt;/li&gt;
-          &lt;li&gt;K&amp;lt;3 산포는 정규분포보다 꼬리가 얇은 분포이다.&lt;/li&gt;
-          &lt;li&gt;K&amp;gt;3 산포는 정규분포보다 꼬리가 두꺼운 분포다.&lt;/li&gt;
-          &lt;li&gt;첨도
-            &lt;ul&gt;
-              &lt;li&gt;$\dfrac{\dfrac{\sum ^{n}_{i=1}(관측치 - 표본평균)^{4}}{n}}{\left( S^{2}\right) ^{2}}-3$&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Wed, 04 Jan 2023 15:00:00 +0900</pubDate>
-        <link>http://localhost:4000/articles/2023/01/04/%EA%B8%B0%EC%B4%88-%ED%86%B5%EA%B3%84%EB%9F%89</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2023/01/04/%EA%B8%B0%EC%B4%88-%ED%86%B5%EA%B3%84%EB%9F%89</guid>
-        
-        <category>통계</category>
-        
-        
-        <category>머신러닝</category>
         
       </item>
     

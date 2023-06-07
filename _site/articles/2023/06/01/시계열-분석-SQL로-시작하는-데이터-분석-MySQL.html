@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="SQL">
+  
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>시계열 분석 - SQL로 시작하는 데이터 분석 MySQL | Data Archive Doyle</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="시계열 분석 - SQL로 시작하는 데이터 분석 MySQL" />
+<meta name="author" content="Doyle" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="PostgreSQL로 작성된 서적인 OREILLY의 ‘SQL로 시작하는 데이터 분석’을 MySQL로 변환하며 스터디한 내용. 시계열 분석 파트의 데이터 테이블 정리 쿼리가 실행될 테이블 형태는 아래와 같다. A. Table Scheme sales_month naics_code kind_f_business reason_for_null sales 1992-01-01 441 Motor vehicle and parts dealers   29811.00 1992-01-01 4411 Automobile dealers   25800.00 1992-01-01 4411, 4412 Automobile and other motor vehicle dealers   26788.00 1992-01-01 44111 New car dealers   24056.00 retail_sales 테이블 판매 일자, 소매 업종, 판매액이 적재 되어있다. date date_key day_of_month day_of_year day_of_week day_name day_short_name week_number week_of_month week month_number month_name month+short_name first_day_of_month last_day_of_month quarter_number quarter_name first_day_of_quarter last_day_of_quarter year decade centurays 1770-01-01 17700101 1 1 1 Monday Mon 1 1 1770-01-01 1 January Jan 1770-01-01 1770-01-31 1 Q1 1770-01-01 1770-03-31 1770 1770 18 1770-01-02 17700102 2 2 2 Tuesday Tue 1 1 1770-01-01 1 January Jan 1770-01-01 1770-01-31 1 Q1 1770-01-01 1770-03-31 1770 1770 18 date_dim 테이블 분석에 활용하고자 하는 테이블에 특정 일자의 레코드가 삭제되어 있다면 집계 시 혼란이 발생할 수 있다. 이러한 사고를 미연에 방지하고자 날짜 룩업 테이블을 정의하고, 필요 시 join하여 결측으로 발생할 수 있는 집계 오류를 방지한다. B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자. 날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다. select date_add(date(&#39;2020-01-01&#39;), interval 1 week) 시계열 분석 - 비율과 차이 A. 차이 계산하기 A.1. 남여 매출 차이 Subquery ver subquery를 활용한 계산 SELECT year(sales_month) AS years, a.womens_sales, a.mens_sales, a.womens_sales - a.mens_sales AS diff_sales FROM retail_sales, ( SELECT year(sales_month) AS years, sum( CASE WHEN kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; THEN sales END) AS womens_sales, sum( CASE WHEN kind_of_business = &#39;Men&#39;&#39;s clothing stores&#39; THEN sales END) AS mens_sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;, &#39;Men&#39;&#39;s clothing stores&#39;) GROUP BY 1) a B. 전체 대비 비율을 계산하기 B.1. subquery &amp; self join을 활용한 비율 계산 SELECT sales_month, kind_of_business, sales, sales / aa.total_sales * 100 AS pct_total_sales FROM ( SELECT a.sales_month, a.kind_of_business, a.sales, sum(b.sales) AS total_sales FROM retail_sales a JOIN retail_sales b ON a.sales_month = b.sales_month AND b.kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) WHERE a.kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1, 2, 3) aa ORDER BY 1, 2 B.2. Partition by, sum 윈도우함수 활용한 비율 계산 partition by 절로 함수가 계산하는 테이블의 섹션을 구분 SELECT sales_month, kind_of_business, sales, sum(sales) OVER (PARTITION BY sales_month) AS total_sales, round(sales * 100 / sum(sales) OVER (PARTITION BY sales_month), 2) AS pct FROM retail_sales WHERE kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) ORDER BY 1, 2 C. 업종별, 연매출 대비 월간 매출 C.1. 서브쿼리 활용 SELECT rs.sales_month, rs.kind_of_business, SUM(rs.sales) AS sales_m, aa.sales_y, round(SUM(rs.sales) / aa.sales_y, 2) AS ratio_m_y FROM retail_sales rs JOIN ( SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales_y, kind_of_business FROM retail_sales WHERE kind_of_business IN(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY sales_year, kind_of_business) aa ON YEAR(rs.sales_month) = aa.sales_year AND rs.kind_of_business = aa.kind_of_business WHERE rs.kind_of_business IN(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY rs.sales_month, rs.kind_of_business, aa.sales_y ORDER BY 1 C.2. 윈도우 함수 활용 SELECT sales_month, kind_of_business, sales, sum(sales) OVER (PARTITION BY year(sales_month), kind_of_business) AS yearly_sales, sales * 100 / sum(sales) OVER (PARTITION BY year(sales_month), kind_of_business) AS pct_yearly FROM retail_sales WHERE kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) ORDER BY 1, 2; D. 인덱싱으로 시계열 데이터 변화 이해하기 데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법. 집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다. SELECT sales_year, sales, first_value(sales) OVER (ORDER BY sales_year) AS index_sales FROM ( SELECT year(sales_month) AS sales_year, sum(sales) AS sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1) a D.1. 윈도우 함수를 활용한 인덱싱 SELECT sales_year, sales, (sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales FROM ( SELECT year(sales_month) AS sales_year, sum(sales) AS sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1) a 시계열 분석 - 시간 윈도우 롤링 집계와는 또 다른 노이즈 제거 방법. 여러 구간을 설정해 트렌드를 분석하는 시간 윈도우 롤링 (=이동 계산) 시계열 롤링 계산의 요소는 3가지. 1) 윈도우 사이즈, 2) 집계 함수, 3) 윈도우 내 데이터의 분할 혹은 그룹화 셀프조인과 윈도우 함수를 활용 A. 시간 윈도우 롤링 누적 합 SELECT a.sales_month, a.sales, b.sales_month AS rolling_sales_month, b.sales AS rolling_sales FROM retail_sales a JOIN retail_sales b ON a.kind_of_business = b.kind_of_business AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 MONTH) AND a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND a.sales_month = date(&#39;2019-12-01&#39;) B. 이동평균선 B.1. self join SELECT a.sales_month, a.sales, avg(b.sales) AS ma_1y, count(b.sales) AS records FROM retail_sales a JOIN retail_sales b ON a.kind_of_business = b.kind_of_business AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 month) AND a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND a.sales_month &gt;= &#39;1993-01-01&#39; GROUP BY 1, 2 ORDER BY 1 B.2. Frame 문법 frame절은 윈도우 함수 옵션을 활용해, 각 윈도우에서 어떤 레코드를 포함할지 지정하는 문법 frame_end는 아래 중 하나 UNBOUNDED PRECEDING - 현재 행 이전의 모든 행 offset PRECEDING - 현재 행 이전의 n개 행 CURRENT ROW - 현재 행 offset FOLLOWING - 현재 행 이후의 n개 행 UNBOUNDED FOLOWING - 현재 행 이후의 모든 행 {범위 | 행 | 그룹} BETWEEN frame_start AND frame_end SELECT sales_month, avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg, COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; C. 희소 데이터의 시간 윈도우 롤링 날짜 룩업 테이블 참조하여 쿼리 SELECT d.date, avg(s.sales) AS moving_average, count(s.sales) AS records, max( CASE WHEN d.date = s.sales_month THEN s.sales END) AS sales_in_month FROM date_dim d JOIN ( SELECT sales_month, sales FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND month(sales_month) IN(1, 7)) s ON s.sales_month BETWEEN DATE_SUB(d.date, INTERVAL 11 MONTH) AND d.date WHERE d.date = d.first_day_of_month AND d.date BETWEEN &#39;1993-01-01&#39; AND &#39;2020-12-01&#39; GROUP BY 1 ORDER BY 1 D. 누적값값 계산 D.1. YTD 윈도우 롤링 SELECT sales_month, sales, sum(sales) OVER (PARTITION BY year(sales_month) ORDER BY sales_month) AS sales_ytd FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; ORDER BY 1 D.2. YTD 서브쿼리 SELECT a.sales_month, a.sales, sum(b.sales) AS YTD_sales FROM retail_sales a JOIN retail_sales b ON year(a.sales_month) = year(b.sales_month) AND b.sales_month &lt;= a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; GROUP BY 1, 2 ORDER BY 1 E. 계절성 분석 일정한 간격을 두고 규칙적으로 반복되는 패턴을 의미. 연단위, 혹은 분단위로 나타나기도 함. E.1. lag 함수를 사용한 이전값 대비 비율 변화 lag 함수는 이전행의 값을 반환한다. (lead = lag와 반대. 다음 행을 반환) offset 옵션 : 몇 행 이전의 값을 반환할 것인가? default 옵션 : 이전 행이 없는 경우에 반환할 값 PARTITION BY 옵션 : 생략 시, 전체 데이터셋에 대한 계산 수행 ORDER BY 옵션 : 생략 시, 현재 db 정렬 순서로 계산 수행 구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음. SELECT kind_of_business, sales_month, sales, lag(sales) OVER ( PARTITION BY kind_of_business ORDER BY sales_month ) AS t, (sales / (lag(sales) OVER (PARTITION BY kind_of_business ORDER BY sales_month)) - 1) * 100 AS pct_growth_then_prev FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39; E.2. 구간 비교 : 작년 동월과의 비교 전년대비 성장세를 비교. SELECT sales_month, sales, lag(sales_month) OVER (PARTITION BY month(sales_month) ORDER BY sales_month) AS prev_month, lag(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month) AS prev_sales, 100 * (sales / (lag(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month)) - 1) AS prev_pct FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39; E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗 각 연도별 시각적 비교에 용이한 피벗 SELECT month(sales_month) as month_num, monthname(sales_month) as month_char, max(case when year(sales_month) = 1992 then sales end) as &#39;1992 sales&#39;, max(case when year(sales_month) = 1993 then sales end) as &#39;1993 sales&#39;, max(case when year(sales_month) = 1994 then sales end) as &#39;1994 sales&#39; FROM retail_sales WHERE kind_of_business like &#39;book%&#39; and sales_month between date(&#39;1992-01-01&#39;) and date(&#39;1994-12-01&#39;) group by 1,2 E.4. 다중구간 비교 서브쿼리 계산에 하나의 행이라도 null 이면 null로 처리됨을 유의. SELECT sales_month,sales, sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct FROM ( SELECT sales_month, sales, lag(sales,1) over (partition by month(sales_month) order by sales_month ) as prev_sales_1, lag(sales,2) over (partition by month(sales_month) order by sales_month ) as prev_sales_2, lag(sales,3) over (partition by month(sales_month) order by sales_month ) as prev_sales_3 FROM retail_sales WHERE kind_of_business like &#39;Book%&#39; ) as a E.5. 다중구간 비교 프레임절 서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의 SELECT sales_month, sales, sales / avg(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) AS pct_pre FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39;" />
+<meta property="og:description" content="PostgreSQL로 작성된 서적인 OREILLY의 ‘SQL로 시작하는 데이터 분석’을 MySQL로 변환하며 스터디한 내용. 시계열 분석 파트의 데이터 테이블 정리 쿼리가 실행될 테이블 형태는 아래와 같다. A. Table Scheme sales_month naics_code kind_f_business reason_for_null sales 1992-01-01 441 Motor vehicle and parts dealers   29811.00 1992-01-01 4411 Automobile dealers   25800.00 1992-01-01 4411, 4412 Automobile and other motor vehicle dealers   26788.00 1992-01-01 44111 New car dealers   24056.00 retail_sales 테이블 판매 일자, 소매 업종, 판매액이 적재 되어있다. date date_key day_of_month day_of_year day_of_week day_name day_short_name week_number week_of_month week month_number month_name month+short_name first_day_of_month last_day_of_month quarter_number quarter_name first_day_of_quarter last_day_of_quarter year decade centurays 1770-01-01 17700101 1 1 1 Monday Mon 1 1 1770-01-01 1 January Jan 1770-01-01 1770-01-31 1 Q1 1770-01-01 1770-03-31 1770 1770 18 1770-01-02 17700102 2 2 2 Tuesday Tue 1 1 1770-01-01 1 January Jan 1770-01-01 1770-01-31 1 Q1 1770-01-01 1770-03-31 1770 1770 18 date_dim 테이블 분석에 활용하고자 하는 테이블에 특정 일자의 레코드가 삭제되어 있다면 집계 시 혼란이 발생할 수 있다. 이러한 사고를 미연에 방지하고자 날짜 룩업 테이블을 정의하고, 필요 시 join하여 결측으로 발생할 수 있는 집계 오류를 방지한다. B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자. 날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다. select date_add(date(&#39;2020-01-01&#39;), interval 1 week) 시계열 분석 - 비율과 차이 A. 차이 계산하기 A.1. 남여 매출 차이 Subquery ver subquery를 활용한 계산 SELECT year(sales_month) AS years, a.womens_sales, a.mens_sales, a.womens_sales - a.mens_sales AS diff_sales FROM retail_sales, ( SELECT year(sales_month) AS years, sum( CASE WHEN kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; THEN sales END) AS womens_sales, sum( CASE WHEN kind_of_business = &#39;Men&#39;&#39;s clothing stores&#39; THEN sales END) AS mens_sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;, &#39;Men&#39;&#39;s clothing stores&#39;) GROUP BY 1) a B. 전체 대비 비율을 계산하기 B.1. subquery &amp; self join을 활용한 비율 계산 SELECT sales_month, kind_of_business, sales, sales / aa.total_sales * 100 AS pct_total_sales FROM ( SELECT a.sales_month, a.kind_of_business, a.sales, sum(b.sales) AS total_sales FROM retail_sales a JOIN retail_sales b ON a.sales_month = b.sales_month AND b.kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) WHERE a.kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1, 2, 3) aa ORDER BY 1, 2 B.2. Partition by, sum 윈도우함수 활용한 비율 계산 partition by 절로 함수가 계산하는 테이블의 섹션을 구분 SELECT sales_month, kind_of_business, sales, sum(sales) OVER (PARTITION BY sales_month) AS total_sales, round(sales * 100 / sum(sales) OVER (PARTITION BY sales_month), 2) AS pct FROM retail_sales WHERE kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) ORDER BY 1, 2 C. 업종별, 연매출 대비 월간 매출 C.1. 서브쿼리 활용 SELECT rs.sales_month, rs.kind_of_business, SUM(rs.sales) AS sales_m, aa.sales_y, round(SUM(rs.sales) / aa.sales_y, 2) AS ratio_m_y FROM retail_sales rs JOIN ( SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales_y, kind_of_business FROM retail_sales WHERE kind_of_business IN(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY sales_year, kind_of_business) aa ON YEAR(rs.sales_month) = aa.sales_year AND rs.kind_of_business = aa.kind_of_business WHERE rs.kind_of_business IN(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY rs.sales_month, rs.kind_of_business, aa.sales_y ORDER BY 1 C.2. 윈도우 함수 활용 SELECT sales_month, kind_of_business, sales, sum(sales) OVER (PARTITION BY year(sales_month), kind_of_business) AS yearly_sales, sales * 100 / sum(sales) OVER (PARTITION BY year(sales_month), kind_of_business) AS pct_yearly FROM retail_sales WHERE kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) ORDER BY 1, 2; D. 인덱싱으로 시계열 데이터 변화 이해하기 데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법. 집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다. SELECT sales_year, sales, first_value(sales) OVER (ORDER BY sales_year) AS index_sales FROM ( SELECT year(sales_month) AS sales_year, sum(sales) AS sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1) a D.1. 윈도우 함수를 활용한 인덱싱 SELECT sales_year, sales, (sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales FROM ( SELECT year(sales_month) AS sales_year, sum(sales) AS sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1) a 시계열 분석 - 시간 윈도우 롤링 집계와는 또 다른 노이즈 제거 방법. 여러 구간을 설정해 트렌드를 분석하는 시간 윈도우 롤링 (=이동 계산) 시계열 롤링 계산의 요소는 3가지. 1) 윈도우 사이즈, 2) 집계 함수, 3) 윈도우 내 데이터의 분할 혹은 그룹화 셀프조인과 윈도우 함수를 활용 A. 시간 윈도우 롤링 누적 합 SELECT a.sales_month, a.sales, b.sales_month AS rolling_sales_month, b.sales AS rolling_sales FROM retail_sales a JOIN retail_sales b ON a.kind_of_business = b.kind_of_business AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 MONTH) AND a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND a.sales_month = date(&#39;2019-12-01&#39;) B. 이동평균선 B.1. self join SELECT a.sales_month, a.sales, avg(b.sales) AS ma_1y, count(b.sales) AS records FROM retail_sales a JOIN retail_sales b ON a.kind_of_business = b.kind_of_business AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 month) AND a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND a.sales_month &gt;= &#39;1993-01-01&#39; GROUP BY 1, 2 ORDER BY 1 B.2. Frame 문법 frame절은 윈도우 함수 옵션을 활용해, 각 윈도우에서 어떤 레코드를 포함할지 지정하는 문법 frame_end는 아래 중 하나 UNBOUNDED PRECEDING - 현재 행 이전의 모든 행 offset PRECEDING - 현재 행 이전의 n개 행 CURRENT ROW - 현재 행 offset FOLLOWING - 현재 행 이후의 n개 행 UNBOUNDED FOLOWING - 현재 행 이후의 모든 행 {범위 | 행 | 그룹} BETWEEN frame_start AND frame_end SELECT sales_month, avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg, COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; C. 희소 데이터의 시간 윈도우 롤링 날짜 룩업 테이블 참조하여 쿼리 SELECT d.date, avg(s.sales) AS moving_average, count(s.sales) AS records, max( CASE WHEN d.date = s.sales_month THEN s.sales END) AS sales_in_month FROM date_dim d JOIN ( SELECT sales_month, sales FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND month(sales_month) IN(1, 7)) s ON s.sales_month BETWEEN DATE_SUB(d.date, INTERVAL 11 MONTH) AND d.date WHERE d.date = d.first_day_of_month AND d.date BETWEEN &#39;1993-01-01&#39; AND &#39;2020-12-01&#39; GROUP BY 1 ORDER BY 1 D. 누적값값 계산 D.1. YTD 윈도우 롤링 SELECT sales_month, sales, sum(sales) OVER (PARTITION BY year(sales_month) ORDER BY sales_month) AS sales_ytd FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; ORDER BY 1 D.2. YTD 서브쿼리 SELECT a.sales_month, a.sales, sum(b.sales) AS YTD_sales FROM retail_sales a JOIN retail_sales b ON year(a.sales_month) = year(b.sales_month) AND b.sales_month &lt;= a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; GROUP BY 1, 2 ORDER BY 1 E. 계절성 분석 일정한 간격을 두고 규칙적으로 반복되는 패턴을 의미. 연단위, 혹은 분단위로 나타나기도 함. E.1. lag 함수를 사용한 이전값 대비 비율 변화 lag 함수는 이전행의 값을 반환한다. (lead = lag와 반대. 다음 행을 반환) offset 옵션 : 몇 행 이전의 값을 반환할 것인가? default 옵션 : 이전 행이 없는 경우에 반환할 값 PARTITION BY 옵션 : 생략 시, 전체 데이터셋에 대한 계산 수행 ORDER BY 옵션 : 생략 시, 현재 db 정렬 순서로 계산 수행 구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음. SELECT kind_of_business, sales_month, sales, lag(sales) OVER ( PARTITION BY kind_of_business ORDER BY sales_month ) AS t, (sales / (lag(sales) OVER (PARTITION BY kind_of_business ORDER BY sales_month)) - 1) * 100 AS pct_growth_then_prev FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39; E.2. 구간 비교 : 작년 동월과의 비교 전년대비 성장세를 비교. SELECT sales_month, sales, lag(sales_month) OVER (PARTITION BY month(sales_month) ORDER BY sales_month) AS prev_month, lag(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month) AS prev_sales, 100 * (sales / (lag(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month)) - 1) AS prev_pct FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39; E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗 각 연도별 시각적 비교에 용이한 피벗 SELECT month(sales_month) as month_num, monthname(sales_month) as month_char, max(case when year(sales_month) = 1992 then sales end) as &#39;1992 sales&#39;, max(case when year(sales_month) = 1993 then sales end) as &#39;1993 sales&#39;, max(case when year(sales_month) = 1994 then sales end) as &#39;1994 sales&#39; FROM retail_sales WHERE kind_of_business like &#39;book%&#39; and sales_month between date(&#39;1992-01-01&#39;) and date(&#39;1994-12-01&#39;) group by 1,2 E.4. 다중구간 비교 서브쿼리 계산에 하나의 행이라도 null 이면 null로 처리됨을 유의. SELECT sales_month,sales, sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct FROM ( SELECT sales_month, sales, lag(sales,1) over (partition by month(sales_month) order by sales_month ) as prev_sales_1, lag(sales,2) over (partition by month(sales_month) order by sales_month ) as prev_sales_2, lag(sales,3) over (partition by month(sales_month) order by sales_month ) as prev_sales_3 FROM retail_sales WHERE kind_of_business like &#39;Book%&#39; ) as a E.5. 다중구간 비교 프레임절 서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의 SELECT sales_month, sales, sales / avg(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) AS pct_pre FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39;" />
+<link rel="canonical" href="http://localhost:4000/articles/2023/06/01/%EC%8B%9C%EA%B3%84%EC%97%B4-%EB%B6%84%EC%84%9D-SQL%EB%A1%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-MySQL" />
+<meta property="og:url" content="http://localhost:4000/articles/2023/06/01/%EC%8B%9C%EA%B3%84%EC%97%B4-%EB%B6%84%EC%84%9D-SQL%EB%A1%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-MySQL" />
+<meta property="og:site_name" content="Data Archive Doyle" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-06-01T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="시계열 분석 - SQL로 시작하는 데이터 분석 MySQL" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Doyle"},"dateModified":"2023-06-01T15:00:00+09:00","datePublished":"2023-06-01T15:00:00+09:00","description":"PostgreSQL로 작성된 서적인 OREILLY의 ‘SQL로 시작하는 데이터 분석’을 MySQL로 변환하며 스터디한 내용. 시계열 분석 파트의 데이터 테이블 정리 쿼리가 실행될 테이블 형태는 아래와 같다. A. Table Scheme sales_month naics_code kind_f_business reason_for_null sales 1992-01-01 441 Motor vehicle and parts dealers   29811.00 1992-01-01 4411 Automobile dealers   25800.00 1992-01-01 4411, 4412 Automobile and other motor vehicle dealers   26788.00 1992-01-01 44111 New car dealers   24056.00 retail_sales 테이블 판매 일자, 소매 업종, 판매액이 적재 되어있다. date date_key day_of_month day_of_year day_of_week day_name day_short_name week_number week_of_month week month_number month_name month+short_name first_day_of_month last_day_of_month quarter_number quarter_name first_day_of_quarter last_day_of_quarter year decade centurays 1770-01-01 17700101 1 1 1 Monday Mon 1 1 1770-01-01 1 January Jan 1770-01-01 1770-01-31 1 Q1 1770-01-01 1770-03-31 1770 1770 18 1770-01-02 17700102 2 2 2 Tuesday Tue 1 1 1770-01-01 1 January Jan 1770-01-01 1770-01-31 1 Q1 1770-01-01 1770-03-31 1770 1770 18 date_dim 테이블 분석에 활용하고자 하는 테이블에 특정 일자의 레코드가 삭제되어 있다면 집계 시 혼란이 발생할 수 있다. 이러한 사고를 미연에 방지하고자 날짜 룩업 테이블을 정의하고, 필요 시 join하여 결측으로 발생할 수 있는 집계 오류를 방지한다. B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자. 날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다. select date_add(date(&#39;2020-01-01&#39;), interval 1 week) 시계열 분석 - 비율과 차이 A. 차이 계산하기 A.1. 남여 매출 차이 Subquery ver subquery를 활용한 계산 SELECT year(sales_month) AS years, a.womens_sales, a.mens_sales, a.womens_sales - a.mens_sales AS diff_sales FROM retail_sales, ( SELECT year(sales_month) AS years, sum( CASE WHEN kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; THEN sales END) AS womens_sales, sum( CASE WHEN kind_of_business = &#39;Men&#39;&#39;s clothing stores&#39; THEN sales END) AS mens_sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;, &#39;Men&#39;&#39;s clothing stores&#39;) GROUP BY 1) a B. 전체 대비 비율을 계산하기 B.1. subquery &amp; self join을 활용한 비율 계산 SELECT sales_month, kind_of_business, sales, sales / aa.total_sales * 100 AS pct_total_sales FROM ( SELECT a.sales_month, a.kind_of_business, a.sales, sum(b.sales) AS total_sales FROM retail_sales a JOIN retail_sales b ON a.sales_month = b.sales_month AND b.kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) WHERE a.kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1, 2, 3) aa ORDER BY 1, 2 B.2. Partition by, sum 윈도우함수 활용한 비율 계산 partition by 절로 함수가 계산하는 테이블의 섹션을 구분 SELECT sales_month, kind_of_business, sales, sum(sales) OVER (PARTITION BY sales_month) AS total_sales, round(sales * 100 / sum(sales) OVER (PARTITION BY sales_month), 2) AS pct FROM retail_sales WHERE kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) ORDER BY 1, 2 C. 업종별, 연매출 대비 월간 매출 C.1. 서브쿼리 활용 SELECT rs.sales_month, rs.kind_of_business, SUM(rs.sales) AS sales_m, aa.sales_y, round(SUM(rs.sales) / aa.sales_y, 2) AS ratio_m_y FROM retail_sales rs JOIN ( SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales_y, kind_of_business FROM retail_sales WHERE kind_of_business IN(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY sales_year, kind_of_business) aa ON YEAR(rs.sales_month) = aa.sales_year AND rs.kind_of_business = aa.kind_of_business WHERE rs.kind_of_business IN(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY rs.sales_month, rs.kind_of_business, aa.sales_y ORDER BY 1 C.2. 윈도우 함수 활용 SELECT sales_month, kind_of_business, sales, sum(sales) OVER (PARTITION BY year(sales_month), kind_of_business) AS yearly_sales, sales * 100 / sum(sales) OVER (PARTITION BY year(sales_month), kind_of_business) AS pct_yearly FROM retail_sales WHERE kind_of_business in(&#39;Men&#39;&#39;s clothing stores&#39;, &#39;Women&#39;&#39;s clothing stores&#39;) ORDER BY 1, 2; D. 인덱싱으로 시계열 데이터 변화 이해하기 데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법. 집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다. SELECT sales_year, sales, first_value(sales) OVER (ORDER BY sales_year) AS index_sales FROM ( SELECT year(sales_month) AS sales_year, sum(sales) AS sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1) a D.1. 윈도우 함수를 활용한 인덱싱 SELECT sales_year, sales, (sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales FROM ( SELECT year(sales_month) AS sales_year, sum(sales) AS sales FROM retail_sales WHERE kind_of_business in(&#39;Women&#39;&#39;s clothing stores&#39;) GROUP BY 1) a 시계열 분석 - 시간 윈도우 롤링 집계와는 또 다른 노이즈 제거 방법. 여러 구간을 설정해 트렌드를 분석하는 시간 윈도우 롤링 (=이동 계산) 시계열 롤링 계산의 요소는 3가지. 1) 윈도우 사이즈, 2) 집계 함수, 3) 윈도우 내 데이터의 분할 혹은 그룹화 셀프조인과 윈도우 함수를 활용 A. 시간 윈도우 롤링 누적 합 SELECT a.sales_month, a.sales, b.sales_month AS rolling_sales_month, b.sales AS rolling_sales FROM retail_sales a JOIN retail_sales b ON a.kind_of_business = b.kind_of_business AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 MONTH) AND a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND a.sales_month = date(&#39;2019-12-01&#39;) B. 이동평균선 B.1. self join SELECT a.sales_month, a.sales, avg(b.sales) AS ma_1y, count(b.sales) AS records FROM retail_sales a JOIN retail_sales b ON a.kind_of_business = b.kind_of_business AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 month) AND a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND a.sales_month &gt;= &#39;1993-01-01&#39; GROUP BY 1, 2 ORDER BY 1 B.2. Frame 문법 frame절은 윈도우 함수 옵션을 활용해, 각 윈도우에서 어떤 레코드를 포함할지 지정하는 문법 frame_end는 아래 중 하나 UNBOUNDED PRECEDING - 현재 행 이전의 모든 행 offset PRECEDING - 현재 행 이전의 n개 행 CURRENT ROW - 현재 행 offset FOLLOWING - 현재 행 이후의 n개 행 UNBOUNDED FOLOWING - 현재 행 이후의 모든 행 {범위 | 행 | 그룹} BETWEEN frame_start AND frame_end SELECT sales_month, avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg, COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; C. 희소 데이터의 시간 윈도우 롤링 날짜 룩업 테이블 참조하여 쿼리 SELECT d.date, avg(s.sales) AS moving_average, count(s.sales) AS records, max( CASE WHEN d.date = s.sales_month THEN s.sales END) AS sales_in_month FROM date_dim d JOIN ( SELECT sales_month, sales FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; AND month(sales_month) IN(1, 7)) s ON s.sales_month BETWEEN DATE_SUB(d.date, INTERVAL 11 MONTH) AND d.date WHERE d.date = d.first_day_of_month AND d.date BETWEEN &#39;1993-01-01&#39; AND &#39;2020-12-01&#39; GROUP BY 1 ORDER BY 1 D. 누적값값 계산 D.1. YTD 윈도우 롤링 SELECT sales_month, sales, sum(sales) OVER (PARTITION BY year(sales_month) ORDER BY sales_month) AS sales_ytd FROM retail_sales WHERE kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; ORDER BY 1 D.2. YTD 서브쿼리 SELECT a.sales_month, a.sales, sum(b.sales) AS YTD_sales FROM retail_sales a JOIN retail_sales b ON year(a.sales_month) = year(b.sales_month) AND b.sales_month &lt;= a.sales_month AND b.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; WHERE a.kind_of_business = &#39;Women&#39;&#39;s clothing stores&#39; GROUP BY 1, 2 ORDER BY 1 E. 계절성 분석 일정한 간격을 두고 규칙적으로 반복되는 패턴을 의미. 연단위, 혹은 분단위로 나타나기도 함. E.1. lag 함수를 사용한 이전값 대비 비율 변화 lag 함수는 이전행의 값을 반환한다. (lead = lag와 반대. 다음 행을 반환) offset 옵션 : 몇 행 이전의 값을 반환할 것인가? default 옵션 : 이전 행이 없는 경우에 반환할 값 PARTITION BY 옵션 : 생략 시, 전체 데이터셋에 대한 계산 수행 ORDER BY 옵션 : 생략 시, 현재 db 정렬 순서로 계산 수행 구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음. SELECT kind_of_business, sales_month, sales, lag(sales) OVER ( PARTITION BY kind_of_business ORDER BY sales_month ) AS t, (sales / (lag(sales) OVER (PARTITION BY kind_of_business ORDER BY sales_month)) - 1) * 100 AS pct_growth_then_prev FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39; E.2. 구간 비교 : 작년 동월과의 비교 전년대비 성장세를 비교. SELECT sales_month, sales, lag(sales_month) OVER (PARTITION BY month(sales_month) ORDER BY sales_month) AS prev_month, lag(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month) AS prev_sales, 100 * (sales / (lag(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month)) - 1) AS prev_pct FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39; E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗 각 연도별 시각적 비교에 용이한 피벗 SELECT month(sales_month) as month_num, monthname(sales_month) as month_char, max(case when year(sales_month) = 1992 then sales end) as &#39;1992 sales&#39;, max(case when year(sales_month) = 1993 then sales end) as &#39;1993 sales&#39;, max(case when year(sales_month) = 1994 then sales end) as &#39;1994 sales&#39; FROM retail_sales WHERE kind_of_business like &#39;book%&#39; and sales_month between date(&#39;1992-01-01&#39;) and date(&#39;1994-12-01&#39;) group by 1,2 E.4. 다중구간 비교 서브쿼리 계산에 하나의 행이라도 null 이면 null로 처리됨을 유의. SELECT sales_month,sales, sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct FROM ( SELECT sales_month, sales, lag(sales,1) over (partition by month(sales_month) order by sales_month ) as prev_sales_1, lag(sales,2) over (partition by month(sales_month) order by sales_month ) as prev_sales_2, lag(sales,3) over (partition by month(sales_month) order by sales_month ) as prev_sales_3 FROM retail_sales WHERE kind_of_business like &#39;Book%&#39; ) as a E.5. 다중구간 비교 프레임절 서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의 SELECT sales_month, sales, sales / avg(sales) OVER (PARTITION BY month(sales_month) ORDER BY sales_month ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) AS pct_pre FROM retail_sales WHERE kind_of_business LIKE &#39;Book%&#39;","headline":"시계열 분석 - SQL로 시작하는 데이터 분석 MySQL","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/articles/2023/06/01/%EC%8B%9C%EA%B3%84%EC%97%B4-%EB%B6%84%EC%84%9D-SQL%EB%A1%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-MySQL"},"url":"http://localhost:4000/articles/2023/06/01/%EC%8B%9C%EA%B3%84%EC%97%B4-%EB%B6%84%EC%84%9D-SQL%EB%A1%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-MySQL"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2023/06/01/%E1%84%89%E1%85%B5%E1%84%80%E1%85%A8%E1%84%8B%E1%85%A7%E1%86%AF-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-SQL%E1%84%85%E1%85%A9-%E1%84%89%E1%85%B5%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8-MySQL">
+  <link rel="alternate" type="application/rss+xml" title="Data Archive | Doyle" href="http://localhost:4000/feed.xml">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-UA-185737211-1"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-185737211-1');
+  </script>
+</head>
+
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" style="text-decoration: none" href="/">
+<!--       &lt;:]{%&gt; == []{} -->
+<!--      &lt;<span style="color: #ff5400;">daegikim</span>.github.io/&gt;-->
+        Doyle, DA
+        <span style="display: inline-block" class=" animated bounceIn">🚀</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+           
+          <a class="page-link" href="/about">About</a>
+          
+          <a class="page-link" href="/">Blog</a>
+                                               
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/math...">
+    </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">시계열 분석 - SQL로 시작하는 데이터 분석 MySQL</h1>
+    <p class="post-meta">
+      <span class="left">
+        <time datetime="2023-06-01T15:00:00+09:00" itemprop="datePublished">Jun 1, 2023</time>
+       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Doyle</span></span>
+      </span>
+      <span class="right">
+        <span class="post-author-image" style="background-image:url(/assets/images/conan.png);"></span>
+      </span>
+    </p>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <p>PostgreSQL로 작성된 서적인 OREILLY의 ‘SQL로 시작하는 데이터 분석’을 MySQL로 변환하며 스터디한 내용.</p>
+
+<h2 id="시계열-분석-파트의-데이터-테이블-정리">시계열 분석 파트의 데이터 테이블 정리</h2>
+<p>쿼리가 실행될 테이블 형태는 아래와 같다.</p>
+<h3 id="a-table-scheme">A. Table Scheme</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>sales_month</th>
+      <th>naics_code</th>
+      <th>kind_f_business</th>
+      <th>reason_for_null</th>
+      <th>sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1992-01-01</td>
+      <td>441</td>
+      <td>Motor vehicle and parts dealers</td>
+      <td> </td>
+      <td>29811.00</td>
+    </tr>
+    <tr>
+      <td>1992-01-01</td>
+      <td>4411</td>
+      <td>Automobile dealers</td>
+      <td> </td>
+      <td>25800.00</td>
+    </tr>
+    <tr>
+      <td>1992-01-01</td>
+      <td>4411, 4412</td>
+      <td>Automobile and other motor vehicle dealers</td>
+      <td> </td>
+      <td>26788.00</td>
+    </tr>
+    <tr>
+      <td>1992-01-01</td>
+      <td>44111</td>
+      <td>New car dealers</td>
+      <td> </td>
+      <td>24056.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>retail_sales 테이블</strong></p>
+<ul>
+  <li>판매 일자, 소매 업종, 판매액이 적재 되어있다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>date</th>
+      <th>date_key</th>
+      <th>day_of_month</th>
+      <th>day_of_year</th>
+      <th>day_of_week</th>
+      <th>day_name</th>
+      <th>day_short_name</th>
+      <th>week_number</th>
+      <th>week_of_month</th>
+      <th>week</th>
+      <th>month_number</th>
+      <th>month_name</th>
+      <th>month+short_name</th>
+      <th>first_day_of_month</th>
+      <th>last_day_of_month</th>
+      <th>quarter_number</th>
+      <th>quarter_name</th>
+      <th>first_day_of_quarter</th>
+      <th>last_day_of_quarter</th>
+      <th>year</th>
+      <th>decade</th>
+      <th>centurays</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1770-01-01</td>
+      <td>17700101</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Monday</td>
+      <td>Mon</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1770-01-01</td>
+      <td>1</td>
+      <td>January</td>
+      <td>Jan</td>
+      <td>1770-01-01</td>
+      <td>1770-01-31</td>
+      <td>1</td>
+      <td>Q1</td>
+      <td>1770-01-01</td>
+      <td>1770-03-31</td>
+      <td>1770</td>
+      <td>1770</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>1770-01-02</td>
+      <td>17700102</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>Tuesday</td>
+      <td>Tue</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1770-01-01</td>
+      <td>1</td>
+      <td>January</td>
+      <td>Jan</td>
+      <td>1770-01-01</td>
+      <td>1770-01-31</td>
+      <td>1</td>
+      <td>Q1</td>
+      <td>1770-01-01</td>
+      <td>1770-03-31</td>
+      <td>1770</td>
+      <td>1770</td>
+      <td>18</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>date_dim 테이블</strong></p>
+<ul>
+  <li>분석에 활용하고자 하는 테이블에 특정 일자의 레코드가 삭제되어 있다면 집계 시 혼란이 발생할 수 있다.</li>
+  <li>이러한 사고를 미연에 방지하고자 날짜 룩업 테이블을 정의하고, 필요 시 join하여 결측으로 발생할 수 있는 집계 오류를 방지한다.</li>
+</ul>
+
+<h3 id="b-날짜간-계산과-인터벌-계산을-헷갈리지-말자">B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자.</h3>
+<p>날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다.</p>
+<pre><code class="language-mysql">select date_add(date('2020-01-01'), interval 1 week)
+</code></pre>
+
+<h2 id="시계열-분석---비율과-차이">시계열 분석 - 비율과 차이</h2>
+
+<h3 id="a-차이-계산하기">A. 차이 계산하기</h3>
+<h4 id="a1-남여-매출-차이-subquery-ver">A.1. 남여 매출 차이 Subquery ver</h4>
+<p>subquery를 활용한 계산</p>
+<pre><code class="language-mysql">SELECT
+	year(sales_month) AS years,
+	a.womens_sales,
+	a.mens_sales,
+	a.womens_sales - a.mens_sales AS diff_sales
+FROM
+	retail_sales,
+	(
+		SELECT
+			year(sales_month) AS years,
+			sum(
+				CASE WHEN kind_of_business = 'Women''s clothing stores' THEN
+					sales
+				END) AS womens_sales,
+			sum(
+				CASE WHEN kind_of_business = 'Men''s clothing stores' THEN
+					sales
+				END) AS mens_sales
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business in('Women''s clothing stores', 'Men''s clothing stores')
+		GROUP BY
+			1) a
+</code></pre>
+<p><img src="https://i.imgur.com/GcRJNEQ.png" alt="" /></p>
+
+<h3 id="b-전체-대비-비율을-계산하기">B. 전체 대비 비율을 계산하기</h3>
+<h4 id="b1-subquery--self-join을-활용한-비율-계산">B.1. subquery &amp; self join을 활용한 비율 계산</h4>
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	kind_of_business,
+	sales,
+	sales / aa.total_sales * 100 AS pct_total_sales
+FROM (
+	SELECT
+		a.sales_month,
+		a.kind_of_business,
+		a.sales,
+		sum(b.sales) AS total_sales
+	FROM
+		retail_sales a
+		JOIN retail_sales b ON a.sales_month = b.sales_month
+			AND b.kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+	WHERE
+		a.kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+	GROUP BY
+		1,
+		2,
+		3) aa
+ORDER BY
+	1,
+	2
+</code></pre>
+
+<h4 id="b2-partition-by-sum-윈도우함수-활용한-비율-계산">B.2. Partition by, sum 윈도우함수 활용한 비율 계산</h4>
+<p>partition by 절로 함수가 계산하는 테이블의 섹션을 구분</p>
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	kind_of_business,
+	sales,
+	sum(sales) OVER (PARTITION BY sales_month) AS total_sales,
+	round(sales * 100 / sum(sales) OVER (PARTITION BY sales_month), 2) AS pct
+FROM
+	retail_sales
+WHERE
+	kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY
+	1,
+	2
+</code></pre>
+
+<p><img src="https://i.imgur.com/hMxp250.png" alt="" /></p>
+
+<h3 id="c-업종별-연매출-대비-월간-매출">C. 업종별, 연매출 대비 월간 매출</h3>
+<h4 id="c1-서브쿼리-활용">C.1. 서브쿼리 활용</h4>
+<pre><code class="language-mySQL">SELECT
+	rs.sales_month,
+	rs.kind_of_business,
+	SUM(rs.sales) AS sales_m,
+	aa.sales_y,
+	round(SUM(rs.sales) / aa.sales_y, 2) AS ratio_m_y
+FROM
+	retail_sales rs
+	JOIN (
+		SELECT
+			YEAR(sales_month) AS sales_year,
+			SUM(sales) AS sales_y,
+			kind_of_business
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business IN('Men''s clothing stores', 'Women''s clothing stores')
+		GROUP BY
+			sales_year,
+			kind_of_business) aa ON YEAR(rs.sales_month) = aa.sales_year
+	AND rs.kind_of_business = aa.kind_of_business
+WHERE
+	rs.kind_of_business IN('Men''s clothing stores', 'Women''s clothing stores')
+GROUP BY
+	rs.sales_month,
+	rs.kind_of_business,
+	aa.sales_y
+ORDER BY
+	1
+</code></pre>
+<h4 id="c2-윈도우-함수-활용">C.2. 윈도우 함수 활용</h4>
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	kind_of_business,
+	sales,
+	sum(sales) OVER (PARTITION BY year(sales_month),
+		kind_of_business) AS yearly_sales,
+	sales * 100 / sum(sales) OVER (PARTITION BY year(sales_month),
+		kind_of_business) AS pct_yearly
+FROM
+	retail_sales
+WHERE
+	kind_of_business in('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY
+	1,
+	2;
+</code></pre>
+<p><img src="https://i.imgur.com/toTSazY.png" alt="" /></p>
+
+<h3 id="d-인덱싱으로-시계열-데이터-변화-이해하기">D. 인덱싱으로 시계열 데이터 변화 이해하기</h3>
+<p>데이터 인덱싱은 시계열에서 베이스 구간(시작 지점)을 기준으로 데이터의 변화량을 이해하는 방법.
+집계함수와 윈도우 함수를 조합하거나 self-join을 활용함. 윈도우 함수가 매우 유연한 사용성을 보이기에, 이에 익숙해지는게 좋다.</p>
+
+<pre><code class="language-mysql">SELECT
+	sales_year,
+	sales,
+	first_value(sales) OVER (ORDER BY sales_year) AS index_sales
+FROM (
+	SELECT
+		year(sales_month) AS sales_year,
+		sum(sales) AS sales
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business in('Women''s clothing stores')
+	GROUP BY
+		1) a
+</code></pre>
+<p><img src="https://i.imgur.com/KhhUWJk.png" alt="" /></p>
+
+<h4 id="d1-윈도우-함수를-활용한-인덱싱">D.1. 윈도우 함수를 활용한 인덱싱</h4>
+<pre><code class="language-mysql">SELECT
+	sales_year,
+	sales,
+	(sales / FIRST_VALUE(sales) OVER (ORDER BY sales_year) - 1) * 100 AS index_sales
+FROM (
+	SELECT
+		year(sales_month) AS sales_year,
+		sum(sales) AS sales
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business in('Women''s clothing stores')
+	GROUP BY
+		1) a
+</code></pre>
+
+<h2 id="시계열-분석---시간-윈도우-롤링">시계열 분석 - 시간 윈도우 롤링</h2>
+<p>집계와는 또 다른 노이즈 제거 방법. 여러 구간을 설정해 트렌드를 분석하는 시간 윈도우 롤링 (=이동 계산)
+시계열 롤링 계산의 요소는 3가지. 1) 윈도우 사이즈, 2) 집계 함수, 3) 윈도우 내 데이터의 분할 혹은 그룹화
+셀프조인과 윈도우 함수를 활용</p>
+
+<h3 id="a-시간-윈도우-롤링-누적-합">A. 시간 윈도우 롤링 누적 합</h3>
+<pre><code class="language-mysql">SELECT
+	a.sales_month,
+	a.sales,
+	b.sales_month AS rolling_sales_month,
+	b.sales AS rolling_sales
+FROM
+	retail_sales a
+	JOIN retail_sales b ON a.kind_of_business = b.kind_of_business
+		AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 MONTH)
+		AND a.sales_month
+		AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+	a.kind_of_business = 'Women''s clothing stores'
+	AND a.sales_month = date('2019-12-01')
+</code></pre>
+
+<p><img src="https://i.imgur.com/bhW2Rzo.png" alt="" /></p>
+
+<h3 id="b-이동평균선">B. 이동평균선</h3>
+<h4 id="b1-self-join">B.1. self join</h4>
+<pre><code class="language-mysql">SELECT
+	a.sales_month,
+	a.sales,
+	avg(b.sales) AS ma_1y,
+	count(b.sales) AS records
+FROM
+	retail_sales a
+	JOIN retail_sales b ON a.kind_of_business = b.kind_of_business
+		AND b.sales_month BETWEEN date_sub(a.sales_month, interval 11 month)
+		AND a.sales_month
+		AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+	a.kind_of_business = 'Women''s clothing stores'
+	AND a.sales_month &gt;= '1993-01-01'
+GROUP BY
+	1,
+	2
+ORDER BY
+	1
+</code></pre>
+<h4 id="b2-frame-문법">B.2. Frame 문법</h4>
+<p>frame절은 윈도우 함수 옵션을 활용해, 각 윈도우에서 어떤 레코드를 포함할지 지정하는 문법</p>
+<ul>
+  <li>frame_end는 아래 중 하나
+    <ul>
+      <li>UNBOUNDED PRECEDING - 현재 행 이전의 모든 행</li>
+      <li>offset PRECEDING - 현재 행 이전의 n개 행</li>
+      <li>CURRENT ROW - 현재 행</li>
+      <li>offset FOLLOWING - 현재 행 이후의 n개 행</li>
+      <li>UNBOUNDED FOLOWING - 현재 행 이후의 모든 행
+        <pre><code class="language-mysql">{범위 | 행 | 그룹} BETWEEN frame_start AND frame_end
+</code></pre>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	avg(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS moving_avg,
+	COUNT(sales) OVER (ORDER BY sales_month ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS records
+FROM
+	retail_sales
+WHERE
+	kind_of_business = 'Women''s clothing stores'
+</code></pre>
+
+<h3 id="c-희소-데이터의-시간-윈도우-롤링">C. 희소 데이터의 시간 윈도우 롤링</h3>
+<p>날짜 룩업 테이블 참조하여 쿼리</p>
+
+<pre><code class="language-mysql">SELECT d.date,
+avg(s.sales) AS moving_average,
+count(s.sales) AS records,
+max(
+	CASE WHEN d.date = s.sales_month THEN
+		s.sales
+	END) AS sales_in_month
+FROM
+	date_dim d
+	JOIN (
+		SELECT
+			sales_month,
+			sales
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business = 'Women''s clothing stores'
+			AND month(sales_month)
+			IN(1, 7)) s ON s.sales_month BETWEEN DATE_SUB(d.date, INTERVAL 11 MONTH)
+	AND d.date
+WHERE
+	d.date = d.first_day_of_month
+	AND d.date BETWEEN '1993-01-01'
+	AND '2020-12-01'
+GROUP BY
+	1
+ORDER BY
+	1
+</code></pre>
+<p><img src="https://i.imgur.com/1o0SgBj.png" alt="" /></p>
+
+<h3 id="d-누적값값-계산">D. 누적값값 계산</h3>
+<h4 id="d1-ytd-윈도우-롤링">D.1. YTD 윈도우 롤링</h4>
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	sales,
+	sum(sales) OVER (PARTITION BY year(sales_month)
+		ORDER BY
+			sales_month) AS sales_ytd
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business = 'Women''s clothing stores'
+	ORDER BY
+		1
+</code></pre>
+<h4 id="d2-ytd-서브쿼리">D.2. YTD 서브쿼리</h4>
+<pre><code class="language-mysql">SELECT
+	a.sales_month,
+	a.sales,
+	sum(b.sales) AS YTD_sales
+FROM
+	retail_sales a
+	JOIN retail_sales b ON year(a.sales_month) = year(b.sales_month)
+		AND b.sales_month &lt;= a.sales_month
+		AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+	a.kind_of_business = 'Women''s clothing stores'
+GROUP BY
+	1,
+	2
+ORDER BY
+	1
+</code></pre>
+<p><img src="https://i.imgur.com/Ezthip4.png" alt="" /></p>
+
+<h3 id="e-계절성-분석">E. 계절성 분석</h3>
+<p>일정한 간격을 두고 규칙적으로 반복되는 패턴을 의미. 연단위, 혹은 분단위로 나타나기도 함.</p>
+
+<h4 id="e1-lag-함수를-사용한-이전값-대비-비율-변화">E.1. lag 함수를 사용한 이전값 대비 비율 변화</h4>
+<ul>
+  <li>lag 함수는 이전행의 값을 반환한다. (lead = lag와 반대. 다음 행을 반환)</li>
+  <li>offset 옵션 : 몇 행 이전의 값을 반환할 것인가?</li>
+  <li>default 옵션 : 이전 행이 없는 경우에 반환할 값</li>
+  <li>PARTITION BY 옵션 : 생략 시, 전체 데이터셋에 대한 계산 수행</li>
+  <li>ORDER BY 옵션 : 생략 시, 현재 db 정렬 순서로 계산 수행</li>
+</ul>
+
+<p>구간단위 계산은 변화를 이해하는데 활용됨. 계절성 분석하기에는 적합하지 않음.</p>
+<pre><code class="language-mysql">SELECT
+	kind_of_business,
+	sales_month,
+	sales,
+	lag(sales) OVER (
+				PARTITION BY kind_of_business ORDER BY sales_month
+				) AS t,
+	(sales / (lag(sales) OVER (PARTITION BY kind_of_business ORDER BY sales_month)) - 1) * 100 AS pct_growth_then_prev
+FROM
+	retail_sales
+WHERE
+	kind_of_business LIKE 'Book%'
+</code></pre>
+<p><img src="https://i.imgur.com/IXn0FVY.png" alt="" /></p>
+
+<h4 id="e2-구간-비교--작년-동월과의-비교">E.2. 구간 비교 : 작년 동월과의 비교</h4>
+<p>전년대비 성장세를 비교.</p>
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	sales,
+	lag(sales_month) OVER (PARTITION BY month(sales_month)
+		ORDER BY
+			sales_month) AS prev_month,
+		lag(sales) OVER (PARTITION BY month(sales_month)
+			ORDER BY
+				sales_month) AS prev_sales,
+			100 * (sales / (lag(sales) OVER (PARTITION BY month(sales_month)
+						ORDER BY
+							sales_month)) - 1) AS prev_pct
+			FROM
+				retail_sales
+			WHERE
+				kind_of_business LIKE 'Book%'
+</code></pre>
+<p><img src="https://i.imgur.com/yudq1BO.png" alt="" /></p>
+
+<h4 id="e3-구간-비교--동월-비교-연도별-컬럼-피벗">E.3. 구간 비교 : 동월 비교. 연도별 컬럼 피벗</h4>
+<p>각 연도별 시각적 비교에 용이한 피벗</p>
+<pre><code class="language-mysql">SELECT
+	month(sales_month) as month_num, 
+	monthname(sales_month) as month_char,
+	max(case when year(sales_month) = 1992 then sales end) as '1992 sales',
+	max(case when year(sales_month) = 1993 then sales end) as '1993 sales',
+	max(case when year(sales_month) = 1994 then sales end) as '1994 sales'
+FROM
+	retail_sales
+WHERE
+	kind_of_business like 'book%'
+	and sales_month between date('1992-01-01') and date('1994-12-01')
+group by 1,2
+</code></pre>
+<p><img src="https://i.imgur.com/wWgAwJu.png" alt="" /></p>
+
+<h4 id="e4-다중구간-비교-서브쿼리">E.4. 다중구간 비교 서브쿼리</h4>
+<p>계산에 하나의 행이라도 null 이면 null로 처리됨을 유의.</p>
+<pre><code class="language-mysql">SELECT
+	sales_month,sales,
+	sales/((a.prev_sales_1 + prev_sales_2 + prev_sales_3)/3) * 100 as pct
+FROM
+	(
+		SELECT
+			sales_month,
+			sales,
+			lag(sales,1) over (partition by month(sales_month) 
+							   order by sales_month
+							  ) as prev_sales_1,
+			lag(sales,2) over (partition by month(sales_month) 
+							   order by sales_month
+							  ) as prev_sales_2,
+			lag(sales,3) over (partition by month(sales_month) 
+							   order by sales_month
+							  ) as prev_sales_3
+
+		FROM
+			retail_sales
+		WHERE
+			kind_of_business like 'Book%'
+	) as a
+</code></pre>
+<p><img src="https://i.imgur.com/pnA9PKv.png" alt="" /></p>
+
+<h4 id="e5-다중구간-비교-프레임절">E.5. 다중구간 비교 프레임절</h4>
+<p>서브쿼리와 결과는 같으나, 1개라도 null이 아니라면 계산 수행됨을 유의</p>
+<pre><code class="language-mysql">SELECT
+	sales_month,
+	sales,
+	sales / avg(sales) OVER (PARTITION BY month(sales_month)
+		ORDER BY
+			sales_month ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) AS pct_pre
+	FROM
+		retail_sales
+	WHERE
+		kind_of_business LIKE 'Book%'
+
+</code></pre>
+<p><img src="https://i.imgur.com/TWZIIIl.png" alt="" /></p>
+
+  </div>
+</article>
+<!-- 
+
+<div id="disqus_thread"></div>
+<script>
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daegikim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+      </div>
+    </div>
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-heading">
+      copyrignt
+      <span style="display: inline-block; vertical-align: middle; transform: rotate(180deg)">&copy;</span>
+      all rights reserved
+    </div>
+    <a href="https://github.com/skadudd"><i class="icon ion-logo-github"></i></a>
+    <!-- <a href="https://www.linkedin.com/in/daegi-kim-6b23045b"><i class="icon ion-logo-linkedin"></i></a> -->
+    <a href="https://www.instagram.com/naamyoung/"><i class="icon ion-logo-instagram"></i></a>
+  </div>
+</footer>
+
+  </body>
+</html>
