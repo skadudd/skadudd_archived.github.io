@@ -277,7 +277,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <h3 id="b-날짜간-계산과-인터벌-계산을-헷갈리지-말자">B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자.</h3>
 <p>날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다.</p>
-<pre><code class="language-mysql">select date_add(date('2020-01-01'), interval 1 week)
+<pre><code class="language-sql">select date_add(date('2020-01-01'), interval 1 week)
 </code></pre>
 
 <h2 id="시계열-분석---비율과-차이">시계열 분석 - 비율과 차이</h2>
@@ -342,7 +342,7 @@ ORDER BY
 
 <h4 id="b2-partition-by-sum-윈도우함수-활용한-비율-계산">B.2. Partition by, sum 윈도우함수 활용한 비율 계산</h4>
 <p>partition by 절로 함수가 계산하는 테이블의 섹션을 구분</p>
-<pre><code class="language-mysql">SELECT
+<pre><code class="language-sql">SELECT
 	sales_month,
 	kind_of_business,
 	sales,

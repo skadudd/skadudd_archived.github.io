@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 07 Jun 2023 15:51:37 +0900</pubDate>
-    <lastBuildDate>Wed, 07 Jun 2023 15:51:37 +0900</lastBuildDate>
+    <pubDate>Wed, 07 Jun 2023 15:54:21 +0900</pubDate>
+    <lastBuildDate>Wed, 07 Jun 2023 15:54:21 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -152,7 +152,7 @@
 
 &lt;h3 id=&quot;b-날짜간-계산과-인터벌-계산을-헷갈리지-말자&quot;&gt;B. 날짜간 계산과 인터벌 계산을 헷갈리지 말자.&lt;/h3&gt;
 &lt;p&gt;날짜 간 계산과 인터벌 계산 두 타입을 헷갈리지 않도록 주의하자. 날짜 간 계산은 문자 그대로 산술적인 날짜간의 차이를, 인터벌은 관념적인(하이 레벨에서의) 날짜의 개념에서의 차이를 계산한다.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;select date_add(date('2020-01-01'), interval 1 week)
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;select date_add(date('2020-01-01'), interval 1 week)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&quot;시계열-분석---비율과-차이&quot;&gt;시계열 분석 - 비율과 차이&lt;/h2&gt;
@@ -217,7 +217,7 @@ ORDER BY
 
 &lt;h4 id=&quot;b2-partition-by-sum-윈도우함수-활용한-비율-계산&quot;&gt;B.2. Partition by, sum 윈도우함수 활용한 비율 계산&lt;/h4&gt;
 &lt;p&gt;partition by 절로 함수가 계산하는 테이블의 섹션을 구분&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	sales_month,
 	kind_of_business,
 	sales,
