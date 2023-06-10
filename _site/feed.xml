@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 09 Jun 2023 02:26:10 +0900</pubDate>
-    <lastBuildDate>Fri, 09 Jun 2023 02:26:10 +0900</lastBuildDate>
+    <pubDate>Sun, 11 Jun 2023 02:24:27 +0900</pubDate>
+    <lastBuildDate>Sun, 11 Jun 2023 02:24:27 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -236,7 +236,7 @@ ORDER BY
 
 &lt;h3 id=&quot;c-업종별-연매출-대비-월간-매출&quot;&gt;C. 업종별, 연매출 대비 월간 매출&lt;/h3&gt;
 &lt;h4 id=&quot;c1-서브쿼리-활용&quot;&gt;C.1. 서브쿼리 활용&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-SQL&quot;&gt;SELECT
+&lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;SELECT
 	rs.sales_month,
 	rs.kind_of_business,
 	SUM(rs.sales) AS sales_m,
